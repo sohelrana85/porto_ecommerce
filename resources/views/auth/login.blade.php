@@ -95,39 +95,45 @@
                                         <img src="{{ asset('backend/assets/images/logo-icon.png') }}" width="80" alt="">
                                         <h3 class="mt-4 font-weight-bold">Welcome Back</h3>
                                     </div>
-
-                                    <div class="login-separater text-center"> <span>OR LOGIN WITH EMAIL</span>
+                                    <div class="login-separater text-center"> <span>LOGIN WITH EMAIL</span>
                                         <hr />
                                     </div>
-                                    <div class="form-group mt-4">
-                                        <label>Email Address</label>
-                                        <input type="text" class="form-control"
-                                            placeholder="Enter your email address" />
+                                    <div class="bg-danger text-light rounded">
+                                        <x-auth-validation-errors />
                                     </div>
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" class="form-control" placeholder="Enter your password" />
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col">
-                                            <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch1"
-                                                    checked>
-                                                <label class="custom-control-label" for="customSwitch1">Remember
-                                                    Me</label>
+                                    <form action="{{ route('staff.login') }}" method="POST">
+                                        @csrf
+                                        <div class="form-group mt-4">
+                                            <label for="email">Email Address</label>
+                                            <input type="email" name="email" id="email" class="form-control"
+                                                placeholder="Enter your email address" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" name="password" id="password" class="form-control"
+                                                placeholder="Enter your password" />
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="customSwitch1" checked>
+                                                    <label class="custom-control-label" for="customSwitch1">Remember
+                                                        Me</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col text-right"> <a
+                                                    href="authentication-forgot-password.html"><i
+                                                        class='bx bxs-key mr-2'></i>Forget Password?</a>
                                             </div>
                                         </div>
-                                        <div class="form-group col text-right"> <a
-                                                href="authentication-forgot-password.html"><i
-                                                    class='bx bxs-key mr-2'></i>Forget Password?</a>
+                                        <div class="btn-group mt-3 w-100">
+                                            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="lni lni-arrow-right"></i>
+                                            </button>
                                         </div>
-                                    </div>
-                                    <div class="btn-group mt-3 w-100">
-                                        <button type="button" class="btn btn-primary btn-block">Log In</button>
-                                        <button type="button" class="btn btn-primary"><i
-                                                class="lni lni-arrow-right"></i>
-                                        </button>
-                                    </div>
+                                    </form>
                                     <hr>
                                     <div class="text-center">
                                         <p class="mb-0">Don't have an account? <a

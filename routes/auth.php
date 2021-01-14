@@ -15,7 +15,7 @@ Route::prefix('staff')->group(function () {
 
     Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest')->name('register');
     Route::post('/register', [RegisteredUserController::class, 'store'])->middleware('guest');
-    Route::get('/login', [AuthenticatedSessionController::class, 'create'])->middleware('guest')->name('login');
+    Route::get('/login', [AuthenticatedSessionController::class, 'create'])->middleware('guest')->name('staff.login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('guest');
     Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->middleware('guest')->name('password.request');
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->middleware('guest')->name('password.email');
