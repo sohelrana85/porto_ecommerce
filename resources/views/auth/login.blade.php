@@ -61,8 +61,6 @@
 <html lang="en">
 
 
-<!-- Mirrored from codervent.com/syndash/demo/vertical/authentication-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Jan 2021 15:52:31 GMT -->
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -123,7 +121,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group col text-right"> <a
-                                                    href="authentication-forgot-password.html"><i
+                                                    href="{{ route('password.request') }}"><i
                                                         class='bx bxs-key mr-2'></i>Forget Password?</a>
                                             </div>
                                         </div>
@@ -137,7 +135,7 @@
                                     <hr>
                                     <div class="text-center">
                                         <p class="mb-0">Don't have an account? <a
-                                                href="authentication-register.html">Sign
+                                                href="{{ route('staff.register') }}">Sign
                                                 up</a>
                                         </p>
                                     </div>
@@ -156,8 +154,5 @@
     </div>
     <!-- end wrapper -->
 </body>
-
-
-<!-- Mirrored from codervent.com/syndash/demo/vertical/authentication-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Jan 2021 15:52:31 GMT -->
 
 </html>
