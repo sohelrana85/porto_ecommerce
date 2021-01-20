@@ -57,15 +57,15 @@ Manage Brand
                         <td>{{ $brand->slug }}</td>
                         <td>{{ $brand->status }}</td>
                         <td>{{ $brand->user->name }}</td>
-                        <td>
+                        <td class="d-flex justify-content-around">
                             <form action="{{ route('staff.brand.edit', $brand->id) }}" method="GET">
                                 @csrf
-                                <button class="btn btn-light-warning btn-sm">Edit</button>
+                                <button class="btn btn-light-warning btn-sm"><i class="bx bx-edit"></i></button>
                             </form>
                             <form action="{{ route('staff.brand.destroy', $brand->id) }}" method="POST">
                                 @csrf
                                 @method('Delete')
-                                <button class="btn btn-danger btn-sm">Delete</button>
+                                <button class="btn btn-danger btn-sm"><i class="bx bx-eraser"></i></button>
                             </form>
                         </td>
                     </tr>
