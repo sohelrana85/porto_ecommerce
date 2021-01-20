@@ -26,5 +26,5 @@ Route::prefix('staff')->group(function () {
     Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
     Route::get('/confirm-password', [ConfirmablePasswordController::class, 'show'])->middleware('auth')->name('password.confirm');
     Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store'])->middleware('auth');
-    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout');
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('staff.logout');
 });
