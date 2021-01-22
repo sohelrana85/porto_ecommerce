@@ -45,14 +45,19 @@ class BrandController extends Controller
             'brand_name' => 'required|min:2|max:10',
             'status' => 'required'
         ]);
-
-        Brand::create([
-            'name' => $request->brand_name,
-            'slug' => str_replace(' ', '-', $request->brand_name),
-            'status' => $request->status,
-            'create_by' => Auth::id(),
-        ]);
-        session()->flash('message', 'You added a brand name successfully');
+        try {
+            Brand::create([
+                'name' => $request->brand_name,
+                'slug' => str_replace(' ', '-', $request->brand_name),
+                'status' => $request->status,
+                'create_by' => Auth::id(),
+            ]);
+            session()->flash('type', 'success');
+            session()->flash('message', 'You added a brand name successfully');
+        } catch (Exception $ex) {
+            session()->flash('type', 'danger');
+            session()->flash('message', 'Opps! Something Wrong!');
+        }
         return redirect()->back();
     }
 

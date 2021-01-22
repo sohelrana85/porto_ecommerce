@@ -29,7 +29,8 @@ Add Brand
 <div class="row">
     <div class="col-12 col-lg-9 mx-auto">
 
-        @if (session('message')) <div class="alert alert-success alert-dismissible fade show text-bold" role="alert">
+        @if (session('message')) <div class="alert alert-{{ session('type') }} alert-dismissible fade show text-bold"
+            role="alert">
             {{ session('message') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
                     aria-hidden="true">&times;</span>
