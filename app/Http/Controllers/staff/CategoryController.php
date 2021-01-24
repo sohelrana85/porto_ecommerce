@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
+use App\Models\Category;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class BrandController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-
-        // $brands = Brand::with('user')->select('name', 'slug', 'status', 'create_by')->get();
-        $brands = Brand::all();
-        return view('backend.brand.brands', compact('brands'));
+        $categories = Category::/*select('id', 'root', 'name')->*/where('root', '0')->get();
+        return view('backend.category.manage', compact('categories'));
     }
 
     /**
@@ -30,7 +28,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('backend.brand.create');
+        $categories = Category::where('root', '0')->get();
+        return view('backend.category.create', compact('categories'));
     }
 
     /**
@@ -41,19 +40,22 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'brand_name' => 'required|min:2|max:10|unique:brands,name',
+            'root' => 'required',
+            'name' => 'required|min:3|max:40|unique:categories',
             'status' => 'required'
         ]);
         try {
-            Brand::create([
-                'name' => $request->brand_name,
-                'slug' => str_replace(' ', '-', $request->brand_name),
+            Category::create([
+                'root' => $request->root,
+                'name' => $request->name,
+                'slug' => str_replace(' ', '-', $request->name),
                 'status' => $request->status,
                 'create_by' => Auth::id(),
             ]);
             session()->flash('type', 'success');
-            session()->flash('message', 'You added a brand name successfully');
+            session()->flash('message', 'You added a category name successfully');
         } catch (Exception $ex) {
             session()->flash('type', 'danger');
             session()->flash('message', 'Opps! Something Wrong!');
@@ -80,8 +82,7 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        $brand = Brand::find($id);
-        return view('backend.brand.edit', compact('brand'));
+        //
     }
 
     /**
@@ -93,27 +94,7 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'brand_name' => 'required|min:2|max:10|unique:brands,id,' . $id,
-            'status' => 'required'
-        ]);
-
-        try {
-            $brand = Brand::find($id);
-
-            $brand->name = $request->brand_name;
-            $brand->slug = str_replace(' ', '-', $request->brand_name);
-            $brand->status = $request->status;
-            $brand->create_by = Auth::id();
-            $brand->update();
-
-            session()->flash('type', 'success');
-            session()->flash('message', 'You have updated the brand name successfully.');
-        } catch (Exception $exc) {
-            session()->flash('type', 'danger');
-            session()->flash('message', $exc->getMessage());
-        }
-        return redirect()->back();
+        //
     }
 
     /**
@@ -124,8 +105,6 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        Brand::find($id)->delete();
-        session()->flash('message', 'You have Deleted a brand name successfully');
-        return redirect()->back();
+        //
     }
 }

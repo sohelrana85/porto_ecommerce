@@ -1,0 +1,130 @@
+[
+    {
+        "id": "1",
+        "root": "0",
+        "name": "Electronic Devices",
+        "slug": "electronic-devices",
+        "status": "active",
+        "create_by": "1"
+    },
+    {
+        "id": "2",
+        "root": "1",
+        "name": "Smartphones",
+        "slug": "smartphones",
+        "status": "active",
+        "create_by": "2"
+    },
+    {
+        "id": "3",
+        "root": "1",
+        "name": "Tablets",
+        "slug": "tablets",
+        "status": "active",
+        "create_by": "2"
+    },
+    {
+        "id": "4",
+        "root": "0",
+        "name": "Electronic Accessories",
+        "slug": "electronic-accessories",
+        "status": "active",
+        "create_by": "2"
+    },
+    {
+        "id": "5",
+        "root": "4",
+        "name": "Camera Accessories",
+        "slug": "camera-accessories",
+        "status": "active",
+        "create_by": "2"
+    },
+    {
+        "id": "6",
+        "root": "0",
+        "name": "TV & Home Appliances",
+        "slug": "tv-home-appliances",
+        "status": "active",
+        "create_by": "1"
+    },
+    {
+        "id": "7",
+        "root": "0",
+        "name": "Health & Beauty",
+        "slug": "health-beauty",
+        "status": "active",
+        "create_by": "5"
+    },
+    {
+        "id": "8",
+        "root": "0",
+        "name": "Babies & Toys",
+        "slug": "babies-toys",
+        "status": "active",
+        "create_by": "8"
+    },
+    {
+        "id": "9",
+        "root": "0",
+        "name": "Groceries & Pets",
+        "slug": "groceriespets",
+        "status": "active",
+        "create_by": "4"
+    },
+    {
+        "id": "10",
+        "root": "9",
+        "name": "Cat",
+        "slug": "cat",
+        "status": "active",
+        "create_by": "4"
+    },
+    {
+        "id": "11",
+        "root": "9",
+        "name": "Dog",
+        "slug": "dog",
+        "status": "active",
+        "create_by": "4"
+    },
+    {
+        "id": "12",
+        "root": "0",
+        "name": "Home & Lifestyle",
+        "slug": "home-lifestyle",
+        "status": "active",
+        "create_by": "6"
+    },
+    {
+        "id": "13",
+        "root": "0",
+        "name": "Women's Fashion",
+        "slug": "womens-fashion",
+        "status": "active",
+        "create_by": "8"
+    },
+    {
+        "id": "14",
+        "root": "0",
+        "name": "Men's Fashion",
+        "slug": "mens-fashion",
+        "status": "active",
+        "create_by": "9"
+    },
+    {
+        "id": "15",
+        "root": "14",
+        "name": "Jeans",
+        "slug": "jeans",
+        "status": "active",
+        "create_by": "9"
+    },
+    {
+        "id": "16",
+        "root": "0",
+        "name": "Watches & Accessories",
+        "slug": "watches-accessories",
+        "status": "active",
+        "create_by": "10"
+    }
+]

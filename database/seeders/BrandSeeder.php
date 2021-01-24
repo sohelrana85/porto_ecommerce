@@ -19,11 +19,11 @@ class BrandSeeder extends Seeder
         $faker = Factory::create();
 
         foreach (range(1, 20) as $index) {
-            $name = substr($faker->unique()->name, 0, 10);
+            $name = substr($faker->unique()->name, 0, 20);
             Brand::create([
                 'name' => $name,
                 'slug' => strtolower(str_replace(' ', '-', $name)),
-                'create_by' => rand(1, 10),
+                'create_by' => rand(1, 11),
                 'status' => $this->randomStatus(),
             ]);
         }
