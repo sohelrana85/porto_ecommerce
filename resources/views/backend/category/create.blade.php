@@ -29,14 +29,7 @@ Add Category
 <div class="row">
     <div class="col-12 col-lg-9 mx-auto">
 
-        @if (session('message'))
-        <div class="alert alert-{{ session('type') }} alert-dismissible fade show text-bold" role="alert">
-            {{ session('message') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
-                    aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        @endif
+        <x-session-message />
 
         <div class="card radius-15">
             <div class="card-body">
@@ -53,10 +46,12 @@ Add Category
                                 <select class="form-control" name="root" id="root">
                                     <option value="0">-- Root --</option>
                                     @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}"
+                                        {{ old('root') == $category->id ?'selected':'' }}>{{ $category->name }}</option>
                                     @if (count($category->sub_category))
                                     @foreach ($category->sub_category as $sub_cat)
-                                    <option value="{{ $sub_cat->id }}">{{ $category->name }} > {{ $sub_cat->name }}
+                                    <option value="{{ $sub_cat->id }}" {{ old('root') == $sub_cat->id ?'selected':'' }}>
+                                        {{ $category->name }} > {{ $sub_cat->name }}
                                     </option>
                                     @endforeach
 

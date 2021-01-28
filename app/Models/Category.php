@@ -11,11 +11,11 @@ class Category extends Model
 
     protected $fillable = ['root', 'name', 'slug', 'status', 'create_by'];
 
-    protected $with = 'sub_category';
+    protected $with = ['sub_category', 'user'];
 
     public function sub_category()
     {
-        return $this->hasMany(Category::class, 'root')->select('id', 'root', 'name');
+        return $this->hasMany(Category::class, 'root');
     }
 
     public function user()

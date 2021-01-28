@@ -50,15 +50,14 @@ class CategoryController extends Controller
             Category::create([
                 'root' => $request->root,
                 'name' => $request->name,
-                'slug' => str_replace(' ', '-', $request->name),
+                'slug' => slugify($request->name),
                 'status' => $request->status,
                 'create_by' => Auth::id(),
             ]);
-            session()->flash('type', 'success');
-            session()->flash('message', 'You added a category name successfully');
+
+            setMessage('success', 'You added a category name successfully');
         } catch (Exception $ex) {
-            session()->flash('type', 'danger');
-            session()->flash('message', 'Opps! Something Wrong!');
+            setMessage('danger', 'Opps! Something Wrong!');
         }
         return redirect()->back();
     }
@@ -82,7 +81,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cat = Category::find($id);
+        $categories = Category::where('root', '0')->get();
+        return view('backend.category.edit', compact('categories', 'cat'));
     }
 
     /**
@@ -94,7 +95,27 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'root' => 'required',
+            'name' => 'required|min:3|max:40|unique:categories,id,' . $id,
+            'status' => 'required'
+        ]);
+
+        try {
+            $category = Category::find($id);
+
+            $category->root = $request->root;
+            $category->name = $request->name;
+            $category->slug = slugify($request->name);
+            $category->status = $request->status;
+            $category->create_by = Auth::id();
+            $category->save();
+
+            setMessage('success', 'You updated a category name successfully');
+        } catch (Exception $ex) {
+            setMessage('danger', 'Opps! Something Wrong!');
+        }
+        return redirect()->back();
     }
 
     /**
@@ -105,6 +126,16 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $check =  Category::where('root', $id)->get();
+
+        // if (count($check) == 0) {
+        if (!count($check)) {
+            Category::find($id)->delete();
+            setMessage('success', 'Yes! You have deleted the Category Successfully');
+        } else {
+            setMessage('danger', 'Root Category Cannot Delete!');
+        }
+        return redirect()->back();
     }
 }
