@@ -70,15 +70,15 @@
     <script src="{{ asset('backend/assets/plugins/metismenu/js/metisMenu.min.js') }}"> </script>
     <script src="{{ asset('backend/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"> </script>
     <script src="{{ asset('backend/assets/js/index2.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('description');
+        CKEDITOR.replace('warranty_condition');
+    </script>
     <!-- App JS -->
     <script src="{{ asset('backend/assets/js/app.js') }}"></script>
     <script src="{{ asset('backend/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-			//Default data table
-			$('#example').DataTable();
-		});
-    </script>
+    <script src="{{ asset('backend/assets/custom/custom.js') }}"></script>
 </body>
 
 </html>

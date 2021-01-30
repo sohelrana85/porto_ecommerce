@@ -30,6 +30,12 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('staff.product.index') }}" class="">
+                <div class="parent-icon icon-color-1"><i class="bx bx-list-plus"></i> </div>
+                <div class="menu-title">Products</div>
+            </a>
+        </li>
+        <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon icon-color-1"><i class="bx bx-home-alt"></i> </div>
                 <div class="menu-title">Items</div>

@@ -45,18 +45,7 @@ Add Category
                             <div class="col-sm-10">
                                 <select class="form-control" name="root" id="root">
                                     <option value="0">-- Root --</option>
-                                    @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ old('root') == $category->id ?'selected':'' }}>{{ $category->name }}</option>
-                                    @if (count($category->sub_category))
-                                    @foreach ($category->sub_category as $sub_cat)
-                                    <option value="{{ $sub_cat->id }}" {{ old('root') == $sub_cat->id ?'selected':'' }}>
-                                        {{ $category->name }} > {{ $sub_cat->name }}
-                                    </option>
-                                    @endforeach
-
-                                    @endif
-                                    @endforeach
+                                    {!! getCategory($categories) !!}
                                 </select>
                                 @error('cat_name')<p class="text-danger font-italic"> {{ $message }} </p> @enderror
                             </div>
