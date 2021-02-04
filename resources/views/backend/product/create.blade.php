@@ -27,7 +27,7 @@ Add Product
 </div>
 <!--end breadcrumb-->
 <div class="row">
-    <div class="col-12 col-lg-10 mx-auto">
+    <div class="col-12 mx-auto">
 
         <x-session-message />
 
@@ -36,38 +36,46 @@ Add Product
                 <div class="card-title d-flex align-items-center">
                     <div><i class='bx bxs-user mr-1 font-24 text-primary'></i>
                     </div>
-                    <h4 class="mb-0 text-primary">User Registration</h4>
+                    <h4 class="mb-0 text-primary">Add Product</h4>
                 </div>
                 <hr />
+                <div class="alert alert-danger error-message" style="display: none;">
+                    <ul></ul>
+                </div>
+                <div class="alert alert-success success-message" style="display:none;">
+                    <ul></ul>
+                </div>
                 <div class="form-body">
-                    <form action="{{ route('staff.product.store') }}" method="POST">
+                    <form class="create-product" action="{{ route('staff.product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group">
-                            <label for="name">Product Name</label>
-                            <div class="input-group">
-                                <input type="text" name="name" id="name" class="form-control"
-                                    placeholder="Product name">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="name">Product Name</label>
+                                <div class="input-group">
+                                    <input type="text" name="name" id="name" class="form-control"
+                                        placeholder="Product name" onkeyup="slugCreate(this.value, '#slug')">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="slug">Slug</label>
-                            <div class="input-group">
-                                <input type="text" name="slug" id="slug" class="form-control" placeholder="Slug">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="" for="category_id">Root Category</label>
-                            <div class="">
-                                <select class="form-control" name="category_id" id="category_id">
-                                    <option value="0">-- Root --</option>
-                                    {!! getCategory($categories, 3) !!}
-                                </select>
+                            <div class="form-group col-md-6">
+                                <label for="slug">Slug</label>
+                                <div class="input-group">
+                                    <input type="text" name="slug" id="slug" class="form-control" placeholder="Slug" value="" onkeyup="slugCreate(this.value, '#slug')">
+                                </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="" for="brand_id">Brand</label>
-                                <div class="">
+                            <div class="form-group col-md-4">
+                                <label for="category">Category</label>
+                                <div class="input-group">
+                                    <select class="form-control" name="category" id="category">
+                                        <option value="0">-- Root --</option>
+                                        {!! getCategory($categories, 3) !!}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="brand_id">Brand</label>
+                                <div class="input-group">
                                     <select class="form-control" name="brand_id" id="brand_id">
                                         <option value="0">-- Brand --</option>
                                         @foreach ($brands as $brand)
@@ -76,7 +84,7 @@ Add Product
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="model">Model</label>
                                 <div class="input-group">
                                     <input type="text" name="model" id="model" class="form-control" placeholder="Model">
@@ -100,11 +108,11 @@ Add Product
                             </div>
                         </div>
                         <div>
-                            <label for="special_price">Do you have any special Price?</label>
-                            <input class="ml-3" type="checkbox" onchange="specialPriceShow(this.checked)"
-                                name="special_price" id="special_price" />
+                            <label>Do you have any special Price?</label>
+                            <input class="ml-3" type="checkbox" onchange="specialPriceShow(this.checked)" name="special_price"
+                                   id="warranty" />
                             <span class="item-text">Yes</span>
-                            <input class="ml-3" type="checkbox" name="special_price" id="special_price" value="0" />
+                            <input class="ml-3" type="checkbox" name="special_price"value="0" />
                             <span class="item-text">No</span>
                         </div>
                         <div class="form-row show_special_price" style="display: none">
@@ -118,14 +126,14 @@ Add Product
                             <div class="form-group col-md-4">
                                 <label for="special_price_from">Special Price From</label>
                                 <div class="input-group">
-                                    <input type="text" name="special_price_from" id="special_price_from"
+                                    <input type="date" name="special_price_from" id="special_price_from"
                                         class="form-control" placeholder="Special price from">
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="special_price_to">Special Price To</label>
                                 <div class="input-group">
-                                    <input type="text" name="special_price_to" id="special_price_to"
+                                    <input type="date" name="special_price_to" id="special_price_to"
                                         class="form-control" placeholder="Special Price to">
                                 </div>
                             </div>
@@ -148,16 +156,24 @@ Add Product
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="color">Color</label>
-                                <div class="input-group">
-                                    <input type="text" name="color" id="color" class="form-control" placeholder="Color">
-                                </div>
+                                <label style="display:block;">Color</label>
+                                @foreach(color() as $key => $value)
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="color-{{$value}}" value="{{ $key }}" name="color[]">
+                                        <label class="custom-control-label" for="color-{{$value}}">{{$value}}</label>
+
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="size">Size</label>
-                                <div class="input-group">
-                                    <input type="text" name="size" id="size" class="form-control" placeholder="Size">
-                                </div>
+                                <label style="display:block;">Size</label>
+                                @foreach(size() as $k => $v)
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="size-{{ $v }}" value="{{ $k }}" name="size[]">
+                                        <label class="custom-control-label" for="size-{{ $v }}">{{ $v }}</label>
+
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                         <div>
@@ -181,9 +197,9 @@ Add Product
                                 <textarea name="warranty_condition" id="warranty_condition"></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" >
                             <label for="description">Description</label>
-                            <textarea name="description" id="description"></textarea>
+                            <textarea name="description" id="description" ></textarea>
                         </div>
 
                         <div class="form-row">
@@ -193,44 +209,33 @@ Add Product
                                     <input type="file" class="form-control" name="thumbnail"
                                         onchange="thumbnailLoad(event)">
                                 </div>
-                            </div>
-                            <div class="form-group col-md-6">
                                 <div class="input-group mt-3 d-flex justify-content-center">
-                                    <img id="thumbnail_image" width="150px">
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Image 1</label>
-                                <div class="input-group">
-                                    <input type="file" class="form-control" name="image_1">
+                                    <img id="thumbnail_image" width="100px">
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Image 2</label>
+                                <label>More Images</label>
                                 <div class="input-group">
-                                    <input type="file" class="form-control" name="image_2">
+                                    <input type="file" class="form-control" name="multiple_image[]" id="multiple_image_upload" multiple>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Image 3</label>
-                                <div class="input-group">
-                                    <input type="file" class="form-control" name="image_3">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Image 4</label>
-                                <div class="input-group">
-                                    <input type="file" class="form-control" name="image_4">
-                                </div>
+                                <div class="input-group mt-3 d-flex"  id="prev_images"></div>
                             </div>
                         </div>
                         <hr />
+                        <div class="form-group text-center">
+                            <div class="col-12">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="active" value="active" name="status"
+                                           class="custom-control-input" checked>
+                                    <label class="custom-control-label" for="active">Active</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="inactive" value="inactive" name="status"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="inactive">Inactive</label>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="form-row">
                             <button type="submit" class="btn btn-primary px-3 ml-auto">Add Product</button>

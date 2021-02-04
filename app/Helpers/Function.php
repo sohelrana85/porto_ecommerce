@@ -51,3 +51,24 @@ function getCategory($categories, $l = "")
         return $output;
     }
 }
+
+function color() {
+    return [
+        '1' => 'White',
+        '2' => 'Black',
+        '3' => 'Yellow',
+        '4' => 'Blue',
+        '5' => 'Red'
+    ];
+}
+function size() {
+    return [
+        '1' => 'SM',
+        '2' => 'M',
+        '3' => 'L',
+        '4' => 'XL',
+        '5' => 'XXL'
+    ];
+}
+
+

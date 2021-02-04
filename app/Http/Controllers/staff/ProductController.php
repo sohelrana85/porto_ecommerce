@@ -7,6 +7,8 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Exception;
 
 class ProductController extends Controller
 {
@@ -41,7 +43,58 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+
+        dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'slug' => 'required|unique:products',
+            'category' => 'required',
+            'model' => 'required',
+            'buying_price' => 'required',
+            'selling_price' => 'required',
+            'quantity' => 'required',
+            'sku_code' => 'required',
+            'description' => 'required',
+            'color' => 'required',
+            'size' => 'required',
+//            'thumbnail' => 'required',
+            'status'=> 'required'
+        ]);
+
+        /*if($validator->fails())
+            return response()->json(['error' => $validator->errors()]);
+        else {
+            return response()->json(['success' => 'porduct save success']);*/
+
+            /*try {
+               Product::create([
+                    'name' => $request->name,
+                    'slug' => $request->slug,
+                    'category_id' => $request->category_id,
+                    'brand_id' => $request->brand_id,
+                    'model' => $request->model,
+                    'buying_price' => $request->buying_price,
+                    'selling_price' => $request->selling_price,
+                    'special_price' => $request->special_price,
+                    'special_price_from' => $request->special_price_from,
+                    'special_price_to' => $request->special_price_to,
+                    'quantity' => $request->quantity,
+                    'sku_code' => $request->sku_code,
+                    'color' => $request->color,
+                    'size' => $request->size,
+                    'warranty_duration' => $request->warranty_duration,
+                    'warranty_condition' => $request->warranty_condition,
+                    'description' => $request->description,
+                    'thumbnail' => 'test.jpg',
+                    'image_1' => 'test1.jpg',
+                    'status' => $request->status,
+                    'user' => auth()->id()
+                ]);
+            } catch (Exception $exception) {
+            }*/
+
+
+//        }
     }
 
     /**
