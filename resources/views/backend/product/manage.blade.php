@@ -49,13 +49,17 @@
                     @foreach ($products as $product)
                     <tr>
 
-                        <td></td>
+                        <td>{{ ++$loop->index }}</td>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ $product->slug }}</td>
+                        <td>{{ $product->status }}</td>
+                        <td>{{ $product->create_by }}</td>
                         <td class="d-flex justify-content-center">
                             <form action="{{ route('staff.product.edit', $product->id) }}" method="GET">
                                 @csrf
                                 <button class="btn btn-light-warning btn-sm mr-1"><i class="bx bx-edit"></i></button>
                             </form>
-                            <form action="{{ route('staff.product.destroy', $products->id) }}" method="POST">
+                            <form action="{{ route('staff.product.destroy', $product->id) }}" method="POST">
                                 @csrf
                                 @method('Delete')
                                 <button class="btn btn-danger btn-sm ml-1"><i class="bx bx-eraser"></i></button>
