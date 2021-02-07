@@ -34,7 +34,8 @@
         </div>
         <hr />
         <div class="table-responsive">
-            <table id="example" class="table table-striped table-bordered" style="width:100%">
+            {{-- <table id="example" class="table table-striped table-bordered" style="width:100%"> --}}
+            <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th>id</th>
@@ -49,7 +50,7 @@
                     @foreach ($products as $product)
                     <tr>
 
-                        <td>{{ ++$loop->index }}</td>
+                        <td>{{ $product->id }}</td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->slug }}</td>
                         <td>{{ $product->status }}</td>
@@ -69,8 +70,11 @@
                     @endforeach
                 </tbody>
             </table>
+            {!! $products->links('pagination::bootstrap-4') !!}
         </div>
     </div>
 </div>
 
 @endsection
+
+

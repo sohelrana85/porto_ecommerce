@@ -9,7 +9,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Exception;
-use Image;
+use Intervention\Image\ImageManagerStatic as image;
 
 class ProductController extends Controller
 {
@@ -20,7 +20,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        //$data = Product::paginate(5);
+        $products = Product::paginate(5);
         return view('backend.product.manage', compact('products'));
     }
 
@@ -63,18 +64,23 @@ class ProductController extends Controller
         if ($validator->fails())
             return response()->json(['error' => $validator->errors()]);
         else {
-
-            $thumname = $request->slug . "." . $request->thumbnail->extension();
-            $request->thumbnail->storeAs('product_photo/thumbnail', $thumname);
-
-            $images = $request->file('multiple_image');
-            $i = 0;
-            foreach ($images as $image) {
-                $imgname = $request->slug . $i++ . "." . $image->getClientOriginalExtension();
-                Image::make($image)->save(public_path('product_photo/thumbnail' . $imgname));
-            }
-
             try {
+
+                $thumbnail = $request->file('thumbnail');
+                $thumname = $request->slug . "." . $thumbnail->getClientOriginalExtension();
+                //$request->thumbnail->storeAs('product_photo/thumbnail', $thumname);
+                Image::make($thumbnail)->resize(300, 300)->save(public_path('product_photo/images/') . $thumname);
+
+
+                $images = $request->file('multiple_image');
+                $i = 1;
+                $fileName = [];
+                foreach ($images as $image) {
+                    $imgname = $request->slug . $i++ . "." . $image->getClientOriginalExtension();
+                    Image::make($image)->resize(100, 100)->save(public_path('product_photo/images/') . $imgname);
+                    array_push($fileName, $imgname);
+                }
+
                 $products = Product::create([
                     'name'                  => $request->name,
                     'slug'                  => $request->slug,
@@ -94,7 +100,7 @@ class ProductController extends Controller
                     'warranty_condition'    => $request->warranty_condition,
                     'description'           => $request->description,
                     'thumbnail'             => $thumname,
-                    'images'                => 'test1.jpg',
+                    'images'                => json_encode($fileName),
                     'status'                => $request->status,
                     'create_by'             => auth()->id()
                 ]);

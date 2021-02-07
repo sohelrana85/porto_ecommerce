@@ -32,6 +32,8 @@ $(document).ready(function () {
                     $('.create-product')[0].reset();
                     $('.show_special_price').css('display', 'none');
                     $('.show_warranty').css('display', 'none');
+                    $('#thumbnail_image').attr('src', '');
+                    $('#prev_images').empty();
 
 
                 } else {
