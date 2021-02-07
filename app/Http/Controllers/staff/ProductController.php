@@ -46,18 +46,18 @@ class ProductController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'slug' => 'required|unique:products',
-            'category' => 'required',
-            'brand_id' => 'required',
-            'model' => 'required',
-            'buying_price' => 'required',
+            'name'          => 'required',
+            'slug'          => 'required|unique:products',
+            'category'      => 'required',
+            'brand_id'      => 'required',
+            'model'         => 'required',
+            'buying_price'  => 'required',
             'selling_price' => 'required',
-            'quantity' => 'required',
-            'sku_code' => 'required',
-            'description' => 'required',
-            'thumbnail' => 'required',
-            'status' => 'required'
+            'quantity'      => 'required',
+            'sku_code'      => 'required',
+            'description'   => 'required',
+            'thumbnail'     => 'required',
+            'status'        => 'required'
         ]);
 
         if ($validator->fails())
@@ -76,27 +76,27 @@ class ProductController extends Controller
 
             try {
                 $products = Product::create([
-                    'name' => $request->name,
-                    'slug' => $request->slug,
-                    'category_id' => $request->category,
-                    'brand_id' => $request->brand_id,
-                    'model' => $request->model,
-                    'buying_price' => $request->buying_price,
-                    'selling_price' => $request->selling_price,
-                    'special_price' => $request->special_price,
-                    'special_price_from' => $request->special_price_from,
-                    'special_price_to' => $request->special_price_to,
-                    'quantity' => $request->quantity,
-                    'sku_code' => $request->sku_code,
-                    'color' => $request->color ? json_encode($request->color) : '[]',
-                    'size' => $request->size ? json_encode($request->size) : '[]',
-                    'warranty_duration' => $request->warranty_duration,
-                    'warranty_condition' => $request->warranty_condition,
-                    'description' => $request->description,
-                    'thumbnail' => $thumname,
-                    'images' => 'test1.jpg',
-                    'status' => $request->status,
-                    'create_by' => auth()->id()
+                    'name'                  => $request->name,
+                    'slug'                  => $request->slug,
+                    'category_id'           => $request->category,
+                    'brand_id'              => $request->brand_id,
+                    'model'                 => $request->model,
+                    'buying_price'          => $request->buying_price,
+                    'selling_price'         => $request->selling_price,
+                    'special_price'         => $request->special_price,
+                    'special_price_from'    => $request->special_price_from,
+                    'special_price_to'      => $request->special_price_to,
+                    'quantity'              => $request->quantity,
+                    'sku_code'              => $request->sku_code,
+                    'color'                 => $request->color ? json_encode($request->color) : '[]',
+                    'size'                  => $request->size ? json_encode($request->size) : '[]',
+                    'warranty_duration'     => $request->warranty_duration,
+                    'warranty_condition'    => $request->warranty_condition,
+                    'description'           => $request->description,
+                    'thumbnail'             => $thumname,
+                    'images'                => 'test1.jpg',
+                    'status'                => $request->status,
+                    'create_by'             => auth()->id()
                 ]);
                 return response()->json(['success' => 'Data added successfully']);
             } catch (Exception $exception) {
