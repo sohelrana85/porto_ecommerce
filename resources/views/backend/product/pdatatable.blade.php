@@ -47,8 +47,6 @@
 <script>
 $(document).ready(function () {
 
-
-
     $('body').on('click', '.pagination a', function (e) {
         e.preventDefault();
         let url = $(this).attr('href');
