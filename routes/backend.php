@@ -20,3 +20,4 @@ Route::prefix('staff')->name('staff.')->middleware('auth')->group(function () {
     #Product route
     Route::resource('product', ProductController::class);
 });
+Route::post('staff.product', [ProductController::class, 'getData'])->name('staff.product');
