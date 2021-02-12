@@ -21,12 +21,12 @@ class ProductController extends Controller
     public function index()
     {
         //$data = Product::paginate(5);
-        $products = Product::paginate(5);
+        $products = Product::Paginate(5);
         return view('backend.product.manage', compact('products'));
     }
     public function getData(Request $request)
     {
-        $products = Product::paginate(5);
+        $products = Product::Paginate(5);
         return view('backend.product.pdatatable', compact('products'));
     }
 
