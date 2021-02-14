@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Category;
+
 function slugify($text)
 {
     // replace non letter or digits by -
@@ -32,27 +34,39 @@ function setMessage($type, $message)
     session()->flash('message', $message);
 }
 
-function getCategory($categories, $l = "")
+function getCategory($categories, $level = "", $root_cat = "")
 {
     $output = "";
     foreach ($categories as $category) {
-        $output .= '<option value = "' . $category->id . '">' . $category->name . '</option>';
-
+        if ($category->id == $root_cat) {
+            $output .= '<option value = "' . $category->id . '" selected="">' . $category->name . '</option>';
+        } else {
+            $output .= '<option value = "' . $category->id . '">' . $category->name . '</option>';
+        }
         if (count($category->sub_category)) {
             foreach ($category->sub_category as $sub_cat) {
-                $output .= '<option value="' . $sub_cat->id . '">' . $category->name . ' > ' . $sub_cat->name . '</option>';
-                if ($l == 3) {
-                    foreach ($category->sub_category as $sub_cat1) {
-                        $output .= '<option value="' . $sub_cat1->id . '">' . $category->name . ' > ' . $sub_cat->name . ' > ' . $sub_cat1->name . '</option>';
+                if ($sub_cat->id == $root_cat) {
+                    $output .= '<option value="' . $sub_cat->id . '" selected="">' . $category->name . ' > ' . $sub_cat->name . '</option>';
+                } else {
+                    $output .= '<option value="' . $sub_cat->id . '">' . $category->name . ' > ' . $sub_cat->name . '</option>';
+                }
+                if ($level == 3) {
+                    foreach ($sub_cat->sub_category as $sub_cat1) {
+                        if ($sub_cat1->id == $root_cat) {
+                            $output .= '<option value="' . $sub_cat1->id . '" selected="">' . $category->name . ' > ' . $sub_cat->name . ' > ' . $sub_cat1->name . '</option>';
+                        } else {
+                            $output .= '<option value="' . $sub_cat1->id . '">' . $category->name . ' > ' . $sub_cat->name . ' > ' . $sub_cat1->name . '</option>';
+                        }
                     }
                 }
             }
         }
-        return $output;
     }
+    return $output;
 }
 
-function color() {
+function color()
+{
     return [
         '1' => 'White',
         '2' => 'Black',
@@ -61,7 +75,8 @@ function color() {
         '5' => 'Red'
     ];
 }
-function size() {
+function size()
+{
     return [
         '1' => 'SM',
         '2' => 'M',
@@ -70,5 +85,3 @@ function size() {
         '5' => 'XXL'
     ];
 }
-
-

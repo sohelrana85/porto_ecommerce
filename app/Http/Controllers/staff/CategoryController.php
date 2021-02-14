@@ -42,16 +42,16 @@ class CategoryController extends Controller
     {
 
         $request->validate([
-            'root' => 'required',
-            'name' => 'required|min:3|max:40|unique:categories',
+            'root'   => 'required',
+            'name'   => 'required|min:3|max:40|unique:categories',
             'status' => 'required'
         ]);
         try {
             Category::create([
-                'root' => $request->root,
-                'name' => $request->name,
-                'slug' => slugify($request->name),
-                'status' => $request->status,
+                'root'      => $request->root,
+                'name'      => $request->name,
+                'slug'      => slugify($request->name),
+                'status'    => $request->status,
                 'create_by' => Auth::id(),
             ]);
 
@@ -104,10 +104,10 @@ class CategoryController extends Controller
         try {
             $category = Category::find($id);
 
-            $category->root = $request->root;
-            $category->name = $request->name;
-            $category->slug = slugify($request->name);
-            $category->status = $request->status;
+            $category->root      = $request->root;
+            $category->name      = $request->name;
+            $category->slug      = slugify($request->name);
+            $category->status    = $request->status;
             $category->create_by = Auth::id();
             $category->save();
 

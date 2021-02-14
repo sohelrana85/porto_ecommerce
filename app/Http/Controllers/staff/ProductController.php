@@ -135,7 +135,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $brands = Brand::select('id', 'name')->get();
+        $categories = Category::where('root', '0')->get();
+        $product = Product::find($id);
+        $color = json_decode($product->color);
+        $size = json_decode($product->size);
+        return view('backend.product.edit', compact('product', 'categories', 'brands', 'color', 'size'));
     }
 
     /**
@@ -158,6 +163,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // return Product::find($id)->delete();
     }
 }

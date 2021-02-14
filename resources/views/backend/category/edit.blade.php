@@ -54,8 +54,9 @@ Update Category
                                 <select class="form-control" name="root" id="root">
                                     <option value="0">-- Root --</option>
 
-                                    {{-- {!! getCategory($categories, $cat->id) !!} --}}
-                                    @foreach ($categories as $category)
+                                    {!! getCategory($categories, 2, $cat->root) !!}
+
+                                    {{-- @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" {{$category->id == $cat->root ? 'selected':''}}>
                                         {{ $category->name }}</option>
                                     @if (count($category->sub_category))
@@ -66,7 +67,7 @@ Update Category
                                     @endforeach
 
                                     @endif
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                                 @error('root')<p class="text-danger font-italic"> {{ $message }} </p> @enderror
                             </div>

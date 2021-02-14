@@ -43,13 +43,13 @@ class BrandController extends Controller
     {
         $request->validate([
             'brand_name' => 'required|min:2|max:10|unique:brands,name',
-            'status' => 'required'
+            'status'     => 'required'
         ]);
         try {
             Brand::create([
-                'name' => $request->brand_name,
-                'slug' => str_replace(' ', '-', $request->brand_name),
-                'status' => $request->status,
+                'name'      => $request->brand_name,
+                'slug'      => str_replace(' ', '-', $request->brand_name),
+                'status'    => $request->status,
                 'create_by' => Auth::id(),
             ]);
             session()->flash('type', 'success');
@@ -95,15 +95,15 @@ class BrandController extends Controller
     {
         $request->validate([
             'brand_name' => 'required|min:2|max:10|unique:brands,id,' . $id,
-            'status' => 'required'
+            'status'     => 'required'
         ]);
 
         try {
             $brand = Brand::find($id);
 
-            $brand->name = $request->brand_name;
-            $brand->slug = str_replace(' ', '-', $request->brand_name);
-            $brand->status = $request->status;
+            $brand->name      = $request->brand_name;
+            $brand->slug      = str_replace(' ', '-', $request->brand_name);
+            $brand->status    = $request->status;
             $brand->create_by = Auth::id();
             $brand->update();
 

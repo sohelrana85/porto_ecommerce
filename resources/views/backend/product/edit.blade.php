@@ -1,7 +1,7 @@
 @extends('backend.components.layout')
 
 @section('title')
-Update Category
+Update Product
 
 @endsection
 @section('content')
@@ -14,99 +14,255 @@ Update Category
             <ol class="breadcrumb mb-0 p-0">
                 <li class="breadcrumb-item"><a href="javascript:;"><i class='bx bx-home-alt'></i></a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Update Categories</li>
+                <li class="breadcrumb-item active" aria-current="page">Update Products</li>
             </ol>
         </nav>
     </div>
     <div class="ml-auto">
         <div class="btn-group">
-            <a href="{{ route('staff.category.index') }}" class="btn btn-primary"><i class="bx bx-plus"></i> Manage
-                Category</a>
+            <a href="{{ route('staff.product.index') }}" class="btn btn-primary"><i class="bx bx-plus"></i> Manage
+                Products</a>
         </div>
     </div>
 </div>
 <!--end breadcrumb-->
 <div class="row">
-    <div class="col-12 col-lg-9 mx-auto">
+    <div class="col-12 mx-auto">
 
-        @if (session('message'))
-        <div class="alert alert-{{ session('type') }} alert-dismissible fade show text-bold" role="alert">
-            {{ session('message') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
-                    aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        @endif
+        <x-session-message />
 
-        <div class="card radius-15">
-            <div class="card-body">
-                <div class="card-title">
-                    <h4 class="mb-0">Update Category</h4>
+        <div class="card border-lg-top-primary">
+            <div class="card-body p-5">
+                <div class="card-title d-flex align-items-center">
+                    <div><i class='bx bxs-user mr-1 font-24 text-primary'></i>
+                    </div>
+                    <h4 class="mb-0 text-primary">Update Product</h4>
                 </div>
                 <hr />
+                {{-- <div class="alert alert-danger error-message" style="display: none;">
+                    <ul></ul>
+                </div> --}}
+                <div class="alert alert-success success-message" style="display:none;">
+                    <ul></ul>
+                </div>
                 <div class="form-body">
-                    <form action="{{ route('staff.category.update', $cat->id)}}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label" for="root">Root Category</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="root" id="root">
-                                    <option value="0">-- Root --</option>
-
-                                    {{-- {!! getCategory($categories, $cat->id) !!} --}}
-                                    @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" {{$category->id == $cat->root ? 'selected':''}}>
-                                        {{ $category->name }}</option>
-                                    @if (count($category->sub_category))
-                                    @foreach ($category->sub_category as $sub_cat)
-                                    <option value="{{ $sub_cat->id }}" {{$sub_cat->id == $cat->root ? 'selected':''}}>
-                                        {{ $category->name }} > {{ $sub_cat->name }}
-                                    </option>
-                                    @endforeach
-
-                                    @endif
-                                    @endforeach
-                                </select>
-                                @error('root')<p class="text-danger font-italic"> {{ $message }} </p> @enderror
+                    <form class="create-product" action="{{ route('staff.product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="name">Product Name</label>
+                                <div class="input-group">
+                                    <input type="text" name="name" id="name" class="form-control"
+                                        value="{{ $product->name }}" onkeyup="slugCreate(this.value, '#slug')">
+                                </div>
+                                <div class="text-danger font-italic error-name" style="display: none;"></div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="slug">Slug</label>
+                                <div class="input-group">
+                                    <input type="text" name="slug" id="slug" class="form-control" value="{{ $product->slug }}" onkeyup="slugCreate(this.value, '#slug')">
+                                </div>
+                                <div class="text-danger font-italic error-slug" style="display: none;"></div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Category Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="name" class="form-control" value="{{ $cat->name }}">
-                                @error('name')<p class="text-danger font-italic"> {{ $message }} </p> @enderror
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="category">Category</label>
+                                <div class="input-group">
+                                    <select class="form-control" name="category" id="category">
+                                        <option value="">-- Root --</option>
+                                        {!! getCategory($categories, 3, $product->category_id) !!}
+                                    </select>
+                                </div>
+                                <div class="text-danger font-italic error-category" style="display: none;"></div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="brand_id">Brand</label>
+                                <div class="input-group">
+                                    <select class="form-control" name="brand_id" id="brand_id">
+                                        <option value="">-- Brand --</option>
+                                        @foreach ($brands as $brand)
+                                        <option value="{{ $brand->id }}" {{ $brand->id == $product->brand_id ? "selected" : ""}}>{{ $brand->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="text-danger font-italic error-brand_id" style="display: none;"></div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="model">Model</label>
+                                <div class="input-group">
+                                    <input type="text" name="model" id="model" class="form-control" value="{{ $product->model }}">
+                                </div>
+                                <div class="text-danger font-italic error-model" style="display: none;"></div>
                             </div>
                         </div>
-                        <div class="form-group row align-items-center">
-                            <label class="col-sm-2 col-form-label"></label>
-                            <div class="col-sm-5">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="buying_price">Buying Price</label>
+                                <div class="input-group">
+                                    <input type="text" name="buying_price" id="buying_price" class="form-control"
+                                    value="{{ $product->buying_price }}">
+                                </div>
+                                <div class="text-danger font-italic error-buying_price" style="display: none;"></div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="selling_price">Selling Price</label>
+                                <div class="input-group">
+                                    <input type="text" name="selling_price" id="selling_price" class="form-control"
+                                    value="{{ $product->selling_price }}">
+                                </div>
+                                <div class="text-danger font-italic error-selling_price" style="display: none;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Do you have any special Price?</label>
+                            <input class="ml-3" type="checkbox" onchange="specialPriceShow(this.checked)" name="special_price"
+                                   id="special_price" />
+                            <span class="item-text">Yes</span>
+                            <input class="ml-3" type="checkbox" name="special_price"value="0" />
+                            <span class="item-text">No</span>
+                        </div>
+                        <div class="form-row show_special_price" style="display: none">
+                            <div class="form-group col-md-4">
+                                <label for="special_price">Special Price</label>
+                                <div class="input-group">
+                                    <input type="text" name="special_price" id="special_price" class="form-control"
+                                        placeholder="Special price">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="special_price_from">Special Price From</label>
+                                <div class="input-group">
+                                    <input type="date" name="special_price_from" id="special_price_from"
+                                        class="form-control" placeholder="Special price from">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="special_price_to">Special Price To</label>
+                                <div class="input-group">
+                                    <input type="date" name="special_price_to" id="special_price_to"
+                                        class="form-control" placeholder="Special Price to">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="quantity">Quantity</label>
+                                <div class="input-group">
+                                    <input type="text" name="quantity" id="quantity" class="form-control"
+                                    value="{{ $product->quantity }}">
+                                </div>
+                                <div class="text-danger font-italic error-quantity" style="display: none;"></div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="sku_code">SKU Code</label>
+                                <div class="input-group">
+                                    <input type="text" name="sku_code" id="sku_code" class="form-control"
+                                    value="{{ $product->sku_code }}">
+                                </div>
+                                <div class="text-danger font-italic error-sku_code" style="display: none;"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label style="display:block;">Color</label>
+                                {{-- {{ json_decode($product->color) }} --}}
+
+                                @foreach(color() as $key => $value)
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input type="checkbox" class="custom-control-input" id="color-{{$value}}" value="{{ $key }}" name="color[]" @foreach ($color as $item) {{ $item == $key ? "checked":'' }} @endforeach >
+                                            <label class="custom-control-label" for="color-{{$value}}">{{$value}}</label>
+                                    </div>
+                                @endforeach
+
+                                {{-- <div class="text-danger font-italic error-color" style="display: none;"></div> --}}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label style="display:block;">Size</label>
+                                @foreach(size() as $k => $v)
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="size-{{ $v }}" value="{{ $k }}" name="size[]" @foreach ($size as $size) {{ $size == $k ? "checked":'' }} @endforeach >
+                                        <label class="custom-control-label" for="size-{{ $v }}">{{ $v }}</label>
+
+                                    </div>
+                                @endforeach
+                                {{-- <div class="text-danger font-italic error-size" style="display: none;"></div> --}}
+                            </div>
+                        </div>
+                        <div>
+                            <label for="warranty">Do you have any Warranty?</label>
+                            <input class="ml-3" type="checkbox" onchange="showWarranty(this.checked)" name="warranty"
+                                id="warranty" />
+                            <span class="item-text">Yes</span>
+                            <input class="ml-3" type="checkbox" name="warranty" id="warranty" value="0" />
+                            <span class="item-text">No</span>
+                        </div>
+                        <div class="form-group show_warranty" style="display: none">
+                            <div class="form-group">
+                                <label for="warranty_duration">Warranty Duration</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="warranty_duration"
+                                        name="warranty_duration" placeholder="Warranty duration">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="warranty_condition">Warranty Condition</label>
+                                <textarea name="warranty_condition" id="warranty_condition"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label for="description">Description</label>
+                            <textarea name="description" id="description" ></textarea>
+                            <div class="text-danger font-italic error-description" style="display: none;"></div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Thumbnail</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" name="thumbnail"
+                                        onchange="thumbnailLoad(event)">
+                                </div>
+                                <div class="text-danger font-italic error-thumbnail" style="display: none;"></div>
+                                <div class="input-group mt-3 d-flex justify-content-center">
+                                    <img id="thumbnail_image" width="100px">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>More Images</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" name="multiple_image[]" id="multiple_image_upload" multiple>
+                                </div>
+                                <div class="input-group mt-3 d-flex"  id="prev_images"></div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group text-center">
+                            <div class="col-12">
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="active" value="active" name="status"
-                                        class="custom-control-input" {{ $cat->status == 'active' ?
-                                        'checked':'' }}>
+                                           class="custom-control-input" {{ $product->status == 'active' ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="active">Active</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="inactive" value="inactive" name="status"
-                                        class="custom-control-input" {{ $cat->status == 'inactive' ?
-                                        'checked':'' }}>
+                                           class="custom-control-input" {{ $product->status == 'inactive' ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="inactive">Inactive</label>
                                 </div>
                             </div>
+                            <div class="text-danger font-italic error-status" style="display: none;"></div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label"></label>
-                            <div class="col-sm-10 text-right">
-                                <button type="submit" value="submit" class="btn btn-primary px-4">Update
-                                    Category</button>
-                            </div>
+
+                        <div class="form-row">
+                            <button type="submit" class="btn btn-primary px-3 ml-auto">Add Product</button>
                         </div>
+
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 </div>
 
 @endsection
