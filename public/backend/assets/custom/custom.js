@@ -47,6 +47,30 @@ $(document).ready(function () {
     })
 })
 
+//Pagination of the table
+
+$(document).ready(function () {
+
+    // $('body').on('click', '.pagination a', function (e) {
+    //     e.preventDefault();
+    //     let url = $(this).attr('href');
+    //     let page = url.split('page=')[1];
+    //     getData(page);
+    // })
+
+    // function getData(page) {
+    //     token = $('input[name="_token"]').val();
+    //     $.ajax({
+    //         url: '{{ route('staff.product') }}',
+    //         method: 'POST',
+    //         data: { _token: token, page: page },
+    //         success: function (result) {
+    //             $('.table-data').html(result);
+    //         }
+    //     })
+    // }
+})
+
 function showErrorMessage(message) {
     //$('.error-message').css('display', 'block').find('ul').html('');
     $('.text-danger').html('');

@@ -2,28 +2,28 @@
     <div class="table-data">
         @csrf
         {{-- <table id="example" class="table table-striped table-bordered" style="width:100%"> --}}
-        <table class="table table-striped table-bordered" style="width:100%">
+        <table class="table table-striped table-bordered">
             <thead>
                 <tr>
                     {{-- <th>id</th> --}}
 
                     <th>thumbnail</th>
                     <th>Name</th>
-                    <th>category_id</th>
-                    <th>brand_id</th>
+                    <th>category id</th>
+                    <th>brand id</th>
                     <th>model</th>
-                    <th>buying_price</th>
-                    <th>selling_price</th>
-                    <th>special_price</th>
-                    <th>special_price_from</th>
-                    <th>special_price_to</th>
+                    <th>buying price</th>
+                    <th>selling price</th>
+                    <th>special price</th>
+                    <th>special price from</th>
+                    <th>special price to</th>
                     <th>quantity</th>
-                    <th>sku_code</th>
+                    <th>sku code</th>
                     <th>color</th>
                     <th>size</th>
                     <th>warranty</th>
-                    <th>warranty_duration</th>
-                    <th>warranty_condition</th>
+                    <th>warranty duration</th>
+                    <th>warranty condition</th>
                     <th>description</th>
                     <th>status</th>
                     <th>Create_by</th>
@@ -48,7 +48,12 @@
                     <td>{{ $product->special_price_to }}</td>
                     <td>{{ $product->quantity }}</td>
                     <td>{{ $product->sku_code }}</td>
-                    <td>{{ $product->color }}</td>
+                    <td>
+                        <?php $data = json_decode( $product->color );?>
+                        @foreach(color() as $key => $value)
+                        @foreach ($data as $item) {{ $item == $key ? $value : '' }} @endforeach
+                        @endforeach
+                    </td>
                     <td>{{ $product->size }}</td>
                     <td>{{ $product->warranty }}</td>
                     <td>{{ $product->warranty_duration }}</td>
@@ -77,30 +82,4 @@
         </div>
     </div>
 </div>
-<script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script>
-<script>
-$(document).ready(function () {
 
-    $('body').on('click', '.pagination a', function (e) {
-        e.preventDefault();
-        let url = $(this).attr('href');
-        let page = url.split('page=')[1];
-        getData(page);
-    })
-
-    function getData(page) {
-        token = $('input[name="_token"]').val();
-        $.ajax({
-            url: '{{ route('staff.product') }}',
-            method: 'POST',
-            data: { _token: token, page: page },
-            success: function (result) {
-                $('.table-data').html(result);
-            }
-        })
-    }
-})
-</script>

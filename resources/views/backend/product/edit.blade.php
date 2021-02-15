@@ -115,18 +115,18 @@ Update Product
                         </div>
                         <div>
                             <label>Do you have any special Price?</label>
-                            <input class="ml-3" type="checkbox" onchange="specialPriceShow(this.checked)" name="special_price"
+                            <input class="ml-3" type="checkbox" {{ $product->special_price ? 'checked': '' }} onchange="specialPriceShow(this.checked)" name="special_price"
                                    id="special_price" />
                             <span class="item-text">Yes</span>
                             <input class="ml-3" type="checkbox" name="special_price"value="0" />
                             <span class="item-text">No</span>
                         </div>
-                        <div class="form-row show_special_price" style="display: none">
+                        <div class="form-row show_special_price" style="display: {{ $product->special_price ? '': 'none' }}">
                             <div class="form-group col-md-4">
                                 <label for="special_price">Special Price</label>
                                 <div class="input-group">
                                     <input type="text" name="special_price" id="special_price" class="form-control"
-                                        placeholder="Special price">
+                                        value="{{ $product->special_price}}">
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
@@ -169,7 +169,7 @@ Update Product
 
                                 @foreach(color() as $key => $value)
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input type="checkbox" class="custom-control-input" id="color-{{$value}}" value="{{ $key }}" name="color[]" @foreach ($color as $item) {{ $item == $key ? "checked":'' }} @endforeach >
+                                            <input type="checkbox" class="custom-control-input" id="color-{{$value}}" value="{{ $key }}" name="color[]" {{ in_array($key, $color) ? "checked" : "" }} >
                                             <label class="custom-control-label" for="color-{{$value}}">{{$value}}</label>
                                     </div>
                                 @endforeach
@@ -180,7 +180,7 @@ Update Product
                                 <label style="display:block;">Size</label>
                                 @foreach(size() as $k => $v)
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="size-{{ $v }}" value="{{ $k }}" name="size[]" @foreach ($size as $size) {{ $size == $k ? "checked":'' }} @endforeach >
+                                        <input type="checkbox" class="custom-control-input" id="size-{{ $v }}" value="{{ $k }}" name="size[]" {{ in_array($k, $size) ? "checked" : "" }} >
                                         <label class="custom-control-label" for="size-{{ $v }}">{{ $v }}</label>
 
                                     </div>
@@ -211,7 +211,7 @@ Update Product
                         </div>
                         <div class="form-group" >
                             <label for="description">Description</label>
-                            <textarea name="description" id="description" ></textarea>
+                            <textarea name="description" id="description" {!! $product->description !!}></textarea>
                             <div class="text-danger font-italic error-description" style="display: none;"></div>
                         </div>
 
@@ -224,7 +224,7 @@ Update Product
                                 </div>
                                 <div class="text-danger font-italic error-thumbnail" style="display: none;"></div>
                                 <div class="input-group mt-3 d-flex justify-content-center">
-                                    <img id="thumbnail_image" width="100px">
+                                    <img id="thumbnail_image" width="100px" src="{{ asset('product_photo/images')."/". $product->thumbnail }}">
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -232,7 +232,11 @@ Update Product
                                 <div class="input-group">
                                     <input type="file" class="form-control" name="multiple_image[]" id="multiple_image_upload" multiple>
                                 </div>
-                                <div class="input-group mt-3 d-flex"  id="prev_images"></div>
+                                <div class="input-group mt-3 d-flex"  id="prev_images">
+                                    @foreach (json_decode($product->images) as $image)
+                                        <img src="{{ asset('product_photo/images')."/". $image }}" alt="">
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <hr />

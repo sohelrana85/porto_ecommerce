@@ -33,8 +33,9 @@
             <h4 class="mb-0">Manage Products</h4>
         </div>
         <hr />
-        <div id="tabledata"></div>
-        @include('backend.product.pdatatable')
+        <div id="tabledata">
+            @include('backend.product.pdatatable')
+        </div>
     </div>
 </div>
 

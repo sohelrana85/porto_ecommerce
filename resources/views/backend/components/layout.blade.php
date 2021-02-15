@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
+    <!-- Bootstrap CSS -->
+    <link rel = "stylesheet" href = "{{ asset('backend/assets/css/bootstrap.min.css') }}" />
     <!--favicon-->
     <link rel="icon" href="{{ asset('backend/assets/images/favicon-32x32.png') }}" type="image/png" />
     <!-- Vector CSS -->
@@ -18,8 +20,7 @@
     <!-- loader-->
     {{-- <link href="{{ asset('backend/assets/css/pace.min.css') }}') }}" rel="stylesheet" /> --}}
     <script src="{{ asset('backend/assets/js/pace.min.js') }}"></script>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap.min.css') }}" />
+
     <!-- Icons CSS -->
     <link rel="stylesheet" href="{{ asset('backend/assets/css/icons.css') }}" />
     <!-- App CSS -->
