@@ -21,12 +21,12 @@ class ProductController extends Controller
     public function index()
     {
         //$data = Product::paginate(5);
-        $products = Product::Paginate(1);
+        $products = Product::Paginate(5);
         return view('backend.product.manage', compact('products'));
     }
     public function getData(Request $request)
     {
-        $products = Product::Paginate(1);
+        $products = Product::Paginate(5);
         return view('backend.product.pdatatable', compact('products'));
     }
 
@@ -63,6 +63,7 @@ class ProductController extends Controller
             'sku_code'      => 'required',
             'description'   => 'required',
             'thumbnail'     => 'required',
+            'images'        => 'required',
             'status'        => 'required'
         ]);
 
@@ -81,11 +82,10 @@ class ProductController extends Controller
                 $i = 1;
                 $fileName = [];
                 foreach ($images as $image) {
-                    $imgname = $request->slug . $i++ . "." . $image->getClientOriginalExtension();
+                    $imgname = $request->slug . "-" . $i++ . "." . $image->getClientOriginalExtension();
                     Image::make($image)->resize(100, 100)->save(public_path('product_photo/images/') . $imgname);
                     array_push($fileName, $imgname);
                 }
-
                 $products = Product::create([
                     'name'                  => $request->name,
                     'slug'                  => $request->slug,
@@ -105,7 +105,7 @@ class ProductController extends Controller
                     'warranty_condition'    => $request->warranty_condition,
                     'description'           => $request->description,
                     'thumbnail'             => $thumname,
-                    'images'                => json_encode($fileName),
+                    'images'                => $fileName ? json_encode($fileName) : '[]',
                     'status'                => $request->status,
                     'create_by'             => auth()->id()
                 ]);
@@ -152,7 +152,70 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'name'          => 'required',
+            'slug'          => 'required|unique:products,id,' . $id,
+            'category'      => 'required',
+            'brand_id'      => 'required',
+            'model'         => 'required',
+            'buying_price'  => 'required',
+            'selling_price' => 'required',
+            'quantity'      => 'required',
+            'sku_code'      => 'required',
+            'description'   => 'required',
+            'thumbnail'     => 'required',
+            'images'        => 'required',
+            'status'        => 'required'
+        ]);
+
+        if ($validator->fails())
+            return response()->json(['error' => $validator->errors()]);
+        else {
+            try {
+
+                $thumbnail = $request->file('thumbnail');
+                $thumname = $request->slug . "." . $thumbnail->getClientOriginalExtension();
+                //$request->thumbnail->storeAs('product_photo/thumbnail', $thumname);
+                Image::make($thumbnail)->resize(300, 300)->save(public_path('product_photo/images/') . $thumname);
+
+
+                $images = $request->file('multiple_image');
+                $i = 1;
+                $fileName = [];
+                foreach ($images as $image) {
+                    $imgname = $request->slug . "-" . $i++ . "." . $image->getClientOriginalExtension();
+                    Image::make($image)->resize(100, 100)->save(public_path('product_photo/images/') . $imgname);
+                    array_push($fileName, $imgname);
+                }
+                $products = Product::create([
+                    'name'                  => $request->name,
+                    'slug'                  => $request->slug,
+                    'category_id'           => $request->category,
+                    'brand_id'              => $request->brand_id,
+                    'model'                 => $request->model,
+                    'buying_price'          => $request->buying_price,
+                    'selling_price'         => $request->selling_price,
+                    'special_price'         => $request->special_price,
+                    'special_price_from'    => $request->special_price_from,
+                    'special_price_to'      => $request->special_price_to,
+                    'quantity'              => $request->quantity,
+                    'sku_code'              => $request->sku_code,
+                    'color'                 => $request->color ? json_encode($request->color) : '[]',
+                    'size'                  => $request->size ? json_encode($request->size) : '[]',
+                    'warranty_duration'     => $request->warranty_duration,
+                    'warranty_condition'    => $request->warranty_condition,
+                    'description'           => $request->description,
+                    'thumbnail'             => $thumname,
+                    'images'                => $fileName ? json_encode($fileName) : '[]',
+                    'status'                => $request->status,
+                    'create_by'             => auth()->id()
+                ]);
+                return response()->json(['success' => 'Data added successfully']);
+            } catch (Exception $exception) {
+                return response()->json(['error' => $exception->getMessage()]);
+            }
+        }
     }
 
     /**

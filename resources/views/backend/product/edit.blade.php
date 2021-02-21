@@ -257,7 +257,7 @@ Update Product
                         </div>
 
                         <div class="form-row">
-                            <button type="submit" class="btn btn-primary px-3 ml-auto">Add Product</button>
+                            <button type="submit" class="btn btn-primary px-3 ml-auto">Update Product</button>
                         </div>
 
                     </form>
