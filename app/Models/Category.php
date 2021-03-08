@@ -13,6 +13,8 @@ class Category extends Model
 
     protected $with = ['sub_category', 'user'];
 
+    public const categoryRoot = 0;
+
     public function sub_category()
     {
         return $this->hasMany(Category::class, 'root');

@@ -6,7 +6,7 @@
                 <button class="mobile-menu-toggler mr-2" type="button">
                     <i class="icon-menu"></i>
                 </button>
-                <a href="index.html" class="logo">
+                <a href="{{ route('index') }}" class="logo">
                     <img src="{{ asset('frontend/assets/images/logo.png') }}" alt="Porto Logo">
                 </a>
             </div><!-- End .header-left -->

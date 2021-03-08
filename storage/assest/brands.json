@@ -70,5 +70,59 @@
         "slug": "vigo",
         "status": "active",
         "create_by": "1"
+    },
+    {
+        "name": "Realme",
+        "slug": "Realme",
+        "status": "active",
+        "create_by": "1"
+    },
+    {
+        "name": "Xiaomi",
+        "slug": "Xiaomi",
+        "status": "active",
+        "create_by": "1"
+    },
+    {
+        "name": "OPPO",
+        "slug": "OPPO",
+        "status": "active",
+        "create_by": "1"
+    },
+    {
+        "name": "Vivo",
+        "slug": "Vivo",
+        "status": "active",
+        "create_by": "1"
+    },
+    {
+        "name": "Infinix",
+        "slug": "Infinix",
+        "status": "active",
+        "create_by": "1"
+    },
+    {
+        "name": "Motorola",
+        "slug": "Motorola",
+        "status": "active",
+        "create_by": "1"
+    },
+    {
+        "name": "Tecno",
+        "slug": "Tecno",
+        "status": "active",
+        "create_by": "1"
+    },
+	 {
+        "name": "Dell",
+        "slug": "Dell",
+        "status": "active",
+        "create_by": "1"
+    },
+	{
+        "name": "Apple",
+        "slug": "Apple",
+        "status": "active",
+        "create_by": "1"
     }
 ]

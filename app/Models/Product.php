@@ -23,4 +23,13 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+    public function scopeInactive($query)
+    {
+        return $query->where('status', 'inactive');
+    }
 }

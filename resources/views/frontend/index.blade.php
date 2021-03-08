@@ -3,6 +3,7 @@
 @section('title')
     Home
 @endsection
+
 @section('content')
 
 <div class="container mb-2">
@@ -64,7 +65,7 @@
                 </div><!-- End .home-slide -->
 
                 <div class="home-slide home-slide3 banner banner-md-vw banner-sm-vw">
-                    <img class="owl-lazy slide-bg" data-src="{{ asset('frontend/assets/images/slider/slide-3.jpg') }}"></img>
+                    <img class="owl-lazy slide-bg" data-src="{{ asset('frontend/assets/images/slider/slide-3.jpg') }}">
                     <div class="banner-layer banner-layer-middle text-uppercase">
                         <h4 class="m-b-2">Up to 70% off</h4>
                         <h2 class="m-b-3">New Arrivals</h2>
@@ -573,18 +574,7 @@
                 <h2 class="side-menu-title bg-gray ls-n-25">Browse Categories</h2>
 
                 <nav class="side-nav">
-                    <ul class="menu menu-vertical sf-arrows">
-                        <li>
-                            <a href="javascript:avoid(0)" class="sf-with-ul"><i class="sicon-envelope"></i>Pages</a>
-                            <ul>
-                                <li><a href="#">Checkout</a>
-                                    <ul>
-                                        <li><a href="">Checkout Shipping</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    {!! frontendCategories($categories) !!}
                 </nav>
             </div><!-- End .side-menu-container -->
 

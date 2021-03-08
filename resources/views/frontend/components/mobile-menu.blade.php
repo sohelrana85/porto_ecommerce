@@ -3,7 +3,7 @@
         <span class="mobile-menu-close"><i class="icon-cancel"></i></span>
         <nav class="mobile-nav">
             <ul class="mobile-menu mb-3">
-                <li class="active"><a href="index.html">Home</a></li>
+                <li class="active"><a href="{{ route('index') }}">Home</a></li>
                 <li>
                     <a href="category.html">Categories</a>
                     <ul>

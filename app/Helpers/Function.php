@@ -85,3 +85,35 @@ function size()
         '5' => 'XXL'
     ];
 }
+
+function frontendCategories($categories)
+{
+    $output = "";
+    $output .= '<ul class="menu menu-vertical sf-arrows">';
+    foreach ($categories as $category) {
+        $output .= '<li><a href = "javascript:avoid(0)" class = "sf-with-ul">' . $category->name . '</a>';
+
+        if (count($category->sub_category)) {
+            $output .= '<ul>';
+            foreach ($category->sub_category as $sub_cat) {
+                $output .= '<li><a href = "' . route('products', [$category->slug, $sub_cat->slug]) . '">' . $sub_cat->name . '</a>';
+
+                if (count($sub_cat->sub_category)) {
+                    $output .= '<ul>';
+                    foreach ($sub_cat->sub_category as $sub_cat1) {
+                        $output .= '<li><a href = "' . route('products', [$category->slug, $sub_cat->slug, $sub_cat1->slug]) . '">' . $sub_cat1->name . '</a>';
+                        $output .= '</li>';
+                    }
+                    $output .= '</ul>';
+                }
+
+                $output .= '</li>';
+            }
+            $output .= '</ul>';
+        }
+
+        $output .= '</li>';
+    }
+    $output .= '</ul>';
+    return $output;
+}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +22,7 @@
 		};
 		(function(d) {
 			var wf = d.createElement('script'), s = d.scripts[0];
-			wf.src = 'assets/js/webfont.js';
+			wf.src = '{{ asset("frontend/assets/js/webfont.js") }}';
 			wf.async = true;
 			s.parentNode.insertBefore(wf, s);
 		})(document);
