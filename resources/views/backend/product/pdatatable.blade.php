@@ -12,9 +12,10 @@
                     <th>category id</th>
                     <th>brand id</th>
                     <th>model</th>
-                    <th>buying price</th>
-                    <th>selling price</th>
-                    <th>special price</th>
+                    <th>buy. price</th>
+                    <th>sel. price</th>
+                    <th>spe. price</th>
+                    <th>featured</th>
                     {{-- <th>S.price from</th>
                     <th>S.price to</th>
                     <th>quantity</th>
@@ -44,12 +45,15 @@
                     <td>{{ $product->buying_price }}</td>
                     <td>{{ $product->selling_price }}</td>
                     <td>{{ $product->special_price }}</td>
+                    <td>
+                        <input type="checkbox" name="feathred" id="featured" {{ $product->featured ? "checked":"" }} data-url="{{ route('staff.product.featured', $product->id) }}" value="{{ $product->featured }}">
+                    </td>
                     {{-- <td>{{ $product->special_price_from }}</td>
                     <td>{{ $product->special_price_to }}</td>
                     <td>{{ $product->quantity }}</td>
                     <td>{{ $product->sku_code }}</td>
                     <td>
-                        <?php $data = json_decode( $product->color );?>
+                        <?php $data = json_decode( $product->color ); ?>
                         @foreach(color() as $key => $value)
                         @foreach ($data as $item) {{ $item == $key ? $value : '' }} @endforeach
                         @endforeach

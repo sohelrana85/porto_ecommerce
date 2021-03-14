@@ -24,4 +24,9 @@ class Category extends Model
     {
         return $this->belongsTo(User::class, 'create_by');
     }
+
+    public function productCount()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
 }

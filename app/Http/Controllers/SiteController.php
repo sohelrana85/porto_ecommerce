@@ -22,19 +22,30 @@ class SiteController extends Controller
         if ($slug3) {
             $category = Category::where('slug', $slug3)->pluck('id');
 
-            $categories = Category::where('id', $category)->get();
+            $categories = Category::with('productCount')->where('id', $category)->get();
             $products   = Product::where('category_id', $category)->active()->paginate(12);
             $brand      = $products->pluck('brand_id')->unique();
-            $brands     = Brand::select('name', 'slug')->whereIn('id', $brand)->where('status', 'active')->get();
+            $brands     = Brand::with('countProducts')->select('name', 'slug')->whereIn('id', $brand)->where('status', 'active')->get();
         } else {
             $category     = Category::where('slug', $slug2)->pluck('id');
-            $categories   = Category::where('root', $category)->get();
+            $categories   = Category::with('productCount')->where('root', $category)->get();
             $category_ids = $categories->pluck('id');
             $products     = Product::whereIn('category_id', collect($category)->merge(collect($category_ids)))->active()->get();
             $brand        = $products->pluck('brand_id')->unique();
-            $brands       = Brand::select('name', 'slug')->whereIn('id', $brand)->where('status', 'active')->get();
+            $brands       = Brand::with('countProducts')->select('id', 'name', 'slug')->whereIn('id', $brand)->where('status', 'active')->get();
         }
-        // return $slug3;
-        return view('frontend.category', compact('products', 'brands', 'categories'));
+        // return $categories;
+
+        $featured = product::where('featured', 1)->active()->get();
+        return view('frontend.products', compact('products', 'brands', 'categories', 'featured'));
+    }
+
+    public function product($slug)
+    {
+        $product = product::where('slug', $slug)->first();
+
+        $related_product = product::where('category_id', $product->category_id)->pluck('category_id')->unique();
+        $relproducts = product::where('category_id', $related_product)->get();
+        return view('frontend.product', compact('product', 'relproducts'));
     }
 }

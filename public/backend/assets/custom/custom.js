@@ -127,6 +127,21 @@ $('#multiple_image_upload').on('change', function (event) {
     })
 })
 
+$(document).on('change', '#featured', function () {
+
+    let url = $(this).data('url');
+
+    $.ajax({
+
+        url: url,
+        method: 'post',
+        data: {},
+        success: function (data) {
+            toastr.success(data.success);
+        }
+    });
+})
+
 /*
 
     $.ajaxSetup({

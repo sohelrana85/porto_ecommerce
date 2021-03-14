@@ -15,6 +15,11 @@ class Brand extends Model
         return $this->belongsTo(User::class, 'create_by');
     }
 
+    public function countProducts()
+    {
+        return $this->hasMany(Product::class, 'brand_id');
+    }
+
     public function getStatusAttribute($value)
     {
         return ucfirst($value);

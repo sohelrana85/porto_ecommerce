@@ -21,3 +21,5 @@ Route::prefix('staff')->name('staff.')->middleware('auth')->group(function () {
     Route::resource('product', ProductController::class);
 });
 Route::post('staff.product', [ProductController::class, 'getData'])->name('staff.product');
+Route::post('staff.product/{id}', [ProductController::class, 'fetured'])->name('staff.product');
+Route::post('staff.product/featured/{id}', [ProductController::class, 'featured'])->name('staff.product.featured');
