@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
 <main class="main">
     <div class="container">
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
@@ -18,15 +19,12 @@
                 <div class="col-md-5 product-single-gallery">
                     <div class="product-slider-container">
                         <div class="product-single-carousel owl-carousel owl-theme">
+                            @foreach ($images as $item)
                             <div class="product-item">
-                                <img class="product-single-image" src="{{ $product->thumbnail }}" data-zoom-image="{{ $product->thumbnail }}"/>
+                                <img class="product-single-image" src="{{ asset('product_photo/images/'.$item) }}" data-zoom-image="{{ asset('product_photo/images/'.$product->thumbnail) }}"/>
                             </div>
-                            <div class="product-item">
-                                <img class="product-single-image" src="{{ $product->thumbnail }}" data-zoom-image="{{ $product->thumbnail }}"/>
-                            </div>
-                            <div class="product-item">
-                                <img class="product-single-image" src="{{ $product->thumbnail }}" data-zoom-image="{{ $product->thumbnail }}"/>
-                            </div>
+                            @endforeach
+
                         </div>
                         <!-- End .product-single-carousel -->
                         <span class="prod-full-screen">
@@ -34,9 +32,11 @@
                         </span>
                     </div>
                     <div class="prod-thumbnail owl-dots" id='carousel-custom-dots'>
+                        @foreach ($images as $item)
                         <div class="owl-dot">
-                            <img src="{{ asset('product_photo/images/samsung-galaxy-a01-2gb-ram-16gb-rom.jpg') }}" style="width: 130px" />
+                            <img src="{{ asset('product_photo/images/'.$item) }}" style="max-width: 120px" />
                         </div>
+                        @endforeach
                     </div>
                 </div><!-- End .product-single-gallery -->
 
@@ -57,20 +57,31 @@
                         <span class="product-price">{{ $product->selling_price }}</span>
                     </div><!-- End .price-box -->
 
-                    <div class="product-desc">
+                    {{-- <div class="product-desc">
                         <p>
-                            {{ $product->description }}
+                            {!! $product->description !!}
                         </p>
-                    </div><!-- End .product-desc -->
+                    </div><!-- End .product-desc --> --}}
 
                     <div class="product-filters-container">
                         <div class="product-single-filter mb-2">
                             <label>Sizes:</label>
                             <ul class="config-size-list">
-                                <li class="active"><a href="#">S</a></li>
-                                <li><a href="#">M</a></li>
-                                <li><a href="#">L</a></li>
-                                <li><a href="#">X</a></li>
+                                @foreach (json_decode($product->size) as $key => $value)
+                                <li class=""><a href="#">{{ $value }}</a></li>
+                                @endforeach
+
+                            </ul>
+                        </div><!-- End .product-single-filter -->
+                    </div><!-- End .product-filters-container -->
+                    <div class="product-filters-container">
+                        <div class="product-single-filter mb-2">
+                            <label>Color:</label>
+                            <ul class="config-size-list">
+                                @foreach (json_decode($product->color) as $key => $value)
+                                <li class=""><a style="width: 50px !important;" href="#">{{ $value }}</a></li>
+                                @endforeach
+
                             </ul>
                         </div><!-- End .product-single-filter -->
                     </div><!-- End .product-filters-container -->
@@ -122,19 +133,13 @@
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel" aria-labelledby="product-tab-desc">
                     <div class="product-desc-content">
-                        <p>{{ $product->description }}</p>
-                        <ul>
-                            <li><i class="fa fa-check-circle"></i>Any Product types that You want - Simple, Configurable</li>
-                            <li><i class="fa fa-check-circle"></i>Downloadable/Digital Products, Virtual Products</li>
-                            <li><i class="fa fa-check-circle"></i>Inventory Management with Backordered items</li>
-                        </ul>
-                        <p></p>
+                        {!! $product->description !!}
                     </div><!-- End .product-desc-content -->
                 </div><!-- End .tab-pane -->
 
                 <div class="tab-pane fade fade" id="product-more-info-content" role="tabpanel" aria-labelledby="product-tab-more-info">
                     <div class="product-desc-content">
-                        <p>{{ $product->description }}</p>
+                        <p>{!! $product->description !!}</p>
                     </div><!-- End .product-desc-content -->
                 </div><!-- End .tab-pane -->
 
@@ -288,7 +293,6 @@
 
             <div class="products-slider owl-carousel owl-theme dots-top">
                 @foreach ($relproducts as $products)
-
 
                 <div class="product-default inner-quickview inner-icon">
                     <figure>

@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<title>Porto eCommerce | @yield('title')</title>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="keywords" content="HTML5 Template" />
 	<meta name="description" content="Porto - Bootstrap eCommerce Template">
 	<meta name="author" content="SW-THEMES">
@@ -70,6 +70,14 @@
 	  </div>
 	</div>
 
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content" id="quickviewcontent">
+
+          </div>
+        </div>
+      </div>
+
 	<a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 
 	<!-- Plugins JS File -->
@@ -79,5 +87,6 @@
 
 	<!-- Main JS File -->
 	<script src="{{ asset('frontend/assets/js/main.min.js') }}"></script>
+	<script src="{{ asset('frontend/custom.js') }}"></script>
 </body>
 </html>

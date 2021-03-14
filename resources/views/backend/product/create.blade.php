@@ -167,7 +167,7 @@ Add Product
                                 <label style="display:block;">Color</label>
                                 @foreach(color() as $key => $value)
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="color-{{$value}}" value="{{ $key }}" name="color[]">
+                                        <input type="checkbox" class="custom-control-input" id="color-{{$value}}" value="{{ $value }}" name="color[]">
                                         <label class="custom-control-label" for="color-{{$value}}">{{$value}}</label>
 
                                     </div>
@@ -178,7 +178,7 @@ Add Product
                                 <label style="display:block;">Size</label>
                                 @foreach(size() as $k => $v)
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="size-{{ $v }}" value="{{ $k }}" name="size[]">
+                                        <input type="checkbox" class="custom-control-input" id="size-{{ $v }}" value="{{ $v }}" name="size[]">
                                         <label class="custom-control-label" for="size-{{ $v }}">{{ $v }}</label>
 
                                     </div>
