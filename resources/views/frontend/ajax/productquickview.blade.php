@@ -3,19 +3,21 @@
         <div class="col-lg-6 product-single-gallery">
             <div class="product-slider-container">
                 <div class="product-single-carousel owl-carousel owl-theme">
+                    @foreach ($images as $prod)
                     <div class="product-item">
-                        <img class="product-single-image" src="{{ asset('product_photo/images/samsung-galaxy-a01-2gb-ram-16gb-rom.jpg') }}" data-zoom-image="{{ asset('product_photo/images/samsung-galaxy-a01-2gb-ram-16gb-rom.jpg') }}"/>
+                        <img class="product-single-image" src="{{ asset('product_photo/images/'. $prod) }}" data-zoom-image="{{ asset('product_photo/images/'. $prod) }}"/>
                     </div>
+                    @endforeach
                 </div>
                 <!-- End .product-single-carousel -->
             </div>
             <div class="prod-thumbnail owl-dots" id='carousel-custom-dots'>
+                @foreach ($images as $prod)
                 <div class="owl-dot">
-                    <img src="{{ asset('product_photo/images/samsung-galaxy-a01-2gb-ram-16gb-rom.jpg') }}" />
+                    <img src="{{ asset('product_photo/images/'. $prod) }}" />
                 </div>
-                <div class="owl-dot">
-                    <img src="{{ asset('product_photo/images/samsung-galaxy-a01-2gb-ram-16gb-rom1.jpg') }}" />
-                </div>
+                @endforeach
+
             </div>
         </div><!-- End .product-single-gallery -->
 
@@ -50,7 +52,9 @@
                     <label>Colors:</label>
                     <ul class="config-swatch-list">
                         @foreach (json_decode($product->color) as $key => $value)
-                        <li class=""><a style="width: 50px !important;" href="#">{{ $value }}</a></li>
+                        <li class="active">
+                            <a href="#" style="background-color: #{{ colorCode($value) }};"></a>
+                        </li>
                         @endforeach
                     </ul>
                 </div><!-- End .product-single-filter -->
@@ -80,3 +84,4 @@
     </div><!-- End .row -->
 </div><!-- End .product-single-container -->
 
+<script src="{{ asset('frontend/assets/js/main.min.js') }}"></script>

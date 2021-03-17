@@ -75,6 +75,29 @@ function color()
         '5' => 'Red'
     ];
 }
+
+function colorCode($name)
+{
+    switch ($name) {
+        case 'White':
+            return 'ffffff';
+            break;
+        case 'Black':
+            return '000000';
+            break;
+        case 'Yellow':
+            return 'FFFF00';
+            break;
+        case 'Blue':
+            return '0000FF';
+            break;
+        case 'Red':
+            return 'ff0000';
+            break;
+    }
+}
+
+
 function size()
 {
     return [
@@ -115,5 +138,15 @@ function frontendCategories($categories)
         $output .= '</li>';
     }
     $output .= '</ul>';
+    return $output;
+}
+
+function searchCategories($categories)
+{
+    $output = "";
+    foreach ($categories as $category) {
+        $output .= '<option value="">' . $category->name;
+    }
+    $output .= '</option>';
     return $output;
 }

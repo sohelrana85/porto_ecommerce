@@ -39,46 +39,49 @@
 <body>
 	<div class="page-wrapper">
 
-@include('frontend.components.header')
+        @include('frontend.components.header')
 
 		<main class="main">
-@yield('content')
+        @yield('content')
 		</main><!-- End .main -->
 
-@include('frontend.components.footer')
+        @include('frontend.components.footer')
 
-	</div><!-- End .page-wrapper -->
+	    </div><!-- End .page-wrapper -->
 
-	<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+	    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
 
-@include('frontend.components.mobile-menu')
+        @include('frontend.components.mobile-menu')
 
-	<!-- Add Cart Modal -->
-	<div class="modal fade" id="addCartModal" tabindex="-1" role="dialog" aria-labelledby="addCartModal" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-		<div class="modal-content">
-		  <div class="modal-body add-cart-box text-center">
-			<p>You've just added this product to the<br>cart:</p>
-			<h4 id="productTitle"></h4>
-			<img src="#" id="productImage" width="100" height="100" alt="adding cart image">
-			<div class="btn-actions">
-				<a href="cart.html"><button class="btn-primary">Go to cart page</button></a>
-				<a href="#"><button class="btn-primary" data-dismiss="modal">Continue</button></a>
-			</div>
-		  </div>
-		</div>
-	  </div>
-	</div>
-
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content" id="quickviewcontent">
-
-          </div>
+        <!-- Add Cart Modal -->
+        <div class="modal fade" id="addCartModal" tabindex="-1" role="dialog" aria-labelledby="addCartModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-body add-cart-box text-center">
+                <p>You've just added this product to the<br>cart:</p>
+                <h4 id="productTitle"></h4>
+                <img src="#" id="productImage" width="100" height="100" alt="adding cart image">
+                <div class="btn-actions">
+                    <a href="cart.html"><button class="btn-primary">Go to cart page</button></a>
+                    <a href="#"><button class="btn-primary" data-dismiss="modal">Continue</button></a>
+                </div>
+            </div>
+            </div>
         </div>
-      </div>
+        </div>
 
-	<a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+
+	    <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+
+        <!-- quickview modal -->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="quickviewcontent">
+
+            </div>
+            </div>
+        </div>
+
 
 	<!-- Plugins JS File -->
 	<script src="{{ asset('frontend/assets/js/jquery.min.js') }}"></script>
@@ -86,7 +89,10 @@
 	<script src="{{ asset('frontend/assets/js/plugins.min.js') }}"></script>
 
 	<!-- Main JS File -->
+
 	<script src="{{ asset('frontend/assets/js/main.min.js') }}"></script>
 	<script src="{{ asset('frontend/custom.js') }}"></script>
+
+
 </body>
 </html>

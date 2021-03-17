@@ -13,13 +13,17 @@ $(document).ready(function () {
         let url = $(this).attr('href');
         $.ajax({
             url: url,
-            type: {},
+            data: {},
             method: 'post',
             success: function (data) {
                 $('#quickviewcontent').html(data);
             }
         })
+
     })
+
+
+
 
 })
 

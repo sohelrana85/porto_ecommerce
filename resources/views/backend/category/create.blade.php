@@ -29,7 +29,14 @@ Add Category
 <div class="row">
     <div class="col-12 col-lg-9 mx-auto">
 
-        <x-session-message />
+        @if (session('message')) <div class="alert alert-{{ session('type') }} alert-dismissible fade show text-bold"
+    role="alert">
+    {{ session('message') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
 
         <div class="card radius-15">
             <div class="card-body">

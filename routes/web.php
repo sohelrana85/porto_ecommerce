@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteController::class, 'index'])->name('index');
 Route::get('/products/{slug1}/{slug2}/{slug3?}', [SiteController::class, 'products'])->name('products');
+Route::post('/products/loadmore', [SiteController::class, 'loadmore'])->name('loadmore');
 Route::get('/products/{slug}', [SiteController::class, 'product'])->name('product');
 Route::post('/products/quickview/{slug}', [SiteController::class, 'productQuickview'])->name('product.quickview');
 

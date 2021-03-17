@@ -20,7 +20,7 @@
                     <div class="product-slider-container">
                         <div class="product-single-carousel owl-carousel owl-theme">
                             @foreach ($images as $item)
-                            <div class="product-item">
+                            <div class="product-item" >
                                 <img class="product-single-image" src="{{ asset('product_photo/images/'.$item) }}" data-zoom-image="{{ asset('product_photo/images/'.$product->thumbnail) }}"/>
                             </div>
                             @endforeach
@@ -54,7 +54,14 @@
                     <hr class="short-divider">
 
                     <div class="price-box">
-                        <span class="product-price">{{ $product->selling_price }}</span>
+                        @if($product->special_price_from != "")
+                            @if ($product->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $product->special_price_to)
+                            <span class = "old-price">BDT {{ $product->selling_price }}</span>
+                            <span class = "product-price">BDT {{ $product->special_price }}</span>
+                            @else
+                            <span class = "">BDT {{ $product->selling_price }}</span>
+                            @endif
+                        @endif
                     </div><!-- End .price-box -->
 
                     {{-- <div class="product-desc">
@@ -79,7 +86,7 @@
                             <label>Color:</label>
                             <ul class="config-size-list">
                                 @foreach (json_decode($product->color) as $key => $value)
-                                <li class=""><a style="width: 50px !important;" href="#">{{ $value }}</a></li>
+                                <li class=""><a href="#" style="background-color: #{{ colorCode($value) }};"></a></li>
                                 @endforeach
 
                             </ul>
@@ -124,9 +131,6 @@
                     <a class="nav-link" id="product-tab-more-info" data-toggle="tab" href="#product-more-info-content" role="tab" aria-controls="product-more-info-content" aria-selected="false">More Info</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="product-tab-tags" data-toggle="tab" href="#product-tags-content" role="tab" aria-controls="product-tags-content" aria-selected="false">Tags</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content" role="tab" aria-controls="product-reviews-content" aria-selected="false">Reviews (3)</a>
                 </li>
             </ul>
@@ -143,18 +147,7 @@
                     </div><!-- End .product-desc-content -->
                 </div><!-- End .tab-pane -->
 
-                <div class="tab-pane fade" id="product-tags-content" role="tabpanel" aria-labelledby="product-tab-tags">
-                    <div class="product-tags-content">
-                        <form action="#">
-                            <h4>Add Your Tags:</h4>
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-sm" required>
-                                <input type="submit" class="btn btn-dark" value="Add Tags">
-                            </div><!-- End .form-group -->
-                        </form>
-                        <p class="note">Use spaces to separate tags. Use single quotes (') for phrases.</p>
-                    </div><!-- End .product-tags-content -->
-                </div><!-- End .tab-pane -->
+
 
                 <div class="tab-pane fade" id="product-reviews-content" role="tabpanel" aria-labelledby="product-tab-reviews">
                     <div class="product-reviews-content">
@@ -297,7 +290,7 @@
                 <div class="product-default inner-quickview inner-icon">
                     <figure>
                         <a href="{{ route('product', $products->slug) }}">
-                            <img src="{{ $products->thumbnail }}">
+                            <img src="{{ asset('product_photo/images/'.$products->thumbnail) }}">
                         </a>
                         <div class="label-group">
                             @if($products->special_price_from != "")
@@ -309,11 +302,11 @@
                         <div class="btn-icon-group">
                             <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-shopping-cart"></i></button>
                         </div>
-                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick View</a>
+                        <a href="{{ route('product.quickview', $products->slug) }}" class="btn-quickview" title="Quick View">Quick View</a>
                     </figure>
                     <div class="product-details">
                         <h3 class="product-title">
-                            <a href="product.html">{{ $products->name }}</a>
+                            <a href="{{ route('product', $products->slug) }}">{{ $products->name }}</a>
                         </h3>
                         <div class="ratings-container">
                             <div class="product-ratings">
