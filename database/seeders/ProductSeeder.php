@@ -16,22 +16,28 @@ class ProductSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-        foreach (range(1, 500) as $index) {
+        foreach (range(1, 300) as $index) {
             $name = $faker->unique()->name;
             Product::create([
                 'name'               => $name,
                 'slug'               => slugify($name),
-                'category_id'        => rand(12, 50),
+                'category_id'        => rand(1, 50),
                 'brand_id'           => rand(1, 12),
-                'buying_price'       => rand(1000, 10000),
-                'selling_price'      => rand(1000, 10000),
-                'special_price'      => rand(100, 1000),
-                'quantity'           => rand(10, 100),
-                'sku_code'           => rand(1111111111111, 999999999999999),
-                'description'        => $faker->text,
-                'thumbnail'          => $faker->imageUrl(),
+                'model'              => '',
+                'buying_price'       => rand(5000, 10000),
+                'selling_price'      => rand(5000, 10000),
+                'special_price'      => rand(5000, 10000),
+                'special_price_from' => date('Y-m-' . rand(1, 10)),
+                'special_price_to'   => date('Y-m-' . rand(10, 28)),
+                'quantity'           => rand(50, 300),
+                'sku_code'           => rand(50, 300),
+                'color'              => json_encode($this->randomColor()),
+                'size'               => json_encode($this->randomSize()),
+                'description'        => $faker->paragraph,
+                'thumbnail'          => $this->randomthumbnail(),
+                'images'             => json_encode($this->randomimages()),
                 'status'             => $this->randomStatus(),
-                'create_by'          => rand(1, 11),
+                'create_by'          => rand(1, 10)
 
             ]);
         }
@@ -44,5 +50,21 @@ class ProductSeeder extends Seeder
             'inactive' => 'inactive'
         ]);
         return array_rand($status);
+    }
+    public function randomColor()
+    {
+        return array_rand(color(), 3);
+    }
+    public function randomSize()
+    {
+        return array_rand(size(), 3);
+    }
+    public function randomthumbnail()
+    {
+        return array_rand(thumbnail(), 1);
+    }
+    public function randomimages()
+    {
+        return array_rand(images(), 4);
     }
 }

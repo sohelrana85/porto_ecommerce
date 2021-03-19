@@ -21,7 +21,7 @@
                         <div class="product-single-carousel owl-carousel owl-theme">
                             @foreach ($images as $item)
                             <div class="product-item" >
-                                <img class="product-single-image" src="{{ asset('product_photo/images/'.$item) }}" data-zoom-image="{{ asset('product_photo/images/'.$product->thumbnail) }}"/>
+                                <img class="product-single-image" src="{{ asset('product_photo/'.$item) }}" data-zoom-image="{{ asset('product_photo/'.$product->thumbnail) }}"/>
                             </div>
                             @endforeach
 
@@ -34,7 +34,7 @@
                     <div class="prod-thumbnail owl-dots" id='carousel-custom-dots'>
                         @foreach ($images as $item)
                         <div class="owl-dot">
-                            <img src="{{ asset('product_photo/images/'.$item) }}" style="max-width: 120px" />
+                            <img src="{{ asset('product_photo/'.$item) }}" style="max-width: 120px" />
                         </div>
                         @endforeach
                     </div>
@@ -75,9 +75,8 @@
                             <label>Sizes:</label>
                             <ul class="config-size-list">
                                 @foreach (json_decode($product->size) as $key => $value)
-                                <li class=""><a href="#">{{ $value }}</a></li>
+                                <li class="size-item" data-value="$value"><a href="javascript:">{{ $value }}</a></li>
                                 @endforeach
-
                             </ul>
                         </div><!-- End .product-single-filter -->
                     </div><!-- End .product-filters-container -->
@@ -86,7 +85,7 @@
                             <label>Color:</label>
                             <ul class="config-size-list">
                                 @foreach (json_decode($product->color) as $key => $value)
-                                <li class=""><a href="#" style="background-color: #{{ colorCode($value) }};"></a></li>
+                                <li class="color-item"><a href="#" style="background-color: #{{ colorCode($value) }};"></a></li>
                                 @endforeach
 
                             </ul>
@@ -290,7 +289,7 @@
                 <div class="product-default inner-quickview inner-icon">
                     <figure>
                         <a href="{{ route('product', $products->slug) }}">
-                            <img src="{{ asset('product_photo/images/'.$products->thumbnail) }}">
+                            <img src="{{ asset('product_photo/'.$products->thumbnail) }}">
                         </a>
                         <div class="label-group">
                             @if($products->special_price_from != "")

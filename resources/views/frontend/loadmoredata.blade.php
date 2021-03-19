@@ -5,65 +5,77 @@
 
 @else
 
-<div class = "row">
+<div class="row">
     @foreach ($loadproducts as $item)
-        <div class = "col-6 col-sm-4 col-md-3">
-        <div class = "product-default inner-quickview inner-icon">
+        <div class="col-6 col-sm-4 col-md-3">
+            <div class="product-default inner-quickview inner-icon">
                 <figure>
-                    <a   href = "{{ route('product', $item->slug) }}">
-                    <img src = "{{ asset('product_photo/images/'.$item->thumbnail) }}">
+                    <a href="{{ route('product', $item->slug) }}">
+                        <img src="{{ asset('product_photo/' . $item->thumbnail) }}">
                     </a>
-                    <div class = "label-group">
+                    <div class="label-group">
                         {{-- <div class="product-label label-hot">HOT</div> --}}
-                        @if($item->special_price_from != "")
+                        @if ($item->special_price_from != '')
                             @if ($item->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $item->special_price_to)
-                                <div class = "product-label label-sale">{{ number_format((float)((($item->selling_price - $item->special_price)/$item->selling_price)*100), 2) }}</div>
+                                <div class="product-label label-sale">
+                                    {{ number_format((float) ((($item->selling_price - $item->special_price) / $item->selling_price) * 100), 2) }}
+                                </div>
                             @endif
                         @endif
                     </div>
-                    <div    class = "btn-icon-group">
-                    <button class = "btn-icon btn-add-cart" data-toggle = "modal" data-target = "#addCartModal"><i class = "icon-shopping-cart"></i></button>
+                    <div class="btn-icon-group">
+                        <form action="{{ route('cart.add')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="productId" id="" value="{{ $item->id }}">
+                            <button type="submit" class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i
+                                class="icon-shopping-cart"></i></button>
+                        </form>
                     </div>
-                    <a href = "{{ route('product.quickview', $item->slug) }}" class = "btn-quickview" title = "Quick View">Quick View</a>
+                    <a href="{{ route('product.quickview', $item->slug) }}" class="btn-quickview"
+                        title="Quick View">Quick View</a>
 
                 </figure>
-                <div class = "product-details">
+                <div class="product-details">
                     {{-- <div class="category-wrap">
-                        <div class = "category-list">
-                        <a   href  = "category.html" class = "product-category">category</a>
-                        </div>
-                        <a href = "#" class = "btn-icon-wish"><i class = "icon-heart"></i></a>
-                    </div> --}}
-                    <h2 class = "product-title">
-                    <a  href  = "{{ route('product', $item->slug) }}">{{ $item->name }}</a>
+                    <div class = "category-list">
+                    <a   href  = "category.html" class = "product-category">category</a>
+                    </div>
+                    <a href = "#" class = "btn-icon-wish"><i class = "icon-heart"></i></a>
+                </div> --}}
+                    <h2 class="product-title">
+                        <a href="{{ route('product', $item->slug) }}">{{ $item->name }}</a>
                     </h2>
-                    <div  class = "ratings-container">
-                    <div  class = "product-ratings">
-                    <span class = "ratings" style = "width:100%"></span><!-- End .ratings -->
-                    <span class = "tooltiptext tooltip-top"></span>
+                    <div class="ratings-container">
+                        <div class="product-ratings">
+                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                            <span class="tooltiptext tooltip-top"></span>
                         </div><!-- End .product-ratings -->
                     </div><!-- End .product-container -->
-                    <div class = "price-box">
-
-                    @if($item->special_price_from != "")
-                        @if ($item->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $item->special_price_to)
-                        <span class = "old-price">BDT {{ $item->selling_price }}</span>
-                        <span class = "product-price">BDT {{ $item->special_price }}</span>
+                    <div class="price-box">
+                        @if ($item->special_price != '' && $item->special_price != 0)
+                            @if ($item->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $item->special_price_to)
+                                <span  style="font-size: 13px" class="old-price">&#2547; {{ $item->selling_price }}</span>
+                                <span  style="font-size: 13px" class="product-price">&#2547; {{ $item->special_price }}</span>
+                            @else
+                                <span  style="font-size: 13px" class="">&#2547; {{ $item->selling_price }}</span>
+                            @endif
                         @else
-                        <span class = "">{{ $item->id }} | BDT {{ $item->selling_price }}</span>
+                            <span  style="font-size: 13px" class="">&#2547; {{ $item->selling_price }}</span>
                         @endif
-                    @endif
                     </div><!-- End .price-box -->
                 </div><!-- End .product-details -->
             </div>
         </div><!-- End .col-sm-4 -->
         @php
-            $last_id = $item->id
+            $last_id = $item->id;
         @endphp
     @endforeach
-    <button class="btn btn-outline-dark py-4 mx-auto" data-id ={{ $last_id }} id="load-more">Show More</button>
+
 
 </div>
+<div class="text-center">
+    <a href="" class="btn btn-outline-dark py-4 mx-auto" data-id={{ $last_id }} id="load-more">Show More</a>
+</div>
+
 <!-- End .row -->
 @endif
-<script src="{{ asset('frontend/custom.js') }}"></script>

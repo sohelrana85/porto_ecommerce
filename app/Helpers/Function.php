@@ -68,11 +68,11 @@ function getCategory($categories, $level = "", $root_cat = "")
 function color()
 {
     return [
-        '1' => 'White',
-        '2' => 'Black',
-        '3' => 'Yellow',
-        '4' => 'Blue',
-        '5' => 'Red'
+        'White' => 'White',
+        'Black' => 'Black',
+        'Yellow' => 'Yellow',
+        'Blue' => 'Blue',
+        'Red' => 'Red'
     ];
 }
 
@@ -101,11 +101,11 @@ function colorCode($name)
 function size()
 {
     return [
-        '1' => 'SM',
-        '2' => 'M',
-        '3' => 'L',
-        '4' => 'XL',
-        '5' => 'XXL'
+        'SM' => 'SM',
+        'M' => 'M',
+        'L' => 'L',
+        'XL' => 'XL',
+        'XXL' => 'XXL'
     ];
 }
 
@@ -114,17 +114,17 @@ function frontendCategories($categories)
     $output = "";
     $output .= '<ul class="menu menu-vertical sf-arrows">';
     foreach ($categories as $category) {
-        $output .= '<li><a href = "javascript:avoid(0)" class = "sf-with-ul">' . $category->name . '</a>';
+        $output .= '<li><a href = "javascript:avoid(0)" class = "sf-with-ul p-2">' . $category->name . '</a>';
 
         if (count($category->sub_category)) {
             $output .= '<ul>';
             foreach ($category->sub_category as $sub_cat) {
-                $output .= '<li><a href = "' . route('products', [$category->slug, $sub_cat->slug]) . '">' . $sub_cat->name . '</a>';
+                $output .= '<li><a class=" p-2" href = "' . route('products', [$category->slug, $sub_cat->slug]) . '">' . $sub_cat->name . '</a>';
 
                 if (count($sub_cat->sub_category)) {
                     $output .= '<ul>';
                     foreach ($sub_cat->sub_category as $sub_cat1) {
-                        $output .= '<li><a href = "' . route('products', [$category->slug, $sub_cat->slug, $sub_cat1->slug]) . '">' . $sub_cat1->name . '</a>';
+                        $output .= '<li><a class=" p-2" href = " ' . route('products', [$category->slug, $sub_cat->slug, $sub_cat1->slug]) . '">' . $sub_cat1->name . '</a>';
                         $output .= '</li>';
                     }
                     $output .= '</ul>';
@@ -149,4 +149,40 @@ function searchCategories($categories)
     }
     $output .= '</option>';
     return $output;
+}
+
+
+function thumbnail()
+{
+    return [
+        'Samsung_Galaxy_A12.jpg' => 'Samsung_Galaxy_A12.jpg',
+        'Samsung_Galaxy_A20.jpg' => 'Samsung_Galaxy_A20.jpg',
+        'Samsung_Galaxy_A21s.jpg' => 'Samsung_Galaxy_A21s.jpg',
+        'Samsung_Galaxy_M01_Core.jpg' => 'Samsung_Galaxy_M01_Core.jpg',
+        'Samsung_Galaxy_M02.jpg' => 'Samsung_Galaxy_M02.jpg',
+        'Samsung_Galaxy_M02s.jpg' => 'Samsung_Galaxy_M02s.jpg',
+        'Samsung_Galaxy_M40.jpg' => 'Samsung_Galaxy_M40.jpg',
+        'Samsung_Galaxy_Note8.jpg' => 'Samsung_Galaxy_Note8.jpg',
+        'Samsung_Galaxy_M02.jpg' => 'Samsung_Galaxy_M02.jpg',
+        'Samsung_Galaxy_M21.jpg' => 'Samsung_Galaxy_M21.jpg',
+        'Xiaomi_Poco_C3.jpg' => 'Xiaomi_Poco_C3.jpg',
+        'Xiaomi_Poco_M2.jpg' => 'Xiaomi_Poco_M2.jpg',
+        'Xiaomi_Poco_M3.jpg' => 'Xiaomi_Poco_M3.jpg',
+        'Xiaomi_Redmi_Note_9_Pro.jpg' => 'Xiaomi_Redmi_Note_9_Pro.jpg',
+        'Xiaomi_Redmi_Note_9.jpg' => 'Xiaomi_Redmi_Note_9.jpg',
+
+    ];
+}
+function images()
+{
+    return [
+        'images_01.jpg'  => 'images_01.jpg',
+        'images_02.jpg'  => 'images_02.jpg',
+        'images_03.jpg'  => 'images_03.jpg',
+        'images_04.jpg'  => 'images_04.jpg',
+        'images_05.jpg'  => 'images_05.jpg',
+        'images_06.jpg'  => 'images_06.jpg',
+        'images_07.jpg'  => 'images_07.jpg',
+        'images_08.jpg'  => 'images_08.jpg',
+    ];
 }

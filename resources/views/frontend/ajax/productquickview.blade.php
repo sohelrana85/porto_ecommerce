@@ -5,7 +5,7 @@
                 <div class="product-single-carousel owl-carousel owl-theme">
                     @foreach ($images as $prod)
                     <div class="product-item">
-                        <img class="product-single-image" src="{{ asset('product_photo/images/'. $prod) }}" data-zoom-image="{{ asset('product_photo/images/'. $prod) }}"/>
+                        <img class="product-single-image" src="{{ asset('product_photo/'. $prod) }}" data-zoom-image="{{ asset('product_photo/'. $prod) }}"/>
                     </div>
                     @endforeach
                 </div>
@@ -14,7 +14,7 @@
             <div class="prod-thumbnail owl-dots" id='carousel-custom-dots'>
                 @foreach ($images as $prod)
                 <div class="owl-dot">
-                    <img src="{{ asset('product_photo/images/'. $prod) }}" />
+                    <img src="{{ asset('product_photo/'. $prod) }}" />
                 </div>
                 @endforeach
 

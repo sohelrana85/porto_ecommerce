@@ -92,6 +92,7 @@
 
 	<script src="{{ asset('frontend/assets/js/main.min.js') }}"></script>
 	<script src="{{ asset('frontend/custom.js') }}"></script>
+    <script src="{{ asset('frontend/loadmore.js') }}"></script>
 
 
 </body>

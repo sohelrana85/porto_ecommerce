@@ -22,8 +22,11 @@ $(document).ready(function () {
 
     })
 
-
-
-
 })
 
+$(document).on('click','.size-item', function(){
+    $(this).toggleClass('active');
+})
+$(document).on('click','.color-item', function(){
+    $(this).toggleClass('active');
+})

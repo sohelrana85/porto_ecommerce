@@ -81,41 +81,45 @@
                         </div><!-- End .layout-modes -->
                     </div><!-- End .toolbox-right -->
                 </nav>
+                <a href="{{$category['0'] }}" id="cat_id"></a>
 
                 <!-- Start Product show -->
                 <div class="showproduct">
                 </div>
-
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-            <script>
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                })
-                load_more()
-                function load_more(id = "") {
-                    $.ajax({
-                        url: "{{ route('loadmore') }}",
-                        method: "POST",
-                        data: { id: id },
-                        success: function (res) {
-                            $('#load-more').remove();
-                            $('.showproduct').append(res);
-                        }
-                    });
-
-                }
-
-                $(document).on('click', '#load-more', function () {
-                    let id = $(this).data('id')
-                    load_more(id)
-                })
-
-            </script>
-
                 <!-- End product Show -->
+
+
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    })
+                    let cat_id = $('#cat_id').attr('href');
+
+                    load_more(cat_id)
+                    function load_more(cat_id = '', id = '') {
+                        $.ajax({
+                            url: '{{ route("loadmore") }}',
+                            // url: '',
+                            method: "post",
+                            data: { cat_id: cat_id, id: id},
+                            success: function (res) {
+                                $('#load-more').remove();
+                                $('.showproduct').append(res);
+                            }
+                        });
+                    }
+
+                    $(document).on('click', '#load-more', function (e) {
+                        e.preventDefault();
+                        let id = $(this).data('id');
+                        // let cat_id = $('#cat_id').attr('href');
+                        // let url = $(this).attr('href');
+                        load_more(cat_id, id)
+                    })
+                </script>
 
                 {{-- <nav class = "toolbox toolbox-pagination">
                 <div class = "toolbox-item toolbox-show">
@@ -241,7 +245,7 @@
                                     <div class = "product-default left-details product-widget">
                                         <figure>
                                             <a   href = "{{ route('product', $fitem->slug) }}">
-                                            <img src  = "{{ asset('product_photo/images/'.$fitem->thumbnail) }}">
+                                            <img src  = "{{ asset('product_photo/'.$fitem->thumbnail) }}">
                                             </a>
                                         </figure>
                                         <div class = "product-details">

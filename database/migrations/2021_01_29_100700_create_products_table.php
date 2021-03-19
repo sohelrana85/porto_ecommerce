@@ -35,6 +35,7 @@ class CreateProductsTable extends Migration
             $table->string('warranty_duration')->nullable();
             $table->longText('warranty_condition')->nullable();
             $table->longText('description');
+            $table->tinyInteger('featured')->default('0')->comment('1 for active 0 for Inactive');
             $table->enum('status', ['active', 'inactive'])->default('inactive');
             $table->unsignedBigInteger('create_by');
             $table->foreign('category_id')->on('categories')->references('id')->onDelete('cascade');
