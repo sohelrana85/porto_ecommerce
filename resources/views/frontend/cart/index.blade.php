@@ -66,10 +66,11 @@
                                             <button type="submit" class="btn btn-outline-secondary btn-sm py-2 m-2" onclick="document.querySelector('#item-{{$item->id}}').submit()">Update</button>
                                         </div>
                                         <div style="height: 40px; margin-bottom: 10px">
-                                            <form action="{{ route('cart.remove', $item->id) }}" method="post">
+                                            {{-- <form action="{{ route('cart.remove', $item->id) }}" method="post">
                                                 @csrf
                                                 <button type="submit" class="btn btn-outline-secondary btn-sm py-2 m-2">Remove</button>
-                                            </form>
+                                            </form> --}}
+                                            <a href="{{ route('cart.remove', $item->id) }}" class="btn btn-outline-secondary btn-sm py-2 m-2">Remove</a>
                                         </div>
                                     </div><!-- End .float-right -->
                                 </td>

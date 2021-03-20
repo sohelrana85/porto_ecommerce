@@ -42,12 +42,12 @@
         @include('frontend.components.header')
 
 		<main class="main">
-        @yield('content')
+            @yield('content')
 		</main><!-- End .main -->
 
         @include('frontend.components.footer')
 
-	    </div><!-- End .page-wrapper -->
+	</div><!-- End .page-wrapper -->
 
 	    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
 

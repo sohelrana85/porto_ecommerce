@@ -123,15 +123,5 @@ class SiteController extends Controller
             return view('frontend.loadmoredata', compact('loadproducts'));
 
         }
-
-        // if ($request->ajax()) {
-        //     if ($request->id) {
-        //         $loadproducts     = Product::where('id', '<', $request->id)->active()->orderBy('id', 'Desc')->limit(8)->get();
-        //     } else {
-        //         $loadproducts     = Product::active()->orderBy('id', 'Desc')->limit(16)->get();
-        //     }
-            // return $loadproducts;
-            // return view('frontend.loadmoredata', compact('loadproducts'));
-
     }
 }

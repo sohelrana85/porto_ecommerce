@@ -1,6 +1,58 @@
 <header class="header">
 
-    <div class="header-middle text-dark">
+    <div class="header-top bg-primary text-uppercase">
+        <div class="container">
+            <div class="header-left">
+                <div class="header-dropdown">
+                    <a href="#" class="pl-0"><img src="assets/images/flags/en.png" alt="England flag">ENG</a>
+                    <div class="header-menu">
+                        <ul>
+                            <li><a href="#"><img src="assets/images/flags/en.png" alt="England flag">ENG</a></li>
+                            <li><a href="#"><img src="assets/images/flags/fr.png" alt="France flag">FRA</a></li>
+                        </ul>
+                    </div><!-- End .header-menu -->
+                </div><!-- End .header-dropown -->
+
+                <div class="header-dropdown ml-4">
+                    <a href="#">USD</a>
+                    <div class="header-menu">
+                        <ul>
+                            <li><a href="#">EUR</a></li>
+                            <li><a href="#">USD</a></li>
+                        </ul>
+                    </div><!-- End .header-menu -->
+                </div><!-- End .header-dropown -->
+            </div><!-- End .header-left -->
+
+            <div class="header-right header-dropdowns ml-0 ml-sm-auto">
+                <p class="top-message mb-0 mr-lg-5 pr-3 d-none d-sm-block">Welcome To Porto!</p>
+                <div class="header-dropdown dropdown-expanded mr-3">
+                    <a href="#">Links</a>
+                    <div class="header-menu">
+                        <ul>
+                            <li><a href="my-account.html">Track Order </a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="category.html">Our Stores</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="#">Help &amp; FAQs</a></li>
+                        </ul>
+                    </div><!-- End .header-menu -->
+                </div><!-- End .header-dropown -->
+
+                <span class="separator"></span>
+
+                <div class="social-icons">
+                    <a href="#" class="social-icon social-instagram icon-instagram" target="_blank"></a>
+                    <a href="#" class="social-icon social-twitter icon-twitter" target="_blank"></a>
+                    <a href="#" class="social-icon social-facebook icon-facebook" target="_blank"></a>
+                </div><!-- End .social-icons -->
+            </div><!-- End .header-right -->
+        </div><!-- End .container -->
+    </div><!-- End .header-top -->
+
+
+    <div class="header-middle text-dark sticky-header" style="padding: 1.5rem 0;">
         <div class="container">
             <div class="header-left col-lg-2 w-auto pl-0">
                 <button class="mobile-menu-toggler mr-2" type="button">
@@ -40,7 +92,7 @@
                 <div class="dropdown cart-dropdown">
                     <a href="#" class="dropdown-toggle dropdown-arrow" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                         <i class="icon-shopping-cart"></i>
-                        <span class="cart-count badge-circle">2</span>
+                        <span class="cart-count badge-circle">{{count($cart_items)}}</span>
                     </a>
 
                     <div class="dropdown-menu">
@@ -70,11 +122,11 @@
                                         <a href="{{ route('product', $cartitem->attributes->slug) }}" class="product-image">
                                             <img src="{{ asset('product_photo/'. $cartitem->attributes->thumbnail) }}" alt="product" style="height: 60px; object-fit: cover">
                                         </a>
-                                        <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
+                                        <a href="{{ route('cart.remove', $cartitem->id) }}" class="btn-remove icon-cancel" title="Remove Product"></a>
                                     </figure>
                                 </div><!-- End .product -->
                                 @endforeach
-{{--
+                                {{--
                                 <div class="product">
                                     <div class="product-details">
                                         <h4 class="product-title">
@@ -99,7 +151,7 @@
                             <div class="dropdown-cart-total">
                                 <span>Total</span>
 
-                                <span class="cart-total-price float-right">$134.00</span>
+                                <span class="cart-total-price float-right">&#2547; {{Cart::getSubTotal()}}</span>
                             </div><!-- End .dropdown-cart-total -->
 
                             <div class="dropdown-cart-action">

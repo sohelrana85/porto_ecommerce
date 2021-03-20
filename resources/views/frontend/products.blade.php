@@ -225,7 +225,7 @@
                         <ul  class = "cat-list">
 
                                     @foreach ($brands as $brand)
-                                    <li><a href = "javascript:">{{ $brand->name }} ({{ $brand->products->count() }})</a></li>
+                                    <li><a href = "{{route('loadmore', $brand->slug)}}">{{ $brand->name }} ({{ $brand->products->count() }})</a></li>
                                     @endforeach
                                 </ul>
                             </div><!-- End .widget-body -->
