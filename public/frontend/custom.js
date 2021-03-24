@@ -1,3 +1,10 @@
+$(document).on('click', '.size-item', function(e){
+    e.preventDefault();
+    $(this).toggleClass('active');
+})
+
+
+
 $(document).ready(function () {
 
     $.ajaxSetup({
@@ -22,11 +29,9 @@ $(document).ready(function () {
 
     })
 
+    $(".color-item").click(function(){
+        $(this).toggleClass("active");
+      });
+
 })
 
-$(document).on('click','.size-item', function(){
-    $(this).toggleClass('active');
-})
-$(document).on('click','.color-item', function(){
-    $(this).toggleClass('active');
-})

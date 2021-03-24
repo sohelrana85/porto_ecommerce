@@ -75,7 +75,7 @@
                             <label>Sizes:</label>
                             <ul class="config-size-list">
                                 @foreach (json_decode($product->size) as $key => $value)
-                                <li class="size-item" data-value="$value"><a href="javascript:">{{ $value }}</a></li>
+                                <li class="size-item" data-value="{{$value}}"><a href="javascript:">{{ $value }}</a></li>
                                 @endforeach
                             </ul>
                         </div><!-- End .product-single-filter -->
@@ -85,7 +85,7 @@
                             <label>Color:</label>
                             <ul class="config-size-list">
                                 @foreach (json_decode($product->color) as $key => $value)
-                                <li class="color-item"><a href="#" style="background-color: #{{ colorCode($value) }};"></a></li>
+                                <li class="color-item" data-value="{{$value}}"><a href="javascript:" style="background-color: #{{ colorCode($value) }}"></a></li>
                                 @endforeach
 
                             </ul>

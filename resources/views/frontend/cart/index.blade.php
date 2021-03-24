@@ -120,7 +120,7 @@
 
                                     <div class="float-right">
                                         <a href="{{ route('cart.remove-all') }}" class="btn btn-outline-secondary btn-clear-cart">Clear Shopping Cart</a>
-                                        <a href="#" class="btn btn-outline-secondary btn-update-cart">Update Shopping Cart</a>
+                                        {{-- <a href="#" class="btn btn-outline-secondary btn-update-cart">Update Shopping Cart</a> --}}
                                     </div><!-- End .float-right -->
                                 </td>
                             </tr>

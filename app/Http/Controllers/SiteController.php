@@ -90,8 +90,9 @@ class SiteController extends Controller
 
 
 
-    public function productQuickview($slug)
+    public function productquickview($slug)
     {
+        dd($slug);
         $product = Product::where('slug', $slug)->first();
 
         // marge thumbnail and images
