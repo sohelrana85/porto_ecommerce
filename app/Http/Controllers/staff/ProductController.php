@@ -27,6 +27,8 @@ class ProductController extends Controller
     public function getData(Request $request)
     {
         $products = Product::Paginate(5);
+
+        dd($products);
         return view('backend.product.pdatatable', compact('products'));
     }
 

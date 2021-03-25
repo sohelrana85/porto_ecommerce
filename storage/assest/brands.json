@@ -124,5 +124,35 @@
         "slug": "Apple",
         "status": "active",
         "create_by": "1"
+    },
+	{
+        "name": "Nokia",
+        "slug": "Nokia",
+        "status": "active",
+        "create_by": "1"
+    },
+	{
+        "name": "Symphony",
+        "slug": "Symphony",
+        "status": "active",
+        "create_by": "1"
+    },
+	{
+        "name": "Huawei",
+        "slug": "Huawei",
+        "status": "active",
+        "create_by": "1"
+    },
+	{
+        "name": "Oneplus",
+        "slug": "Oneplus",
+        "status": "active",
+        "create_by": "1"
+    },
+	{
+        "name": "Alcatel",
+        "slug": "Alcatel",
+        "status": "active",
+        "create_by": "1"
     }
 ]

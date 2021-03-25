@@ -13,7 +13,8 @@ $(document).ready(function () {
         }
     })
 
-    $('.btn-quickview').click(function (e) {
+    $(document).on('click','.btn-quickview',function(e){
+    // $('.btn-quickview').click(function (e) {
         e.preventDefault();
         $('.bd-example-modal-lg').modal('show');
 

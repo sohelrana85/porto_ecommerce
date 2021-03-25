@@ -37,7 +37,7 @@
 
                     {{-- <td>{{ $product->id }}</td> --}}
 
-                    <td class="p-1 text-center"><img src="{{ asset('product_photo/images')}}/{{ $product->thumbnail }}" alt="{{ $product->name }}" width="60px"></td>
+                    <td class="p-1 text-center"><img src="{{ asset('product_photo/' . $product->thumbnail) }}" alt="{{ $product->name }}" width="60px"></td>
                     <td class="text-wrap">{{ $product->name }}</td>
                     <td>{{ $product->category->name }}</td>
                     <td>{{ $product->brand->name }}</td>
