@@ -45,10 +45,12 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::find($request->productId);
+        // return $request->all();
 
-        if ($product->special_price != '' && $product->special_price != 0){
-            if ($product->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $product->special_price_to){
+        $product = Product::find($request->productId);
+        // return $product;
+        if ($product->special_price != '' && $product->special_price != 0) {
+            if ($product->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $product->special_price_to) {
                 $price = $product->special_price;
             } else {
                 $price = $product->selling_price;
@@ -57,18 +59,67 @@ class CartController extends Controller
             $price = $product->selling_price;
         }
 
-
-        \Cart::add(array(
+        if ($request->ajax()) {
+            \Cart::add(array(
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $price,
+                'quantity' => $request->qty,
+                'attributes' => array(
+                    'thumbnail' => $product->thumbnail,
+                    'slug' => $product->slug,
+                    'size' => $request->size,
+                    'color' => $request->color,
+                )
+            ));
+            return response()->json([
+                'status' => 1,
+                'message' => 'The product added successfully'
+            ]);
+        } else {
+            \Cart::add(array(
                 'id' => $product->id,
                 'name' => $product->name,
                 'price' => $price,
                 'quantity' => 1,
                 'attributes' => array(
                     'thumbnail' => $product->thumbnail,
-                    'slug' => $product->slug,
+                    'slug' => $product->slug
                 )
-        ));
-        return redirect()->back();
+            ));
+            return redirect()->back();
+        }
+
+
+
+        // dd(\Cart::getContent());
+        // }
+        // $product = Product::find($request->productId);
+
+        // if ($product->special_price != '' && $product->special_price != 0) {
+        //     if ($product->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $product->special_price_to) {
+        //         $price = $product->special_price;
+        //     } else {
+        //         $price = $product->selling_price;
+        //     }
+        // } else {
+        //     $price = $product->selling_price;
+        // }
+
+
+        // \Cart::add(array(
+        //     'id' => $product->id,
+        //     'name' => $product->name,
+        //     'price' => $price,
+        //     'quantity' => 1,
+        //     'attributes' => array(
+        //         'thumbnail' => $product->thumbnail,
+        //         'slug' => $product->slug,
+        //         'size' => $product->size,
+        //         'color' => $product->color,
+        //     )
+        // ));
+        // return redirect()->back();
     }
 
     /**
@@ -108,9 +159,8 @@ class CartController extends Controller
                 'relative' => false,
                 'value' => $request->quantity,
             ),
-          ));
-          return redirect()->back();
-
+        ));
+        return redirect()->back();
     }
 
     /**
