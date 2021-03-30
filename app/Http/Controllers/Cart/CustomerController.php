@@ -24,26 +24,18 @@ class CustomerController extends Controller
             'phone_email'    => is_numeric($request->phone_email) ? 'required|numeric|digits:11' : 'required|email:rfc,dns',
             'password' => 'required|min:6|max:20'
         ]);
-        // $customer = Customer::where('phone', $request->phone_email)->first();
 
-        if (is_numeric($request->phone_email)) {
-            $customer = Customer::where('phone', $request->phone_email)->first();
-        } else {
-            $customer = Customer::where('email', $request->phone_email)->first();
-        }
+        $customer = Customer::where('phone', $request->phone_email)->orWhere('email', $request->phone_email)->first();
 
         if ($customer) {
             if (password_verify($request->password, $customer->password)) {
                 $request->session()->put('customer_id', $customer->id);
                 $request->session()->put('customer_id', $customer->name);
-                return redirect('/');
+                return redirect()->route('customer.myaccount');
             } else {
                 session()->flash('login_error', 'These Credentials do not match with records');
                 return redirect()->back();
             }
-        } else {
-            session()->flash('login_error', 'These Credentials do not match with records');
-            return redirect()->back();
         }
     }
 
@@ -95,6 +87,6 @@ class CustomerController extends Controller
     public function myaccount()
     {
         $cart_items = \Cart::getContent()->sort();
-        return view('frontend.cart.load_cart_item', compact('cart_items'));
+        return view('frontend.customer.myaccount', compact('cart_items'));
     }
 }

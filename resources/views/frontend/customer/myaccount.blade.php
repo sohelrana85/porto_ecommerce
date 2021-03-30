@@ -1,7 +1,7 @@
 @extends('frontend.components.layout')
 
 @section('title')
-    Login
+    My Account
 @endsection
 
 @section('content')
