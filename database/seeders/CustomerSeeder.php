@@ -18,13 +18,14 @@ class CustomerSeeder extends Seeder
     {
 
         $faker = Factory::create();
-        foreach (range(1,50) as $value) {
+        foreach (range(1, 50) as $value) {
 
             Customer::create([
                 'name'     => $faker->name,
-                'phone'    => '88017'.rand(11111111,99999999),
+                'phone'    => '017' . rand(11111111, 99999999),
                 'email'    => $faker->email,
                 'password' => bcrypt('123456'),
+                'offer_mail' => '0',
             ]);
         }
     }

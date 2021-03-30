@@ -144,8 +144,7 @@
                             </tfoot>
                         </table>
                     </div><!-- End .cart-table-container -->
-
-                    <div class="cart-discount">
+                    {{-- <div class="cart-discount">
                         <h4>Apply Discount Code</h4>
                         <form action="#">
                             <div class="input-group">
@@ -156,14 +155,14 @@
                                 </div>
                             </div><!-- End .input-group -->
                         </form>
-                    </div><!-- End .cart-discount -->
+                    </div><!-- End .cart-discount --> --}}
                 </div><!-- End .col-lg-8 -->
 
                 <div class="col-lg-4">
                     <div class="cart-summary">
-                        <h3>Summary</h3>
+                        <h3 class="border-bottom pb-2 mb-4">Summary</h3>
 
-                        <h4>
+                        {{-- <h4>
                             <a data-toggle="collapse" href="#total-estimate-section" class="collapsed" role="button"
                                 aria-expanded="false" aria-controls="total-estimate-section">Estimate Shipping and Tax</a>
                         </h4>
@@ -213,24 +212,37 @@
                                     </div><!-- End .custom-checkbox -->
                                 </div><!-- End .form-group -->
                             </form>
-                        </div><!-- End #total-estimate-section -->
+                        </div><!-- End #total-estimate-section --> --}}
 
                         <table class="table table-totals">
                             <tbody>
                                 <tr>
                                     <td>Subtotal</td>
-                                    <td>{{ Cart::getSubTotal() }}</td>
+                                    <td>&#2547; {{ Cart::getSubTotal() }}</td>
                                 </tr>
 
                                 <tr>
-                                    <td>Tax</td>
-                                    <td>$0.00</td>
+                                    <td>Estimated Delivery Charge <br> <span style="font-size:12px">(Inside Dhaka
+                                            City)</span>
+                                    </td>
+                                    <td>&#2547; 60</td>
+                                </tr>
+                                <tr>
+                                    <form action="#">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control form-control-sm py-1"
+                                                placeholder="Enter discount code" required>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-sm btn-primary py-1" type="submit">Apply</button>
+                                            </div>
+                                        </div><!-- End .input-group -->
+                                    </form>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td>Order Total</td>
-                                    <td>$17.90</td>
+                                    <td>&#2547; {{ Cart::getSubTotal() + 60 }}</td>
                                 </tr>
                             </tfoot>
                         </table>

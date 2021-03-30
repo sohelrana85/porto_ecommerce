@@ -14,7 +14,7 @@ $(document).on('click', '.color-item', function(e){
 
 
 
-//quick view modal loader
+//QUICK VIEW MODAL LOADER
 
 $(document).ready(function () {
 
@@ -40,7 +40,10 @@ $(document).ready(function () {
     })
 })
 
-//product items increement/decreement
+
+
+//PRODUCT ITEMS INCREMENT AND DECREEMENT
+
 $(document).on('click', '#qtyplus', function(e){
     e.preventDefault();
     let val = $('#quantity').val();
@@ -59,11 +62,12 @@ $(document).on('click', '#qtyminus', function(e){
 })
 
 
+// VALIDATION CHECK AND UPDATE CART ITEM FORM PRODUCT DETAILS PAGE
 
 $(document).on('click', '#add-to-cart', function(e){
     e.preventDefault();
     let qty = $('#quantity').val();
-    if(qty = '' || qty == 0 ){
+    if(qty == '' || qty == 0 ){
         toastr.error('Quantity cannot be empty');
     }
     let productId = $('#id').val();
@@ -75,14 +79,15 @@ $(document).on('click', '#add-to-cart', function(e){
     if(color == ''){
         toastr.error('Select a color');
     }
-    if(qty != '' && size != '' && color != '') {
+    if((qty >= 0) && (size != '') && (color != '')) {
+
         $.ajax({
             url: "/cart/add",
             method: "post",
             data: {qty: qty, productId:productId,size:size,color:color},
             success: function(result){
-
                 if(result.status === 1){
+                    load_cart_item();
                     toastr.success(result.message);
                 }
             }
@@ -92,4 +97,30 @@ $(document).on('click', '#add-to-cart', function(e){
 })
 
 
+// PRODUCT ADD FROM ICON OF THUMBNAIL CART
 
+$(document).on('click', '.btn-add-cart', function(e){
+    e.preventDefault();
+    let productId = $(this).val();
+
+    $.ajax({
+        url: '/cart/add/icon',
+        method: 'post',
+        data: {productId:productId},
+        success: function(res) {
+            load_cart_item();
+            toastr.success(res.message);
+        }
+    });
+})
+
+function load_cart_item(){
+    $.ajax({
+        url: '/cart/load-cart-item',
+        method: 'post',
+        data: {},
+        success: function(res) {
+            $('#cart-reload').html(res);
+        }
+    });
+}

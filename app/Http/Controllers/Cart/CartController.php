@@ -73,8 +73,8 @@ class CartController extends Controller
                 )
             ));
             return response()->json([
-                'status' => 1,
-                'message' => 'The product added successfully'
+                'status'    => 1,
+                'message'   => 'The product added successfully'
             ]);
         } else {
             \Cart::add(array(
@@ -89,37 +89,37 @@ class CartController extends Controller
             ));
             return redirect()->back();
         }
+    }
 
+    public function store_from_icon(Request $request)
+    {
+        if ($request->ajax()) {
+            $product = Product::find($request->productId);
 
+            if ($product->special_price != '' && $product->special_price != 0) {
+                if ($product->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $product->special_price_to) {
+                    $price = $product->special_price;
+                } else {
+                    $price = $product->selling_price;
+                }
+            } else {
+                $price = $product->selling_price;
+            }
 
-        // dd(\Cart::getContent());
-        // }
-        // $product = Product::find($request->productId);
-
-        // if ($product->special_price != '' && $product->special_price != 0) {
-        //     if ($product->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $product->special_price_to) {
-        //         $price = $product->special_price;
-        //     } else {
-        //         $price = $product->selling_price;
-        //     }
-        // } else {
-        //     $price = $product->selling_price;
-        // }
-
-
-        // \Cart::add(array(
-        //     'id' => $product->id,
-        //     'name' => $product->name,
-        //     'price' => $price,
-        //     'quantity' => 1,
-        //     'attributes' => array(
-        //         'thumbnail' => $product->thumbnail,
-        //         'slug' => $product->slug,
-        //         'size' => $product->size,
-        //         'color' => $product->color,
-        //     )
-        // ));
-        // return redirect()->back();
+            \Cart::add(array(
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $price,
+                'quantity' => 1,
+                'attributes' => array(
+                    'thumbnail' => $product->thumbnail,
+                    'slug' => $product->slug
+                )
+            ));
+            return response()->json([
+                'message' => 'Product added successfully'
+            ]);;
+        }
     }
 
     /**
@@ -179,5 +179,11 @@ class CartController extends Controller
     {
         \Cart::clear();
         return redirect()->back();
+    }
+
+    public function load_cart_item()
+    {
+        $cart_items = \Cart::getContent()->sort();
+        return view('frontend.cart.load_cart_item', compact('cart_items'));
     }
 }

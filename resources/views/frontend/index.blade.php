@@ -38,12 +38,11 @@
 
         <div class="row">
             <div class="col-lg-9">
-                <div class="home-slider owl-carousel owl-theme owl-carousel-lazy mb-2"
-                    data-owl-options="{
-                                        'loop': false,
-                                        'dots': true,
-                                        'nav': false
-                                    }">
+                <div class="home-slider owl-carousel owl-theme owl-carousel-lazy mb-2" data-owl-options="{
+                                                                    'loop': false,
+                                                                    'dots': true,
+                                                                    'nav': false
+                                                                }">
                     <div class="home-slide home-slide1 banner banner-md-vw banner-sm-vw">
                         <img class="owl-lazy slide-bg" src="{{ asset('frontend/assets/images/lazy.png') }}"
                             data-src="{{ asset('frontend/assets/images/slider/slide-1.png') }}" alt="slider image">
@@ -82,20 +81,19 @@
                     </div><!-- End .home-slide -->
                 </div><!-- End .home-slider -->
 
-                <div class="banners-container m-b-2 owl-carousel owl-theme"
-                    data-owl-options="{
-                                        'dots': false,
-                                        'margin': 20,
-                                        'loop': false,
-                                        'responsive': {
-                                            '480': {
-                                                'items': 2
-                                            },
-                                            '768': {
-                                                'items': 3
-                                            }
-                                        }
-                                    }">
+                <div class="banners-container m-b-2 owl-carousel owl-theme" data-owl-options="{
+                                                                    'dots': false,
+                                                                    'margin': 20,
+                                                                    'loop': false,
+                                                                    'responsive': {
+                                                                        '480': {
+                                                                            'items': 2
+                                                                        },
+                                                                        '768': {
+                                                                            'items': 3
+                                                                        }
+                                                                    }
+                                                                }">
                     <div class="banner banner1 banner-hover-shadow mb-2">
                         <figure>
                             <img src="{{ asset('frontend/assets/images/banners/banner-1.jpg') }}" alt="banner">
@@ -136,18 +134,15 @@
                         <div class="product-default inner-quickview inner-icon">
                             <figure>
                                 <a href="{{ route('product', $featureproduct->slug) }}">
-                                    <img src="{{ asset('product_photo/'.$featureproduct->thumbnail) }}">
+                                    <img src="{{ asset('product_photo/' . $featureproduct->thumbnail) }}">
                                 </a>
                                 <div class="label-group">
                                     <div class="product-label label-hot">HOT</div>
                                 </div>
                                 <div class="btn-icon-group">
-                                    <form action="{{ route('cart.add')}}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="productId" id="" value="{{ $featureproduct->id }}">
-                                        <button type="submit" class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i
+                                    <button type="submit" class="btn-icon btn-add-cart" data-toggle="modal"
+                                        data-target="#addCartModal1" value="{{ $featureproduct->id }}"><i
                                             class="icon-shopping-cart"></i></button>
-                                    </form>
                                 </div>
                                 <a href="{{ route('product.quickview', $featureproduct->slug) }}" class="btn-quickview"
                                     title="Quick View">Quick
@@ -174,13 +169,17 @@
                                 <div class="price-box">
                                     @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
                                         @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
-                                            <span  style="font-size: 13px" class="old-price">&#2547; {{ $featureproduct->selling_price }}</span>
-                                            <span  style="font-size: 13px" class="product-price">&#2547; {{ $featureproduct->special_price }}</span>
+                                            <span style="font-size: 13px" class="old-price">&#2547;
+                                                {{ $featureproduct->selling_price }}</span>
+                                            <span style="font-size: 13px" class="product-price">&#2547;
+                                                {{ $featureproduct->special_price }}</span>
                                         @else
-                                            <span  style="font-size: 13px" class="">&#2547; {{ $featureproduct->selling_price }}</span>
+                                            <span style="font-size: 13px" class="">&#2547;
+                                                {{ $featureproduct->selling_price }}</span>
                                         @endif
                                     @else
-                                        <span  style="font-size: 13px" class="">&#2547; {{ $featureproduct->selling_price }}</span>
+                                        <span style="font-size: 13px" class="">&#2547;
+                                            {{ $featureproduct->selling_price }}</span>
                                     @endif
                                 </div><!-- End .price-box -->
                             </div><!-- End .product-details -->
@@ -203,12 +202,9 @@
                                     <div class="product-label label-hot">HOT</div>
                                 </div>
                                 <div class="btn-icon-group">
-                                    <form action="{{ route('cart.add')}}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="productId" id="" value="{{ $featureproduct->id }}">
-                                        <button type="submit" class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i
+                                    <button type="submit" class="btn-icon btn-add-cart" data-toggle="modal"
+                                        data-target="#addCartModal1" value="{{ $featureproduct->id }}"><i
                                             class="icon-shopping-cart"></i></button>
-                                    </form>
                                 </div>
                                 <a href="{{ route('product.quickview', $featureproduct->slug) }}" class="btn-quickview"
                                     title="Quick View">Quick
@@ -234,13 +230,17 @@
                                 <div class="price-box">
                                     @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
                                         @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
-                                            <span  style="font-size: 13px" class="old-price">&#2547; {{ $featureproduct->selling_price }}</span>
-                                            <span  style="font-size: 13px" class="product-price">&#2547; {{ $featureproduct->special_price }}</span>
+                                            <span style="font-size: 13px" class="old-price">&#2547;
+                                                {{ $featureproduct->selling_price }}</span>
+                                            <span style="font-size: 13px" class="product-price">&#2547;
+                                                {{ $featureproduct->special_price }}</span>
                                         @else
-                                            <span  style="font-size: 13px" class="">&#2547; {{ $featureproduct->selling_price }}</span>
+                                            <span style="font-size: 13px" class="">&#2547;
+                                                {{ $featureproduct->selling_price }}</span>
                                         @endif
                                     @else
-                                        <span  style="font-size: 13px" class="">&#2547; {{ $featureproduct->selling_price }}</span>
+                                        <span style="font-size: 13px" class="">&#2547;
+                                            {{ $featureproduct->selling_price }}</span>
                                     @endif
                                 </div><!-- End .price-box -->
                             </div><!-- End .product-details -->
@@ -263,12 +263,9 @@
                                     <div class="product-label label-hot">HOT</div>
                                 </div>
                                 <div class="btn-icon-group">
-                                    <form action="{{ route('cart.add')}}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="productId" id="" value="{{ $featureproduct->id }}">
-                                        <button type="submit" class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i
+                                    <button type="submit" class="btn-icon btn-add-cart" data-toggle="modal"
+                                        data-target="#addCartModal1" value="{{ $featureproduct->id }}"><i
                                             class="icon-shopping-cart"></i></button>
-                                    </form>
                                 </div>
                                 <a href="{{ route('product.quickview', $featureproduct->slug) }}" class="btn-quickview"
                                     title="Quick View">Quick
@@ -292,16 +289,20 @@
                                     </div><!-- End .product-ratings -->
                                 </div><!-- End .product-container -->
                                 <div class="price-box">
-                                @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
-                                    @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
-                                        <span  style="font-size: 13px" class="old-price">&#2547; {{ $featureproduct->selling_price }}</span>
-                                        <span  style="font-size: 13px" class="product-price">&#2547; {{ $featureproduct->special_price }}</span>
+                                    @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
+                                        @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
+                                            <span style="font-size: 13px" class="old-price">&#2547;
+                                                {{ $featureproduct->selling_price }}</span>
+                                            <span style="font-size: 13px" class="product-price">&#2547;
+                                                {{ $featureproduct->special_price }}</span>
+                                        @else
+                                            <span style="font-size: 13px" class="">&#2547;
+                                                {{ $featureproduct->selling_price }}</span>
+                                        @endif
                                     @else
-                                        <span  style="font-size: 13px" class="">&#2547; {{ $featureproduct->selling_price }}</span>
+                                        <span style="font-size: 13px" class="">&#2547;
+                                            {{ $featureproduct->selling_price }}</span>
                                     @endif
-                                @else
-                                    <span  style="font-size: 13px" class="">&#2547; {{ $featureproduct->selling_price }}</span>
-                                @endif
                                 </div><!-- End .price-box -->
                             </div><!-- End .product-details -->
                         </div>
@@ -706,8 +707,8 @@
                 <div class="widget widget-posts post-date-in-media">
                     <div class="owl-carousel owl-theme dots-left dots-m-0"
                         data-owl-options="{
-                                                                                                                                                                                            'margin': 20
-                                                                                                                                                                                        }">
+                                                                                                                                                                                                                        'margin': 20
+                                                                                                                                                                                                                    }">
                         <article class="post">
                             <div class="post-media">
                                 <a href="single.html">
