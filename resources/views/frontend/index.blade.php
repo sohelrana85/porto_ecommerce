@@ -39,10 +39,10 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="home-slider owl-carousel owl-theme owl-carousel-lazy mb-2" data-owl-options="{
-                                                                    'loop': false,
-                                                                    'dots': true,
-                                                                    'nav': false
-                                                                }">
+                                                                                'loop': false,
+                                                                                'dots': true,
+                                                                                'nav': false
+                                                                            }">
                     <div class="home-slide home-slide1 banner banner-md-vw banner-sm-vw">
                         <img class="owl-lazy slide-bg" src="{{ asset('frontend/assets/images/lazy.png') }}"
                             data-src="{{ asset('frontend/assets/images/slider/slide-1.png') }}" alt="slider image">
@@ -82,18 +82,18 @@
                 </div><!-- End .home-slider -->
 
                 <div class="banners-container m-b-2 owl-carousel owl-theme" data-owl-options="{
-                                                                    'dots': false,
-                                                                    'margin': 20,
-                                                                    'loop': false,
-                                                                    'responsive': {
-                                                                        '480': {
-                                                                            'items': 2
-                                                                        },
-                                                                        '768': {
-                                                                            'items': 3
-                                                                        }
-                                                                    }
-                                                                }">
+                                                                                'dots': false,
+                                                                                'margin': 20,
+                                                                                'loop': false,
+                                                                                'responsive': {
+                                                                                    '480': {
+                                                                                        'items': 2
+                                                                                    },
+                                                                                    '768': {
+                                                                                        'items': 3
+                                                                                    }
+                                                                                }
+                                                                            }">
                     <div class="banner banner1 banner-hover-shadow mb-2">
                         <figure>
                             <img src="{{ asset('frontend/assets/images/banners/banner-1.jpg') }}" alt="banner">
@@ -151,8 +151,7 @@
                             <div class="product-details">
                                 {{-- <div class="category-wrap">
                                     <div class="category-list">
-                                        <a href="category.html"
-                                            class="product-category">{{ $featureproduct->category->name }}</a>
+                                        <a href="category.html" class="product-category">{{ $featureproduct->name }}</a>
                                     </div>
                                     <a href="#" class="btn-icon-wish"><i class="icon-heart"></i></a>
                                 </div> --}}
@@ -707,8 +706,8 @@
                 <div class="widget widget-posts post-date-in-media">
                     <div class="owl-carousel owl-theme dots-left dots-m-0"
                         data-owl-options="{
-                                                                                                                                                                                                                        'margin': 20
-                                                                                                                                                                                                                    }">
+                                                                                                                                                                                                                                    'margin': 20
+                                                                                                                                                                                                                                }">
                         <article class="post">
                             <div class="post-media">
                                 <a href="single.html">

@@ -186,3 +186,36 @@ function images()
         'images_08.jpg'  => 'images_08.jpg',
     ];
 }
+
+
+function headerCategories($categories)
+{
+    $output = "";
+    $output .= '<ul>';
+    foreach ($categories as $category) {
+        $output .= '<li><a href="#">' . $category->name . '</a>';
+
+        if (count($category->sub_category)) {
+            $output .= '<ul>';
+            foreach ($category->sub_category as $sub_cat) {
+                $output .= '<li><a href = "' . route('products', [$category->slug, $sub_cat->slug]) . '">' . $sub_cat->name . '</a>';
+
+                if (count($sub_cat->sub_category)) {
+                    $output .= '<ul>';
+                    foreach ($sub_cat->sub_category as $sub_cat1) {
+                        $output .= '<li><a href = " ' . route('products', [$category->slug, $sub_cat->slug, $sub_cat1->slug]) . '">' . $sub_cat1->name . '</a>';
+                        $output .= '</li>';
+                    }
+                    $output .= '</ul>';
+                }
+
+                $output .= '</li>';
+            }
+            $output .= '</ul>';
+        }
+
+        $output .= '</li>';
+    }
+    $output .= '</ul>';
+    return $output;
+}

@@ -4,6 +4,10 @@
     Product
 @endsection
 
+@section('topmenu')
+    @include('frontend.components.topmenu')
+@endsection
+
 @section('content')
 
     <main class="main">
@@ -48,7 +52,6 @@
                             <div class="product-ratings">
                                 <span class="ratings" style="width:60%"></span><!-- End .ratings -->
                             </div><!-- End .product-ratings -->
-
                             <a href="#" class="rating-link">( 6 Reviews )</a>
                         </div><!-- End .ratings-container -->
 
@@ -144,7 +147,8 @@
                                 <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank" title="Mail"></a>
                             </div><!-- End .social-icons -->
 
-                            <a href="#" class="add-wishlist" title="Add to Wishlist">Add to Wishlist</a>
+                            <a href="" class="add-wishlist" title="Add to Wishlist" data-id="{{ $product->id }}">Add to
+                                Wishlist</a>
                         </div><!-- End .product single-share -->
                     </div><!-- End .product-single-details -->
                 </div><!-- End .row -->

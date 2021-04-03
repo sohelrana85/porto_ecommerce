@@ -27,13 +27,11 @@
 
             <div class="header-dropdown ml-4">
                 @if (session('customer_id'))
-                    <a href="#">{{ session('customer_id') }}'s Account</a>
+                    <a href="#">{{ session('customer_name') }}'s Account</a>
                 @endif
                 <div class="header-menu">
                     <ul>
                         <li><a href="{{ route('customer.myaccount') }}">My Account</a></li>
-                        <li><a href="#">My Order</a></li>
-                        <li><a href="#">My Wishlist</a></li>
                         <li><a href="{{ route('customer.logout') }}">Logout</a></li>
                     </ul>
                 </div><!-- End .header-menu -->
@@ -138,3 +136,4 @@
         </div><!-- End .container -->
     </div><!-- End .header-middle -->
 </header><!-- End .header -->
+@yield('topmenu')

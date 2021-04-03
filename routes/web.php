@@ -41,8 +41,17 @@ Route::prefix('auth')->name('customer.')->group(function () {
     Route::get('/register', [CustomerController::class, 'register_form'])->name('register');
     Route::post('/register', [CustomerController::class, 'register'])->name('register');
     Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');
-    Route::get('/myaccount', [CustomerController::class, 'myaccount'])->name('myaccount');
 });
+
+Route::prefix('customer')->name('customer.')->group(function () {
+    Route::get('/myaccount', [CustomerController::class, 'myaccount'])->name('myaccount');
+    Route::post('/addtolist', [CustomerController::class, 'addtolist'])->name('addtolist');
+    Route::get('/wishlist', [CustomerController::class, 'wishlist'])->name('wishlist');
+    Route::post('/add_wishlist_to_cart', [CustomerController::class, 'add_wishlist_to_cart'])->name('add_wishlist_to_cart');
+    Route::post('/clearwishlist', [CustomerController::class, 'clearwishlist'])->name('clearwishlist');
+    Route::post('/load_wishlist_item', [CustomerController::class, 'load_wishlist_item'])->name('load_wishlist_item');
+});
+
 
 
 

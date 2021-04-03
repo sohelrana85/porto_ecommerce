@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -74,6 +75,7 @@ class SiteController extends Controller
         $product = product::where('slug', $slug)->first();
 
         // return $product;
+        $categories = Category::where('root', Category::categoryRoot)->get();
 
         // related product sort
         $related_product = product::where('category_id', $product->category_id)->pluck('category_id')->unique();
@@ -87,7 +89,7 @@ class SiteController extends Controller
         //cart section
         $cart_items = \Cart::getContent();
 
-        return view('frontend.product', compact('product', 'relproducts', 'images', 'cart_items'));
+        return view('frontend.product', compact('product', 'relproducts', 'images', 'cart_items', 'categories'));
     }
 
 

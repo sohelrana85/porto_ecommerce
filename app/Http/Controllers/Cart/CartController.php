@@ -118,7 +118,7 @@ class CartController extends Controller
             ));
             return response()->json([
                 'message' => 'Product added successfully'
-            ]);;
+            ]);
         }
     }
 
