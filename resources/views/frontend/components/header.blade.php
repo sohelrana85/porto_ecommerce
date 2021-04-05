@@ -40,7 +40,7 @@
     </div><!-- End .header-top -->
 
 
-    <div class="header-middle text-dark sticky-header" style="padding: 1.5rem 0;">
+    <div class="header-middle text-dark sticky-header mr-0" style="padding: 1.5rem 0;">
         <div class="container">
             <div class="header-left col-lg-2 w-auto pl-0">
                 <button class="mobile-menu-toggler mr-2" type="button">
@@ -79,56 +79,64 @@
                     <a href="" class="dropdown-toggle dropdown-arrow" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false" data-display="static">
                         <i class="icon-shopping-cart"></i>
-                        <span class="cart-count badge-circle">{{ count($cart_items) }}</span>
+                        <span class="cart-count badge-circle">{{ \Cart::getContent()->count() }}</span>
                     </a>
                     <div class="dropdown-menu">
-
                         <div class="dropdownmenu-wrapper">
+                            {{-- @if (Cart::getContent() != 0) --}}
                             <div class="dropdown-cart-header">
-                                <span>{{ count($cart_items) }} Items</span>
+                                <span>{{ \Cart::getContent()->count() }} Items</span>
 
                                 <a href="{{ route('cart.show') }}" class="float-right">View Cart</a>
                             </div><!-- End .dropdown-cart-header -->
 
-                            <div class="dropdown-cart-products">
+                            <div class="dropdown-cart-products" style="max-height: 200px; overflow: scroll">
 
-                                @foreach ($cart_items as $cartitem)
+                                @foreach (\Cart::getContent()->toArray() as $cartitem)
                                     <div class="product">
                                         <div class="product-details">
                                             <h4 class="product-title">
                                                 <a
-                                                    href="{{ route('product', $cartitem->attributes->slug) }}">{{ $cartitem->name }}</a>
+                                                    href="{{ route('product', $cartitem['attributes']['slug']) }}">{{ $cartitem['name'] }}</a>
                                             </h4>
 
                                             <span class="cart-product-info">
-                                                <span class="cart-product-qty">{{ $cartitem->quantity }}</span>
-                                                x {{ $cartitem->price }}
+                                                <span class="cart-product-qty">{{ $cartitem['quantity'] }}</span>
+                                                x {{ $cartitem['price'] }}
                                             </span>
                                         </div><!-- End .product-details -->
 
                                         <figure class="product-image-container">
-                                            <a href="{{ route('product', $cartitem->attributes->slug) }}"
+                                            <a href="{{ route('product', $cartitem['attributes']['slug']) }}"
                                                 class="product-image">
-                                                <img src="{{ asset('product_photo/' . $cartitem->attributes->thumbnail) }}"
+                                                <img src="{{ asset('product_photo/' . $cartitem['attributes']['thumbnail']) }}"
                                                     alt="product" style="height: 60px; object-fit: cover">
                                             </a>
-                                            <a href="{{ route('cart.remove', $cartitem->id) }}"
+                                            <a href="{{ route('cart.remove', $cartitem['id']) }}"
                                                 class="btn-remove icon-cancel" title="Remove Product"></a>
                                         </figure>
                                     </div><!-- End .product -->
                                 @endforeach
+
+
                             </div><!-- End .cart-product -->
 
                             <div class="dropdown-cart-total">
                                 <span>Total</span>
 
                                 <span class="cart-total-price float-right">&#2547;
-                                    {{ Cart::getSubTotal() }}</span>
+                                    {{ \Cart::getSubTotal() }}</span>
                             </div><!-- End .dropdown-cart-total -->
 
                             <div class="dropdown-cart-action">
-                                <a href="{{ route('cart.show') }}" class="btn btn-dark btn-block">Checkout</a>
+                                <a href="{{ route('customer.checkout') }}"
+                                    class="btn btn-dark btn-block">Checkout</a>
                             </div><!-- End .dropdown-cart-total -->
+                            {{-- @else
+                                <div class="cartempty">
+                                    <h5 class="text-center p-3 text-primary">Cart is Empty</h5>
+                                </div>
+                            @endif --}}
                         </div><!-- End .dropdownmenu-wrapper -->
                     </div><!-- End .dropdown-menu -->
                 </div><!-- End .dropdown -->

@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shipping extends Model
 {
+    protected $fillable = ["division", "district", "thana", "address", "name", "phone"];
     use HasFactory;
 }

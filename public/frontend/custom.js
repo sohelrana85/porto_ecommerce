@@ -126,6 +126,8 @@ function load_cart_item(){
     });
 }
 
+// ............................................................................
+
 //ADD PRODUCT FROM WISHLIST TO CART
 
 $(document).on('click', '.wishlist-cart', function(e){
@@ -144,6 +146,8 @@ $(document).on('click', '.wishlist-cart', function(e){
         }
     });
 })
+
+//CLEAR WISH LIST ON ADD TO CART
 function clear_wish_list(){
 
     let productId = $('.wishlist-cart').val();
@@ -156,6 +160,8 @@ function clear_wish_list(){
         }
     });
 }
+
+//LOAD WISHLIST AGAIN AFTER CLICK ON ADD TO CART IN WISHLIST PAGE.
 function load_wishlist_item(){
     $.ajax({
         url: '/customer/load_wishlist_item',
@@ -167,27 +173,78 @@ function load_wishlist_item(){
     });
 }
 
-
+// ...........................................................................
 
 //ADD PRODUCT TO WISH LIST
 $(document).on('click','.add-wishlist',function(e){
-e.preventDefault();
+    e.preventDefault();
 
-let id = $(this).attr('data-id');
+    let id = $(this).attr('data-id');
 
-$.ajax({
-    url: '/customer/addtolist',
-    method: 'POST',
-    data: {id:id},
-    success: function(res){
-        if(res.status == 2){
-            toastr.info(res.message);
-        } else if(res.status == 1) {
-            toastr.success(res.message);
-        }else {
-            toastr.error(res.message);
+    $.ajax({
+        url: '/customer/addtolist',
+        method: 'POST',
+        data: {id:id},
+        success: function(res){
+            if(res.status == 2){
+                toastr.info(res.message);
+            } else if(res.status == 1) {
+                toastr.success(res.message);
+            }else {
+                toastr.error(res.message);
+            }
         }
-    }
-});
+    });
+})
+
+$(document).ready(function(){
+
+    $('.dynamic').on('change',function(){
+
+        let value = $(this).val();
+        let name = $(this).data('name');
+
+        if(name == 'district') {
+            $('#thana').html('<option value="">==Select Thana==</option>');
+        }
+
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
+
+        $.ajax({
+            url: '/customer/data',
+            method: 'POST',
+            data: {value:value, name:name},
+            success: function(result) {
+
+                $('#'+name).html('<option value="">==Select '+ name + '==</option>');
+                $.each(result,function(key,data){
+                    if(name == 'district'){
+                        $('#district').append('<option value="'+data.district+'">'+data.district+'</option>');
+                    } else{
+                        $('#'+name).append('<option value="'+data.thana+'">'+data.thana+'</option>');
+                    }
+                })
+            }
+        })
+    })
 
 })
+
+//CUSTOMER ADDRESS FORM
+$(document).ready(function(){
+
+    $('#shipping_button').on('click', function(){
+        $('#default').hide();
+        $('#shipping_address').show();
+    })
+    $('#billing_button').on('click', function(){
+        $('#default').hide();
+        $('#billing_address').show();
+    })
+
+})
+

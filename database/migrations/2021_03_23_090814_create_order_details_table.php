@@ -20,8 +20,8 @@ class CreateOrderDetailsTable extends Migration
             $table->string('product_name');
             $table->decimal('product_price', 8, 2);
             $table->integer('quantity');
-            $table->string('size');
-            $table->string('color');
+            $table->string('size')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');

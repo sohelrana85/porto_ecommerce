@@ -44,12 +44,26 @@ Route::prefix('auth')->name('customer.')->group(function () {
 });
 
 Route::prefix('customer')->name('customer.')->group(function () {
-    Route::get('/myaccount', [CustomerController::class, 'myaccount'])->name('myaccount');
+    Route::get('/myaccount', [CustomerController::class, 'myaccount'])->name('myaccount')->middleware('checkcustomer');
     Route::post('/addtolist', [CustomerController::class, 'addtolist'])->name('addtolist');
-    Route::get('/wishlist', [CustomerController::class, 'wishlist'])->name('wishlist');
+    Route::get('/wishlist', [CustomerController::class, 'wishlist'])->name('wishlist')->middleware('checkcustomer');
     Route::post('/add_wishlist_to_cart', [CustomerController::class, 'add_wishlist_to_cart'])->name('add_wishlist_to_cart');
     Route::post('/clearwishlist', [CustomerController::class, 'clearwishlist'])->name('clearwishlist');
     Route::post('/load_wishlist_item', [CustomerController::class, 'load_wishlist_item'])->name('load_wishlist_item');
+    Route::get('/checkout', [CustomerController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout/shipping', [CustomerController::class, 'shipping'])->name('shipping');
+    Route::get('/checkout/review-payment', [CustomerController::class, 'review_payment'])->name('review.payment')->middleware('checkcustomer');
+    Route::post('/checkout/review-payment', [CustomerController::class, 'store_review_payment'])->name('store.review.payment');
+
+    # billing address set
+    Route::get('/address', [CustomerController::class, 'address_form'])->name('address')->middleware('checkcustomer');
+    Route::post('/address', [CustomerController::class, 'save_address'])->name('address');
+    Route::post('/default-address', [CustomerController::class, 'default_address'])->name('default.address');
+    #load division, district and thana for jquery
+    Route::post('/data', [CustomerController::class, 'data'])->name('data');
+
+    Route::get('/addressbook', [CustomerController::class, 'address_book'])->name('addressbook')->middleware('checkcustomer');
+    Route::get('/myorder', [CustomerController::class, 'myorder'])->name('myorder')->middleware('checkcustomer');
 });
 
 

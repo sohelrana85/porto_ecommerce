@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Darryldecode\Cart\Cart;
 use GrahamCampbell\ResultType\Result;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 
 class CartController extends Controller
 {
@@ -17,10 +18,10 @@ class CartController extends Controller
      */
     public function index()
     {
-        // \Cart::clear();
-
+        // return $product;
+        $categories = Category::where('root', Category::categoryRoot)->get();
         $cart_items = \Cart::getContent()->sort();
-        return view('frontend.cart.index', compact('cart_items'));
+        return view('frontend.cart.index', compact('categories', 'cart_items'));
 
         // return $cart_items;
 
@@ -183,7 +184,6 @@ class CartController extends Controller
 
     public function load_cart_item()
     {
-        $cart_items = \Cart::getContent()->sort();
-        return view('frontend.cart.load_cart_item', compact('cart_items'));
+        return view('frontend.cart.load_cart_item');
     }
 }

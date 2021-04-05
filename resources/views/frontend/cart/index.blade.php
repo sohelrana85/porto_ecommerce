@@ -1,7 +1,11 @@
 @extends('frontend.components.layout')
 
 @section('title')
-    Home
+    Cart Show
+@endsection
+
+@section('topmenu')
+    @include('frontend.components.topmenu')
 @endsection
 
 @section('content')
@@ -18,6 +22,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
+
+                    @if (Session::has('message'))
+                        <div class="alert alert-danger text-center">{{ Session::get('message') }}</div>
+                    @endif
+
                     <div class="cart-table-container">
                         <table class="table table-cart">
                             <thead>
@@ -248,7 +257,8 @@
                         </table>
 
                         <div class="checkout-methods">
-                            <a href="checkout-shipping.html" class="btn btn-block btn-sm btn-primary">Go to Checkout</a>
+                            <a href="{{ route('customer.checkout') }}" class="btn btn-block btn-sm btn-primary">Go to
+                                Checkout</a>
                             <a href="#" class="btn btn-link btn-block">Check Out with Multiple Addresses</a>
                         </div><!-- End .checkout-methods -->
                     </div><!-- End .cart-summary -->
