@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Product;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class ProductSeeder extends Seeder
     {
         $faker = Factory::create();
         foreach (range(1, 300) as $index) {
-            $name = $faker->unique()->name;
+            $name = Str::limit($faker->unique()->paragraph(), 100);
             Product::create([
                 'name'               => $name,
                 'slug'               => slugify($name),
@@ -25,10 +26,10 @@ class ProductSeeder extends Seeder
                 'brand_id'           => rand(1, 12),
                 'model'              => '',
                 'buying_price'       => rand(5000, 10000),
-                'selling_price'      => rand(5000, 10000),
-                'special_price'      => rand(0, 100),
-                'special_price_from' => date('Y-m-' . rand(1, 10)),
-                'special_price_to'   => date('Y-m-' . rand(10, 31)),
+                'selling_price'      => rand(6500, 7000),
+                'special_price'      => rand(5000, 6000),
+                'special_price_from' => date('Y-m-' . rand(1, 20)),
+                'special_price_to'   => date('Y-m-' . rand(8, 30)),
                 'quantity'           => rand(50, 300),
                 'sku_code'           => rand(50, 300),
                 'color'              => json_encode($this->randomColor()),

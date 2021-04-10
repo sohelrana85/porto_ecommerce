@@ -8,12 +8,14 @@ use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isEmpty;
+
 class SiteController extends Controller
 {
     public function index()
     {
         $categories = Category::where('root', Category::categoryRoot)->get();
-        $featured = product::select('id', 'name', 'slug', 'selling_price', 'special_price', 'special_price_from', 'special_price_to', 'thumbnail')->where('featured', 1)->active()->get();
+        $featured   = product::select('id', 'name', 'slug', 'selling_price', 'special_price', 'special_price_from', 'special_price_to', 'thumbnail')->where('featured', 1)->active()->get();
 
         // return $cart_items;
         return view('frontend.index', compact('categories', 'featured'));
@@ -36,8 +38,8 @@ class SiteController extends Controller
                     return $brand;
                 });
         } else {
-            $category = Category::where('slug', $slug2)->pluck('id');
-            $categories = Category::with('productCount')->where('root', $category)->get();
+            $category     = Category::where('slug', $slug2)->pluck('id');
+            $categories   = Category::with('productCount')->where('root', $category)->get();
             $category_ids = $categories->pluck('id');
             $products     = Product::whereIn('category_id', collect($category)->merge(collect($category_ids)))
                 ->active()->orderBy('id', 'Desc')->get();
@@ -59,7 +61,7 @@ class SiteController extends Controller
                 });
         }
         // return $brands;
-        $featured = product::where('featured', 1)->active()->get();
+        $featured   = product::where('featured', 1)->active()->get();
         $topmenucat = Category::where('root', Category::categoryRoot)->get();
 
         return view('frontend.products', compact('brands', 'categories', 'featured', 'category'));
@@ -76,12 +78,12 @@ class SiteController extends Controller
 
         // related product sort
         $related_product = product::where('category_id', $product->category_id)->pluck('category_id')->unique();
-        $relproducts = product::where('category_id', $related_product)->get();
+        $relproducts     = product::where('category_id', $related_product)->get();
 
         // marge thumbnail and images
         $thumbnail = $product->thumbnail;
-        $images = json_decode($product->images);
-        $image2 = array_unshift($images, $thumbnail); //insert the thumbnail in the first position
+        $images    = json_decode($product->images);
+        $image2    = array_unshift($images, $thumbnail);  //insert the thumbnail in the first position
 
         return view('frontend.product', compact('product', 'relproducts', 'images', 'categories'));
     }
@@ -95,8 +97,8 @@ class SiteController extends Controller
 
         // marge thumbnail and images
         $thumbnail = $product->thumbnail;
-        $images = json_decode($product->images);
-        $image2 = array_unshift($images, $thumbnail); //insert the thumbnail in the first position
+        $images    = json_decode($product->images);
+        $image2    = array_unshift($images, $thumbnail);  //insert the thumbnail in the first position
 
         return view('frontend.ajax.productquickview', compact('product', 'images'));
     }
@@ -105,19 +107,31 @@ class SiteController extends Controller
     {
         if ($request->ajax()) {
             if ($request->id) {
-                $category = $request->cat_id;
-                $categories = Category::with('productCount')->where('root', $category)->get();
+                $category     = $request->cat_id;
+                $categories   = Category::with('productCount')->where('root', $category)->get();
                 $category_ids = $categories->pluck('id');
-                $loadproducts     = Product::where('id', '<', $request->id)->whereIn('category_id', collect($category)->merge(collect($category_ids)))
+                $loadproducts = Product::where('id', '<', $request->id)->whereIn('category_id', collect($category)->merge(collect($category_ids)))
                     ->active()->orderBy('id', 'Desc')->limit(8)->get();
             } else {
-                $category = $request->cat_id;
-                $categories = Category::with('productCount')->where('root', $category)->get();
+                $category     = $request->cat_id;
+                $categories   = Category::with('productCount')->where('root', $category)->get();
                 $category_ids = $categories->pluck('id');
-                $loadproducts     = Product::whereIn('category_id', collect($category)->merge(collect($category_ids)))
+                $loadproducts = Product::whereIn('category_id', collect($category)->merge(collect($category_ids)))
                     ->active()->orderBy('id', 'Desc')->limit(16)->get();
             }
             return view('frontend.loadmoredata', compact('loadproducts'));
         }
+    }
+
+    public function product_search(Request $request)
+    {
+        $request->validate([
+            'search' => 'required'
+        ]);
+
+        $categories = Category::where('root', Category::categoryRoot)->get();
+        $products = Product::where('name', 'like', '%' . $request->search . '%')->paginate(16);
+        $products->appends($request->all());
+        return view('frontend.searchproducts', compact('products', 'categories'));
     }
 }

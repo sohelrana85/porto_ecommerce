@@ -3211,8 +3211,8 @@ span.page-link,
 }
 .product-default .label-group {
     position: absolute;
-    top: 0.8rem;
-    left: 0.8rem;
+    top: 0;
+    left: 0;
 }
 .product-default .product-label {
     display: block;
@@ -3229,7 +3229,7 @@ span.page-link,
     background-color: #62b959;
 }
 .product-default .product-label.label-sale {
-    background-color: #e27c7c;
+    background-color: #ff0101;
 }
 .product-default .product-details {
     display: flex;

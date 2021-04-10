@@ -99,32 +99,32 @@ $(document).on('click', '#add-to-cart', function(e){
 
 // PRODUCT ADD FROM ICON OF THUMBNAIL CART
 
-$(document).on('click', '.btn-add-cart', function(e){
-    e.preventDefault();
-    let productId = $(this).val();
+// $(document).on('click', '.btn-add-cart', function(e){
+//     e.preventDefault();
+//     let productId = $(this).val();
 
-    $.ajax({
-        url: '/cart/add/icon',
-        method: 'post',
-        data: {productId:productId},
-        success: function(res) {
-            load_cart_item();
-            clear_wish_list();
-            toastr.success(res.message);
-        }
-    });
-})
+//     $.ajax({
+//         url: '/cart/add/icon',
+//         method: 'post',
+//         data: {productId:productId},
+//         success: function(res) {
+//             load_cart_item();
+//             clear_wish_list();
+//             toastr.success(res.message);
+//         }
+//     });
+// })
 
-function load_cart_item(){
-    $.ajax({
-        url: '/cart/load-cart-item',
-        method: 'post',
-        data: {},
-        success: function(res) {
-            $('#cart-reload').html(res);
-        }
-    });
-}
+// function load_cart_item(){
+//     $.ajax({
+//         url: '/cart/load-cart-item',
+//         method: 'post',
+//         data: {},
+//         success: function(res) {
+//             $('#cart-reload').html(res);
+//         }
+//     });
+// }
 
 // ............................................................................
 

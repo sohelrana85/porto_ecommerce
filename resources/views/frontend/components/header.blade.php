@@ -54,11 +54,12 @@
             <div class="header-right w-lg-max pl-2">
                 <div class="header-search header-icon header-search-inline header-search-category w-lg-max mr-lg-4">
                     <a href="#" class="search-toggle" role="button"><i class="icon-search-3"></i></a>
-                    <form action="#" method="get">
+                    <form action="{{ route('product.search') }}" method="get">
                         <div class="header-search-wrapper">
-                            <input type="search" class="form-control" name="q" id="q" placeholder="Search..." required>
+                            <input type="search" class="form-control" name="search" id="" placeholder="Search..."
+                                required>
 
-                            <button class="btn p-0 icon-search-3" type="submit"></button>
+                            <button class="btn p-0 icon-search-3" name="search_btn" type="submit"></button>
                         </div><!-- End .header-search-wrapper -->
                     </form>
                 </div><!-- End .header-search -->
@@ -83,60 +84,60 @@
                     </a>
                     <div class="dropdown-menu">
                         <div class="dropdownmenu-wrapper">
-                            {{-- @if (Cart::getContent() != 0) --}}
-                            <div class="dropdown-cart-header">
-                                <span>{{ \Cart::getContent()->count() }} Items</span>
+                            @if (Cart::getContent()->count() != 0)
+                                <div class="dropdown-cart-header">
+                                    <span>{{ \Cart::getContent()->count() }} Items</span>
 
-                                <a href="{{ route('cart.show') }}" class="float-right">View Cart</a>
-                            </div><!-- End .dropdown-cart-header -->
+                                    <a href="{{ route('cart.show') }}" class="float-right">View Cart</a>
+                                </div><!-- End .dropdown-cart-header -->
 
-                            <div class="dropdown-cart-products" style="max-height: 200px; overflow: scroll">
+                                <div class="dropdown-cart-products" style="max-height: 200px; overflow: scroll">
 
-                                @foreach (\Cart::getContent()->toArray() as $cartitem)
-                                    <div class="product">
-                                        <div class="product-details">
-                                            <h4 class="product-title">
-                                                <a
-                                                    href="{{ route('product', $cartitem['attributes']['slug']) }}">{{ $cartitem['name'] }}</a>
-                                            </h4>
+                                    @foreach (\Cart::getContent()->toArray() as $cartitem)
+                                        <div class="product">
+                                            <div class="product-details">
+                                                <h4 class="product-title">
+                                                    <a
+                                                        href="{{ route('product', $cartitem['attributes']['slug']) }}">{{ $cartitem['name'] }}</a>
+                                                </h4>
 
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">{{ $cartitem['quantity'] }}</span>
-                                                x {{ $cartitem['price'] }}
-                                            </span>
-                                        </div><!-- End .product-details -->
+                                                <span class="cart-product-info">
+                                                    <span class="cart-product-qty">{{ $cartitem['quantity'] }}</span>
+                                                    x {{ $cartitem['price'] }}
+                                                </span>
+                                            </div><!-- End .product-details -->
 
-                                        <figure class="product-image-container">
-                                            <a href="{{ route('product', $cartitem['attributes']['slug']) }}"
-                                                class="product-image">
-                                                <img src="{{ asset('product_photo/' . $cartitem['attributes']['thumbnail']) }}"
-                                                    alt="product" style="height: 60px; object-fit: cover">
-                                            </a>
-                                            <a href="{{ route('cart.remove', $cartitem['id']) }}"
-                                                class="btn-remove icon-cancel" title="Remove Product"></a>
-                                        </figure>
-                                    </div><!-- End .product -->
-                                @endforeach
+                                            <figure class="product-image-container">
+                                                <a href="{{ route('product', $cartitem['attributes']['slug']) }}"
+                                                    class="product-image">
+                                                    <img src="{{ asset('product_photo/' . $cartitem['attributes']['thumbnail']) }}"
+                                                        alt="product" style="height: 60px; object-fit: cover">
+                                                </a>
+                                                <a href="{{ route('cart.remove', $cartitem['id']) }}"
+                                                    class="btn-remove icon-cancel" title="Remove Product"></a>
+                                            </figure>
+                                        </div><!-- End .product -->
+                                    @endforeach
 
 
-                            </div><!-- End .cart-product -->
+                                </div><!-- End .cart-product -->
 
-                            <div class="dropdown-cart-total">
-                                <span>Total</span>
+                                <div class="dropdown-cart-total">
+                                    <span>Total</span>
 
-                                <span class="cart-total-price float-right">&#2547;
-                                    {{ \Cart::getSubTotal() }}</span>
-                            </div><!-- End .dropdown-cart-total -->
+                                    <span class="cart-total-price float-right">&#2547;
+                                        {{ \Cart::getSubTotal() }}</span>
+                                </div><!-- End .dropdown-cart-total -->
 
-                            <div class="dropdown-cart-action">
-                                <a href="{{ route('customer.checkout') }}"
-                                    class="btn btn-dark btn-block">Checkout</a>
-                            </div><!-- End .dropdown-cart-total -->
-                            {{-- @else
+                                <div class="dropdown-cart-action">
+                                    <a href="{{ route('customer.checkout') }}"
+                                        class="btn btn-dark btn-block">Checkout</a>
+                                </div><!-- End .dropdown-cart-total -->
+                            @else
                                 <div class="cartempty">
                                     <h5 class="text-center p-3 text-primary">Cart is Empty</h5>
                                 </div>
-                            @endif --}}
+                            @endif
                         </div><!-- End .dropdownmenu-wrapper -->
                     </div><!-- End .dropdown-menu -->
                 </div><!-- End .dropdown -->
