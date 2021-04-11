@@ -14,11 +14,14 @@
                 <div class="header-dropdown dropdown-expanded mr-3">
                     <div class="header-menu">
                         <ul>
-                            <li><a href="my-account.html">Track Order </a></li>
-                            <li><a href="about.html">About</a></li>
+                            <li><a href="{{ route('customer.myaccount') }}">Track Order</a></li>
+                            <li><a href="">Customer Care</a></li>
                             <li><a href="">Careers</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="">Blog</a></li>
+                            <li><a href="">Contact</a></li>
+                            @if (!session('customer_id'))
+                                <li><a href="{{ route('customer.login') }}">Signup/Login</a></li>
+                            @endif
 
                         </ul>
                     </div><!-- End .header-menu -->
@@ -40,8 +43,8 @@
     </div><!-- End .header-top -->
 
 
-    <div class="header-middle text-dark sticky-header mr-0" style="padding: 1.5rem 0;">
-        <div class="container">
+    <div class="header-middle text-dark sticky-header mr-0" style="padding: 1.5rem 0 0;">
+        <div class="container" style="margin-bottom: 10px;">
             <div class="header-left col-lg-2 w-auto pl-0">
                 <button class="mobile-menu-toggler mr-2" type="button">
                     <i class="icon-menu"></i>
@@ -59,7 +62,7 @@
                             <input type="search" class="form-control" name="search" id="" placeholder="Search..."
                                 required>
 
-                            <button class="btn p-0 icon-search-3" name="search_btn" type="submit"></button>
+                            <button class="btn p-0 icon-search-3" name="" type="submit"></button>
                         </div><!-- End .header-search-wrapper -->
                     </form>
                 </div><!-- End .header-search -->
@@ -70,9 +73,9 @@
                             class="d-block text-dark ls-10 pt-1">+880 1721 850 242</a></h6>
                 </div><!-- End .header-contact -->
 
-                @if (!session('customer_id'))
+                {{-- @if (!session('customer_id'))
                     <a href="{{ route('customer.login') }}" class="header-icon"><i class="icon-user-2"></i></a>
-                @endif
+                @endif --}}
 
                 {{-- <a href="#" class="header-icon"><i class="icon-wishlist-2"></i></a> --}}
 
@@ -91,14 +94,17 @@
                                     <a href="{{ route('cart.show') }}" class="float-right">View Cart</a>
                                 </div><!-- End .dropdown-cart-header -->
 
-                                <div class="dropdown-cart-products" style="max-height: 200px; overflow: scroll">
+                                <div class="dropdown-cart-products" style="max-height: 300px; overflow: scroll">
 
                                     @foreach (\Cart::getContent()->toArray() as $cartitem)
                                         <div class="product">
                                             <div class="product-details">
-                                                <h4 class="product-title">
+                                                <h4 class="product-title"
+                                                    style="height: 39px;overflow: hidden;text-overflow: ellipsis;">
                                                     <a
-                                                        href="{{ route('product', $cartitem['attributes']['slug']) }}">{{ $cartitem['name'] }}</a>
+                                                        href="{{ route('product', $cartitem['attributes']['slug']) }}">
+                                                        {{ $cartitem['name'] }}
+                                                    </a>
                                                 </h4>
 
                                                 <span class="cart-product-info">
@@ -107,7 +113,7 @@
                                                 </span>
                                             </div><!-- End .product-details -->
 
-                                            <figure class="product-image-container">
+                                            <figure class="product-image-container" style="min-width: 40px">
                                                 <a href="{{ route('product', $cartitem['attributes']['slug']) }}"
                                                     class="product-image">
                                                     <img src="{{ asset('product_photo/' . $cartitem['attributes']['thumbnail']) }}"
@@ -143,6 +149,7 @@
                 </div><!-- End .dropdown -->
             </div><!-- End .header-right -->
         </div><!-- End .container -->
+        @yield('topmenu')
     </div><!-- End .header-middle -->
+
 </header><!-- End .header -->
-@yield('topmenu')

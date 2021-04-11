@@ -21,7 +21,8 @@
                     {{-- <h2>Address Book</h2> --}}
 
                     @if (Session::has('message'))
-                        <div class="alert alert-danger text-center">{{ Session::get('message') }}</div>
+                        <div class="alert alert-{{ Session::get('status') }} text-center">{{ Session::get('message') }}
+                        </div>
                     @endif
 
                     <div class="card" id="default" style="display: ">

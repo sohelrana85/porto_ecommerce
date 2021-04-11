@@ -13,8 +13,8 @@
             <div class="col-lg-9">
                 <div id="search-content">
                     <div class="home-slider owl-carousel owl-theme owl-carousel-lazy mb-2" data-owl-options="
-                                                {'loop': true,'dots': true, 'nav': false, 'autoplay': true }
-                                                ">
+                                                            {'loop': true,'dots': true, 'nav': false, 'autoplay': true }
+                                                            ">
                         <div class="home-slide home-slide1 banner banner-md-vw banner-sm-vw">
                             <img class="owl-lazy slide-bg" src="{{ asset('frontend/assets/images/lazy.png') }}"
                                 data-src="{{ asset('frontend/assets/images/slider/slide-1.png') }}" alt="slider image">
@@ -55,18 +55,18 @@
                     </div><!-- End .home-slider -->
 
                     <div class="banners-container m-b-2 owl-carousel owl-theme" data-owl-options="{
-                                                                            'dots': false,
-                                                                            'margin': 20,
-                                                                            'loop': false,
-                                                                            'responsive': {
-                                                                                '480': {
-                                                                                    'items': 2
-                                                                                },
-                                                                                '768': {
-                                                                                    'items': 3
-                                                                                }
-                                                                            }
-                                                                        }">
+                                                                                        'dots': false,
+                                                                                        'margin': 20,
+                                                                                        'loop': false,
+                                                                                        'responsive': {
+                                                                                            '480': {
+                                                                                                'items': 2
+                                                                                            },
+                                                                                            '768': {
+                                                                                                'items': 3
+                                                                                            }
+                                                                                        }
+                                                                                    }">
                         <div class="banner banner1 banner-hover-shadow mb-2">
                             <figure>
                                 <img src="{{ asset('frontend/assets/images/banners/banner-1.jpg') }}" alt="banner">
@@ -131,16 +131,16 @@
                                     <div class="price-box">
                                         @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
                                             @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
-                                                <span style="font-size: 13px;color:#0088cc;" class="old-price">&#2547;
+                                                <span style="font-size: 13px;" class="old-price">&#2547;
                                                     {{ $featureproduct->selling_price }}</span>
-                                                <span style="font-size: 13px;color:#0088cc;" class="product-price">&#2547;
+                                                <span style="font-size: 13px;" class="product-price">&#2547;
                                                     {{ $featureproduct->special_price }}</span>
                                             @else
-                                                <span style="font-size: 13px;color:#0088cc;" class="">&#2547;
+                                                <span style="font-size: 13px;" class="">&#2547;
                                                     {{ $featureproduct->selling_price }}</span>
                                             @endif
                                         @else
-                                            <span style="font-size: 13px;color:#0088cc;" class="">&#2547;
+                                            <span style="font-size: 13px;" class="">&#2547;
                                                 {{ $featureproduct->selling_price }}</span>
                                         @endif
                                     </div><!-- End .price-box -->
@@ -153,7 +153,7 @@
 
 
                     <!-- Best-Selling-proucts -->
-                    <h2 class="section-title ls-n-10 m-b-4">Featured Products</h2>
+                    <h2 class="section-title ls-n-10 m-b-4">Best Selling Products</h2>
                     <div class="products-slider owl-carousel owl-theme dots-top m-b-1 pb-1">
                         @foreach ($featured as $featureproduct)
                             <div class="product-default inner-quickview inner-icon">
@@ -182,16 +182,16 @@
                                     <div class="price-box">
                                         @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
                                             @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
-                                                <span style="font-size: 13px;color:#0088cc;" class="old-price">&#2547;
+                                                <span style="font-size: 13px;" class="old-price">&#2547;
                                                     {{ $featureproduct->selling_price }}</span>
-                                                <span style="font-size: 13px;color:#0088cc;" class="product-price">&#2547;
+                                                <span style="font-size: 13px;" class="product-price">&#2547;
                                                     {{ $featureproduct->special_price }}</span>
                                             @else
-                                                <span style="font-size: 13px;color:#0088cc;" class="">&#2547;
+                                                <span style="font-size: 13px;" class="">&#2547;
                                                     {{ $featureproduct->selling_price }}</span>
                                             @endif
                                         @else
-                                            <span style="font-size: 13px;color:#0088cc;" class="">&#2547;
+                                            <span style="font-size: 13px;" class="">&#2547;
                                                 {{ $featureproduct->selling_price }}</span>
                                         @endif
                                     </div><!-- End .price-box -->
@@ -202,7 +202,7 @@
                     </div><!-- End Best-Selling-proucts -->
 
                     <!-- Latest-proucts -->
-                    <h2 class="section-title ls-n-10 m-b-4">Featured Products</h2>
+                    <h2 class="section-title ls-n-10 m-b-4">Latest Products</h2>
                     <div class="products-slider owl-carousel owl-theme dots-top m-b-1 pb-1">
                         @foreach ($featured as $featureproduct)
                             <div class="product-default inner-quickview inner-icon">
@@ -231,16 +231,16 @@
                                     <div class="price-box">
                                         @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
                                             @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
-                                                <span style="font-size: 13px;color:#0088cc;" class="old-price">&#2547;
+                                                <span style="font-size: 13px;" class="old-price">&#2547;
                                                     {{ $featureproduct->selling_price }}</span>
-                                                <span style="font-size: 13px;color:#0088cc;" class="product-price">&#2547;
+                                                <span style="font-size: 13px;" class="product-price">&#2547;
                                                     {{ $featureproduct->special_price }}</span>
                                             @else
-                                                <span style="font-size: 13px;color:#0088cc;" class="">&#2547;
+                                                <span style="font-size: 13px;" class="">&#2547;
                                                     {{ $featureproduct->selling_price }}</span>
                                             @endif
                                         @else
-                                            <span style="font-size: 13px;color:#0088cc;" class="">&#2547;
+                                            <span style="font-size: 13px;" class="">&#2547;
                                                 {{ $featureproduct->selling_price }}</span>
                                         @endif
                                     </div><!-- End .price-box -->
@@ -406,8 +406,8 @@
                 <div class="widget widget-posts post-date-in-media">
                     <div class="owl-carousel owl-theme dots-left dots-m-0"
                         data-owl-options="{
-                                                                                                                                                                                                                                                                                                                                                                                                                                                'margin': 20
-                                                                                                                                                                                                                                                                                                                                                                                                                                            }">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            'margin': 20
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        }">
                         <article class="post">
                             <div class="post-media">
                                 <a href="single.html">

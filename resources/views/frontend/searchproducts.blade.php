@@ -6,9 +6,21 @@
 
 @section('content')
     <div class="container mb-2">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href=""><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">Search Result</a></li>
+            </ol>
+        </nav>
         <div class="row">
             <div class="col-lg-9">
+                <hr class="m-0">
                 <div class="row">
+                    @if ($products->count() == 0)
+                        <div class="col-12 text-center my-5">
+                            <h4 class="py-5">No Product Found!</h4>
+                        </div>
+                    @endif
                     @foreach ($products as $item)
                         <div class="col-6 col-sm-4 col-md-3">
                             <div class="product-default inner-quickview inner-icon">
@@ -230,8 +242,8 @@
                 <div class="widget widget-posts post-date-in-media">
                     <div class="owl-carousel owl-theme dots-left dots-m-0"
                         data-owl-options="{
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        'margin': 20
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    }">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        'margin': 20
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }">
                         <article class="post">
                             <div class="post-media">
                                 <a href="single.html">

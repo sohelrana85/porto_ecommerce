@@ -46,7 +46,7 @@
                     </div><!-- End .product-single-gallery -->
 
                     <div class="col-md-7 product-single-details pl-5">
-                        <h4 class="product-title">{{ $product->name }}</h4>
+                        <h4 class="product-title" style="    font-weight: 500; font-size: 22px;">{{ $product->name }}</h4>
 
                         <div class="ratings-container">
                             <div class="product-ratings">
@@ -351,12 +351,12 @@
                                         @endif
                                     @endif
                                 </div>
-                                <div class="btn-icon-group">
+                                {{-- <div class="btn-icon-group">
                                     <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i
                                             class="icon-shopping-cart"></i></button>
                                 </div>
                                 <a href="{{ route('product.quickview', $products->slug) }}" class="btn-quickview"
-                                    title="Quick View">Quick View</a>
+                                    title="Quick View">Quick View</a> --}}
                             </figure>
                             <div class="product-details">
                                 <h3 class="product-title">
