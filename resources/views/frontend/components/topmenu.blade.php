@@ -6,7 +6,7 @@
             </li>
             <li>
                 <a href="#">Category</a>
-                {!! headerCategories($categories) !!}
+                {!! headerCategories($menucategories) !!}
             </li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="about.html">About Us</a></li>

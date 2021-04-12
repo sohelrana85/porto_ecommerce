@@ -1,7 +1,7 @@
 @extends('frontend.components.layout')
 
 @section('title')
-    Home
+    Search
 @endsection
 
 @section('content')
@@ -146,7 +146,7 @@
                     <h2 class="side-menu-title bg-gray ls-n-25">Browse Categories</h2>
 
                     <nav class="side-nav">
-                        {!! frontendCategories($categories) !!}
+                        {!! frontendCategories($menucategories) !!}
                     </nav>
                 </div><!-- End .side-menu-container -->
 
@@ -242,8 +242,8 @@
                 <div class="widget widget-posts post-date-in-media">
                     <div class="owl-carousel owl-theme dots-left dots-m-0"
                         data-owl-options="{
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        'margin': 20
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            'margin': 20
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }">
                         <article class="post">
                             <div class="post-media">
                                 <a href="single.html">

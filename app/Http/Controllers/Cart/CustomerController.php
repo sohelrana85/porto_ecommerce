@@ -284,9 +284,8 @@ class CustomerController extends Controller
 
     public function review_payment()
     {
-        $categories = Category::where('root', Category::categoryRoot)->get();
         $shipping = Shipping::find(session('shipping_id'));
-        return view('frontend.customer.reviewpayment', compact('categories', 'shipping'));
+        return view('frontend.customer.reviewpayment', compact('shipping'));
     }
 
     public function store_review_payment(Request $request)
@@ -340,11 +339,10 @@ class CustomerController extends Controller
 
     public function address_form()
     {
-        // return $product;
-        $categories = Category::where('root', Category::categoryRoot)->get();
+
         $division = Division::select('division')->get()->unique('division');
 
-        return view('frontend.customer.address', compact('categories', 'division'));
+        return view('frontend.customer.address', compact('division'));
     }
 
     public function data(Request $request)

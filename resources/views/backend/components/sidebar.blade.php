@@ -35,7 +35,14 @@
                 <div class="menu-title">Products</div>
             </a>
         </li>
+        </li>
         <li>
+            <a href="{{ route('staff.order.index') }}" class="">
+                <div class="parent-icon icon-color-1"><i class="bx bx-list-plus"></i> </div>
+                <div class="menu-title">Orders</div>
+            </a>
+        </li>
+        {{-- <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon icon-color-1"><i class="bx bx-home-alt"></i> </div>
                 <div class="menu-title">Items</div>
@@ -46,7 +53,7 @@
                 <li> <a href="index2.html"><i class="bx bx-right-arrow-alt"></i>Manage</a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
     </ul>
     <!--end navigation-->
 </div>

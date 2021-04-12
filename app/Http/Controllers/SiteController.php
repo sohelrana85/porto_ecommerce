@@ -14,11 +14,8 @@ class SiteController extends Controller
 {
     public function index()
     {
-        $categories = Category::where('root', Category::categoryRoot)->get();
         $featured   = product::select('id', 'name', 'slug', 'selling_price', 'special_price', 'special_price_from', 'special_price_to', 'thumbnail')->where('featured', 1)->active()->get();
-
-        // return $cart_items;
-        return view('frontend.index', compact('categories', 'featured'));
+        return view('frontend.index', compact('featured'));
     }
 
     public function products($slug1, $slug2, $slug3 = null)
@@ -73,9 +70,6 @@ class SiteController extends Controller
     {
         $product = product::where('slug', $slug)->first();
 
-        // return $product;
-        $categories = Category::where('root', Category::categoryRoot)->get();
-
         // related product sort
         $related_product = product::where('category_id', $product->category_id)->pluck('category_id')->unique();
         $relproducts     = product::where('category_id', $related_product)->get();
@@ -85,7 +79,7 @@ class SiteController extends Controller
         $images    = json_decode($product->images);
         $image2    = array_unshift($images, $thumbnail);  //insert the thumbnail in the first position
 
-        return view('frontend.product', compact('product', 'relproducts', 'images', 'categories'));
+        return view('frontend.product', compact('product', 'relproducts', 'images'));
     }
 
 
@@ -129,9 +123,8 @@ class SiteController extends Controller
             'search' => 'required'
         ]);
 
-        $categories = Category::where('root', Category::categoryRoot)->get();
         $products = Product::where('name', 'like', '%' . $request->search . '%')->paginate(16);
         $products->appends($request->all());
-        return view('frontend.searchproducts', compact('products', 'categories'));
+        return view('frontend.searchproducts', compact('products'));
     }
 }

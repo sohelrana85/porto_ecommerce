@@ -19,12 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [SiteController::class, 'index'])->name('index');
-Route::get('/products/{slug1}/{slug2}/{slug3?}', [SiteController::class, 'products'])->name('products');
+Route::get('/product/{slug1}/{slug2}/{slug3?}', [SiteController::class, 'products'])->name('products');
 Route::post('/product/{slug?}', [SiteController::class, 'loadmore'])->name('loadmore');
 Route::get('/product/{slug}', [SiteController::class, 'product'])->name('product');
 Route::post('/products/quickview/{slug}', [SiteController::class, 'productquickview'])->name('product.quickview');
 #search product
-Route::get('/products/search', [SiteController::class, 'product_search'])->name('product.search');
+Route::get('/search', [SiteController::class, 'product_search'])->name('product.search');
 
 
 // cart
@@ -69,9 +69,9 @@ Route::prefix('customer')->name('customer.')->group(function () {
     Route::get('/myorder', [CustomerController::class, 'myorder'])->name('myorder')->middleware('checkcustomer');
 });
 
-Route::prefix('pages')->group(function () {
-    Route::get('/about', [PagesController::class, 'about'])->name('about');
-});
+
+
+Route::get('/about', [PagesController::class, 'about'])->name('about');
 
 
 require __DIR__ . '/auth.php';

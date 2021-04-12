@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Cart;
+namespace App\Http\Controllers\staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\s;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -15,7 +14,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.orders.manage');
     }
 
     /**
@@ -42,10 +41,10 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\s  $s
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(s $s)
+    public function show($id)
     {
         //
     }
@@ -53,10 +52,10 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\s  $s
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(s $s)
+    public function edit($id)
     {
         //
     }
@@ -65,10 +64,10 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\s  $s
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, s $s)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +75,10 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\s  $s
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(s $s)
+    public function destroy($id)
     {
         //
     }

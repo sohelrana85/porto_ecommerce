@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\staff\OrderController;
 use App\Http\Controllers\Staff\BrandController;
 use App\Http\Controllers\Staff\CategoryController;
 use App\Http\Controllers\staff\DashboardController;
@@ -19,7 +20,11 @@ Route::prefix('staff')->name('staff.')->middleware('auth')->group(function () {
 
     #Product route
     Route::resource('product', ProductController::class);
+
+    #orders route
+    Route::resource('order', OrderController::class);
+
+    Route::post('product', [ProductController::class, 'getData'])->name('product');
+    Route::post('product/{id}', [ProductController::class, 'fetured'])->name('product');
+    Route::post('product/featured/{id}', [ProductController::class, 'featured'])->name('product.featured');
 });
-Route::post('staff.product', [ProductController::class, 'getData'])->name('staff.product');
-Route::post('staff.product/{id}', [ProductController::class, 'fetured'])->name('staff.product');
-Route::post('staff.product/featured/{id}', [ProductController::class, 'featured'])->name('staff.product.featured');

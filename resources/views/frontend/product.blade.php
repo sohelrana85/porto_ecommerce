@@ -12,12 +12,15 @@
 
     <main class="main">
         <div class="container">
-            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+            {{-- <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
                     <li class="breadcrumb-item"><a href="#">Shoes</a></li>
                 </ol>
-            </nav>
+            </nav> --}}
+
+            {{ Breadcrumbs::render('product', $product) }}
+
             <div class="product-single-container product-single-default">
                 <div class="row">
                     <div class="col-md-5 product-single-gallery">

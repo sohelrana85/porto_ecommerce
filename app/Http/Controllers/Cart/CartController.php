@@ -18,10 +18,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        // return $product;
-        $categories = Category::where('root', Category::categoryRoot)->get();
         $cart_items = \Cart::getContent()->sort();
-        return view('frontend.cart.index', compact('categories', 'cart_items'));
+        return view('frontend.cart.index', compact('cart_items'));
 
         // return $cart_items;
 

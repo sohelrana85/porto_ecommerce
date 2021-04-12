@@ -23,12 +23,14 @@
 
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
             <div class="container">
-                <ol class="breadcrumb">
+                {{-- <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
                     <li class="breadcrumb-item active" aria-current="page">About Us</li>
-                </ol>
+                </ol> --}}
+                {{ Breadcrumbs::render('about') }}
             </div><!-- End .container -->
         </nav>
+
 
         <div class="about-section">
             <div class="container">
@@ -95,18 +97,18 @@
                 <h2 class="subtitle text-center">HAPPY CLIENTS</h2>
 
                 <div class="testimonials-carousel owl-carousel owl-theme images-left" data-owl-options="{
-                                                            'lazyLoad': true,
-                                                            'autoHeight': true,
-                                                            'dots': false,
-                                                            'responsive': {
-                                                                '0': {
-                                                                    'items': 1
-                                                                },
-                                                                '992': {
-                                                                    'items': 2
-                                                                }
-                                                            }
-                                                        }">
+                                                                            'lazyLoad': true,
+                                                                            'autoHeight': true,
+                                                                            'dots': false,
+                                                                            'responsive': {
+                                                                                '0': {
+                                                                                    'items': 1
+                                                                                },
+                                                                                '992': {
+                                                                                    'items': 2
+                                                                                }
+                                                                            }
+                                                                        }">
                     <div class="testimonial">
                         <div class="testimonial-owner">
                             <figure>
