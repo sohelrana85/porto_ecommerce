@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <!-- Bootstrap CSS -->
-    <link rel = "stylesheet" href = "{{ asset('backend/assets/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap.min.css') }}" />
     <!--favicon-->
     <link rel="icon" href="{{ asset('backend/assets/images/favicon-32x32.png') }}" type="image/png" />
     <!-- Vector CSS -->
@@ -51,6 +51,7 @@
             </div>
             <!--end page-content-wrapper-->
         </div>
+        @include('backend.components.modal')
         <!--end page-wrapper-->
         <!--start overlay-->
         <div class="overlay toggle-btn-mobile"></div>
@@ -77,6 +78,7 @@
     <script>
         CKEDITOR.replace('description');
         CKEDITOR.replace('warranty_condition');
+
     </script>
     <!-- App JS -->
 

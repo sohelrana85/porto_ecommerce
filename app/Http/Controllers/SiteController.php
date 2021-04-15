@@ -117,13 +117,19 @@ class SiteController extends Controller
         }
     }
 
+    public function product_search_ajax(Request $request)
+    {
+        $products = Product::where('name', 'like', '%' . $request->searchText . '%')->take(10)->get();
+        return $products;
+    }
+
     public function product_search(Request $request)
     {
         $request->validate([
-            'search' => 'required'
+            'search_text' => 'required'
         ]);
 
-        $products = Product::where('name', 'like', '%' . $request->search . '%')->paginate(16);
+        $products = Product::where('name', 'like', '%' . $request->search_text . '%')->paginate(16);
         $products->appends($request->all());
         return view('frontend.searchproducts', compact('products'));
     }

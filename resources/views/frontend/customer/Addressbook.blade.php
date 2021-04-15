@@ -4,6 +4,10 @@
     Address Book
 @endsection
 
+@section('topmenu')
+    @include('frontend.components.topmenu')
+@endsection
+
 @section('content')
     <main class="main">
         <nav aria-label="breadcrumb" class="breadcrumb-nav">

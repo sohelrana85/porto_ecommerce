@@ -4,6 +4,10 @@
     Register
 @endsection
 
+@section('topmenu')
+    @include('frontend.components.topmenu')
+@endsection
+
 @section('content')
 
     <div class="container">

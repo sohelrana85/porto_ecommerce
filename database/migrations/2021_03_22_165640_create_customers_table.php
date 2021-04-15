@@ -19,6 +19,7 @@ class CreateCustomersTable extends Migration
             $table->string('phone', 11)->unique();
             $table->string('email', 50)->nullable();
             $table->string('password', 100);
+            $table->string('address')->nullable();
             $table->tinyInteger('offer_mail')->default('0');
             $table->timestamps();
         });

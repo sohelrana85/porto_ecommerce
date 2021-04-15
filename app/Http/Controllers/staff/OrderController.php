@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\staff;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use Exception;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,7 +16,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('backend.orders.manage');
+        $orders = Order::with('customer', 'shipping', 'order_details', 'payment')->get();
+        return view('backend.orders.manage', compact('orders'));
     }
 
     /**
@@ -46,7 +49,8 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::where('id', $id)->with('customer', 'shipping', 'order_details', 'payment')->first();
+        return view('backend.orders.order-details', compact('order'));
     }
 
     /**
@@ -57,7 +61,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $status = Order::where('id', $id)->with('payment')->first();
+        return view('backend.orders.edit-status', compact('status'));
     }
 
     /**
@@ -81,5 +86,34 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function order_status_change(Request $request, $id)
+    {
+        if ($request->ajax()) {
+
+            $order_id = $id;
+            $order_status = $request->order_value;
+
+            try {
+                $order = Order::where('id', $order_id)->firstOrFail();
+
+                $order->status = $order_status;
+                $order->update();
+
+                return response()->json(['success' => 'updated']);
+            } catch (Exception $e) {
+                return response()->json(['error' => $e->getMessage()]);
+            }
+        }
+    }
+
+    public function order_status_update(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $order = Order::where('id', $id)->first();
+            return view('backend.orders.update-status', compact('order'));
+        }
     }
 }

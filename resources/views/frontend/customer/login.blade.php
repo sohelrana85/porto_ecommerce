@@ -3,6 +3,9 @@
 @section('title')
     Login
 @endsection
+@section('topmenu')
+    @include('frontend.components.topmenu')
+@endsection
 
 @section('content')
     {{-- @if ($errors->any())

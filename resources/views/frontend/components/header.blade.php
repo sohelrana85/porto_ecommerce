@@ -59,15 +59,35 @@
                     <a href="#" class="search-toggle" role="button"><i class="icon-search-3"></i></a>
                     <form action="{{ route('product.search') }}" method="get">
                         <div class="header-search-wrapper">
-                            <input type="search" class="form-control" name="search" id="" placeholder="Search..."
-                                required>
-
+                            <input type="search" class="form-control" name="search_text" id="search_text"
+                                placeholder="Search..." required>
                             <button class="btn p-0 icon-search-3" name="" type="submit"></button>
                         </div><!-- End .header-search-wrapper -->
+                        <div class="search_result d-none d-lg-block">
+                        </div>
                     </form>
                 </div><!-- End .header-search -->
 
-                <div class="header-contact d-none d-lg-flex align-items-center pr-xl-5 mr-3 ml-xl-5">
+
+
+                {{-- <div class="header-right w-lg-max pl-2">
+                    <div class="header-search header-icon header-search-inline header-search-category w-lg-max mr-lg-4">
+                        <a href="#" class="search-toggle" role="button"><i class="icon-search-3"></i></a>
+                        <form action="{{ route('product.search') }}" method="get">
+                            <div class="header-search-wrapper">
+                                <input type="search" class="form-control" name="search" id="" placeholder="Search..."
+                                    required>
+                                <button class="btn p-0 icon-search-3" name="" type="submit"></button>
+                            </div><!-- End .header-search-wrapper -->
+                        </form>
+                    </div><!-- End .header-search --> --}}
+
+
+
+
+
+
+                <div class=" header-contact d-none d-md-flex align-items-center pr-xl-5 mr-3 ml-xl-5">
                     <i class="icon-phone-2"></i>
                     <h6 class="pt-1 line-height-1">Call us now<a href="javascript:"
                             class="d-block text-dark ls-10 pt-1">+880 1721 850 242</a></h6>

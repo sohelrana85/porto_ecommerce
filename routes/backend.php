@@ -28,3 +28,6 @@ Route::prefix('staff')->name('staff.')->middleware('auth')->group(function () {
     Route::post('product/{id}', [ProductController::class, 'fetured'])->name('product');
     Route::post('product/featured/{id}', [ProductController::class, 'featured'])->name('product.featured');
 });
+
+Route::get('staff/order/status/{id}', [OrderController::class, 'order_status_change'])->middleware('auth');
+Route::get('staff/order/update/{id}', [OrderController::class, 'order_status_update'])->middleware('auth');

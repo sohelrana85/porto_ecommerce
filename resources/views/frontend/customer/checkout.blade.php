@@ -54,7 +54,6 @@
                         @csrf
                         <div class="row justify-content-center mb-5">
                             <div class="col-md-6">
-
                                 <div class="form-group">
                                     <label for="division">Division *</label>
                                     <select name="division" id="division"
@@ -92,9 +91,7 @@
                                                 {{ $message }} </div>
                                         @enderror</span>
                                 </div>
-
                             </div>
-
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="address">Address *</label>
@@ -122,20 +119,7 @@
                                                 {{ $message }} </div>
                                         @enderror</span>
                                 </div>
-                                {{-- <div class="form-group">
-                                    <input type="checkbox" name="shipping_address" id="shipping_address" value="yes">
-                                    <label for="shipping_address">My Shipping Address</label>
-                                </div>
-                                <div class="form-group">
-                                    <input type="checkbox" name="billing_address" id="billing_address" value="yes">
-                                    <label for="billing_address">My Billing Address</label>
-                                </div> --}}
-                                {{-- <div class="form-group">
-                                    <input type="submit" name="submit" value="Save Address"
-                                        class="btn btn-block btn-primary">
-                                </div> --}}
                             </div>
-
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
@@ -166,14 +150,16 @@
                                         <tr>
                                             <td class="product-col">
                                                 <figure class="product-image-container">
-                                                    <a href="product.html" class="product-image">
+                                                    <a href="{{ route('product', $item->attributes->slug) }}"
+                                                        class="product-image">
                                                         <img src="{{ asset('product_photo/' . $item->attributes->thumbnail) }}"
                                                             alt="product">
                                                     </a>
                                                 </figure>
                                                 <div>
                                                     <h2 class="product-title" style="font-size: 12px;">
-                                                        <a href="product.html">{{ $item->name }}</a>
+                                                        <a
+                                                            href="{{ route('product', $item->attributes->slug) }}">{{ $item->name }}</a>
                                                     </h2>
 
                                                     <span class="product-qty"

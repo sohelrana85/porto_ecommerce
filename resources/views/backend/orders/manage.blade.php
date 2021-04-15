@@ -35,9 +35,58 @@
             </div>
             <hr />
             <div id="tabledata">
-                hello
+                <table id="example" class="table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>sl No</th>
+                            <th>order No</th>
+                            <th>orderTotal</th>
+                            <th>order Date</th>
+                            <th>order Status</th>
+                            <th>payment Type</th>
+                            <th>payment status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($orders as $order)
+                            <tr>
+                                <td>{{ ++$loop->index }}</td>
+                                <td>{{ $order->order_no }}</td>
+                                <td>{{ $order->total }}</td>
+                                <td>{{ $order->created_at }}</td>
+                                <td id="order-{{ $order->id }}"><span class="rounded text-light p-1
+                                                                @if ($order->status == 'pending') bg-warning
+                                    @elseif ($order->status == 'success') bg-success
+                                    @elseif ($order->status == 'shipped') bg-info
+                                    @elseif ($order->status == 'return') bg-danger @endif">{{ Str::ucfirst($order->status) }}</span>
+                                </td>
+                                <td>{{ Str::ucfirst($order->payment->payment_type) }}</td>
+                                <td><span class="rounded text-light p-1 @if ($order->payment->status
+                                        == 'pending') bg-warning
+                                    @elseif ($order->payment->status == 'success') bg-success @endif">{{ Str::ucfirst($order->payment->status) }}</span>
+                                </td>
+                                <td class="d-flex justify-content-center">
+
+                                    <button class="btn btn-light-info btn-sm mr-1" id="view-order" data-toggle="modal"
+                                        data-target="#orderdetailsmodal" value="{{ $order->id }}"><i
+                                            class="bx bx-info-circle"></i></button>
+                                    <button class="btn btn-light-warning btn-sm mr-1" id="edit-order" data-toggle="modal"
+                                        data-target="#ordereditmodal" value="{{ $order->id }}"><i
+                                            class="bx bx-edit"></i></button>
+                                    <form action="{{ route('staff.order.destroy', $order->id) }}" method="POST">
+                                        @csrf
+                                        @method('Delete')
+                                        <button class="btn btn-success btn-sm ml-1"><i class="bx bx-download"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+
 
 @endsection

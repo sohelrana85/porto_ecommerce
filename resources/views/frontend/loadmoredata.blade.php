@@ -23,13 +23,13 @@
                                 @endif
                             @endif
                         </div>
-                        <div class="btn-icon-group">
+                        {{-- <div class="btn-icon-group">
                             <button type="submit" class="btn-icon btn-add-cart" data-toggle="modal"
                                 data-target="#addCartModal1" value="{{ $item->id }}"><i
                                     class="icon-shopping-cart"></i></button>
                         </div>
                         <a href="{{ route('product.quickview', $item->slug) }}" class="btn-quickview"
-                            title="Quick View">Quick View</a>
+                            title="Quick View">Quick View</a> --}}
 
                     </figure>
                     <div class="product-details">

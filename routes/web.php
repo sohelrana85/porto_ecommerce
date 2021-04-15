@@ -24,6 +24,7 @@ Route::post('/product/{slug?}', [SiteController::class, 'loadmore'])->name('load
 Route::get('/product/{slug}', [SiteController::class, 'product'])->name('product');
 Route::post('/products/quickview/{slug}', [SiteController::class, 'productquickview'])->name('product.quickview');
 #search product
+Route::get('/search-ajax', [SiteController::class, 'product_search_ajax']);
 Route::get('/search', [SiteController::class, 'product_search'])->name('product.search');
 
 

@@ -352,7 +352,7 @@
     width: 100%;
     -webkit-tap-highlight-color: transparent;
     position: relative;
-    z-index: 1;
+    /* z-index: 1; */
 }
 .owl-carousel .owl-stage {
     position: relative;
@@ -10525,3 +10525,24 @@ tbody .product-col {
     }
 }
 /*# sourceMappingURL=style.min.css.map */
+
+.header-search {
+    position: relative;
+}
+.search_result {
+    display: none;
+    position: absolute;
+    top: 41px;
+    z-index: 11;
+    width: 100%;
+}
+.search_result li {
+    list-style: none;
+    padding: 5px;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fff;
+}
+.search_result li:hover {
+    background-color: #eee;
+    cursor: pointer;
+}

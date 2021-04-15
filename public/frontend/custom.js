@@ -248,3 +248,29 @@ $(document).ready(function(){
 
 })
 
+
+//product search code
+
+    $(document).on('keyup','#search_text',function(e){
+
+        let searchText = $(this).val();
+
+        $.ajax({
+            url: '/search-ajax',
+            method: 'GET',
+            data: {searchText: searchText},
+            success: function(res){
+                // console.log(res);
+                $('.search_result').html('');
+                $.each(res,function(key,value){
+                    $('.search_result').append('<li onclick="select(this)">'+value.name+'</li>');
+                })
+            }
+        });
+    })
+
+    function select(element){
+        let text = $(element).text();
+        $('#search_text').val(text);
+    }
+//end product search code.

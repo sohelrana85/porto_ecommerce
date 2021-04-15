@@ -4,6 +4,10 @@
     My Order
 @endsection
 
+@section('topmenu')
+    @include('frontend.components.topmenu')
+@endsection
+
 @section('content')
     <main class="main">
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
@@ -29,36 +33,32 @@
 
                         <div class="card-body">
                             <div class="row">
-                                <table class="table table-border">
+                                <table class="table table-border text-center">
                                     <thead>
-                                        <th>Preview</th>
+                                        <th>prev</th>
                                         <th>Details</th>
                                         <th>Qty</th>
+                                        <th>Date</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </thead>
-                                    <tbody style="font-size: 12px">
-                                        <tr>
-                                            {{-- <td>{{ $cus_address->full_name }}</td>
-                                                <td style="width: 250px">{{ $cus_address->address }}</td>
-                                                <td>{{ $cus_address->phone }}</td>
-                                                <td>
-                                                    @if ($cus_address->default_address == 1)
-                                                        Default Address
-                                                    @endif
-                                                    <br>
-                                                    @if ($cus_address->shipping_address == 1)
-                                                        Shipping Address
-                                                    @endif
-                                                    <br>
-                                                    @if ($cus_address->billing_address == 1)
-                                                        Billing Address
-                                                    @endif
+                                    <tbody style="font-size: 13px">
+                                        @foreach ($product_prev as $item)
+                                            <tr>
+                                                <td style="width: 60px">
+                                                    <img src="{{ asset('product_photo/' . $item->products->thumbnail) }}"
+                                                        alt="">
                                                 </td>
+                                                <td style="width: 300px; text-align:left">{{ $item->product_name }}
+                                                </td>
+                                                <td>{{ $item->quantity }}</td>
+                                                <td>{{ date_format($item->created_at, 'd-M-Y') }}</td>
+                                                <td>{{ Str::ucfirst($item->order->status) }}</td>
                                                 <td>
                                                     <a href="">Edit</a>
-                                                </td> --}}
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

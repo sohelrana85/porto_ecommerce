@@ -297,7 +297,8 @@ class CustomerController extends Controller
         DB::beginTransaction();
         try {
             $order = Order::create([
-                "Customer_id" => session('customer_id'),
+                "order_no" => date('ymdhms') . rand(100, 999),
+                "customer_id" => session('customer_id'),
                 "shipping_id" => session('shipping_id'),
                 "total"       => \Cart::getSubTotal()
             ]);
@@ -331,7 +332,14 @@ class CustomerController extends Controller
 
     public function myorder()
     {
-        return view('frontend.customer.myorder');
+        $customer_id = session('customer_id');
+        $orders = Order::with('order_details')->where('customer_id', $customer_id)->orderBy('id', 'desc')->get();
+
+        #product preview
+        $order_ids = Order::with('order_details')->where('customer_id', $customer_id)->pluck('id');
+        $product_prev = OrderDetails::with('products', 'order')->whereIn('order_id', $order_ids)->get();
+
+        return view('frontend.customer.myorder', compact('orders', 'product_prev'));
     }
 
 

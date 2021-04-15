@@ -186,3 +186,40 @@ function showErrorMessage(message) {
 }*/
 
 
+//view order details with modal
+
+$(document).on('click','#view-order',function(e){
+    e.preventDefault();
+    let id = $(this).val();
+    $('#orderdetailsmodal').modal('show');
+
+    $.ajax({
+        url: '/staff/order/'+ id,
+        method: 'GET',
+        data: {},
+        success: function (result){
+            // console.log(result);
+            $('#orderdetailsview').html(result);
+        }
+    })
+})
+
+
+//edit status through modal
+
+$(document).on('click','#edit-order',function(e){
+    e.preventDefault();
+    let id = $(this).val();
+    $('#ordereditmodal').modal('show');
+
+    $.ajax({
+        url: '/staff/order/'+ id + '/edit',
+        method: 'GET',
+        data: {},
+        success: function (result){
+            // console.log(result);
+            $('#ordereditview').html(result);
+        }
+    })
+})
+
