@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\Wishlist;
+use Exception;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\isEmpty;
@@ -69,6 +73,20 @@ class SiteController extends Controller
     public function product($slug)
     {
         $product = product::where('slug', $slug)->first();
+        $product_id = $product->id;
+
+        //review collect.
+        $reviews = Review::with('customer')
+            ->where('product_id', $product_id)->orderBy('id', 'desc')->get();
+
+        $product_check = Order::where('customer_id', session('customer_id'))
+            ->where('status', 'Success')
+            ->select('id', 'customer_id', 'status')
+            ->first();
+
+        //average rating
+        $ratings = Review::with('customer')->where('product_id', $product_id)->pluck('rating');
+        $avg_rating = collect($ratings)->avg();
 
         // related product sort
         $related_product = product::where('category_id', $product->category_id)->pluck('category_id')->unique();
@@ -79,7 +97,57 @@ class SiteController extends Controller
         $images    = json_decode($product->images);
         $image2    = array_unshift($images, $thumbnail);  //insert the thumbnail in the first position
 
-        return view('frontend.product', compact('product', 'relproducts', 'images'));
+        return view('frontend.product', compact('product', 'relproducts', 'images', 'reviews', 'avg_rating', 'product_check'));
+    }
+
+    public function product_review(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'id' => 'required',
+            'rating' => 'required|in:1,2,3,4,5',
+            'message' => 'required',
+        ]);
+
+        //review collect.
+        $review_exist = Review::where('customer_id', session('customer_id'))
+            ->where('product_id', $request->id)->first();
+        if ($review_exist) {
+            return response()->json([
+                'status' => 0,
+                'message' => 'Duplicate Review Found!',
+            ]);
+        } else {
+
+            try {
+                Review::create([
+                    'product_id'     => $request->id,
+                    'customer_id'    => session('customer_id'),
+                    'rating'         => $request->rating,
+                    'product_review' => $request->message
+                ]);
+                return response()->json([
+                    'status' => 1,
+                    'message' => 'The product Review successfuly Submited',
+                ]);
+            } catch (Exception $e) {
+                return response()->json([
+                    'status' => 0,
+                    'message' => $e->getMessage()
+                ]);
+            }
+        }
+    }
+
+    public function product_review_reload(Request $request)
+    {
+
+        $product_id = $request->id;
+        //review collect.
+        $reviews = Review::with('customer')
+            ->where('product_id', $product_id)->orderBy('id', 'desc')->get();
+
+        return view('frontend.customer.reload-review', compact('reviews'));
     }
 
 

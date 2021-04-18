@@ -8237,7 +8237,7 @@ main .sticky-header .product-ratings:before {
     border-top: 1px solid #e7e7e7;
 }
 .comment-container .comment-avatar {
-    flex: 1 0 auto;
+    /* flex: 1 0 auto; */
     padding: 0 22px 5px 8px;
 }
 .comment-container img {

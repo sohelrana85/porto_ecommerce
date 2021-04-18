@@ -274,3 +274,37 @@ $(document).ready(function(){
         $('#search_text').val(text);
     }
 //end product search code.
+
+
+$(document).on('submit','#form-reviews',function(e){
+    e.preventDefault();
+    let p_id = $('#p_id').val();
+
+    $.ajax({
+        url: '/review/product',
+        method: 'POST',
+        data: $(this).serialize(),
+        success: function(result){
+            if(result.status == 1){
+                toastr.success(result.message);
+            } else {
+                toastr.error(result.message);
+
+            }
+            reload_review(p_id)
+        }
+    })
+})
+
+function reload_review($id)
+{
+    $.ajax({
+        url: '/review/reload',
+        method: 'get',
+        data: { id: $id},
+        success: function(res) {
+            $('#reload_review').html(res);
+        }
+    });
+
+}

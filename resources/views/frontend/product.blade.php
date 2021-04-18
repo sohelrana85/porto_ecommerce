@@ -53,9 +53,9 @@
 
                         <div class="ratings-container">
                             <div class="product-ratings">
-                                <span class="ratings" style="width:60%"></span><!-- End .ratings -->
+                                <span class="ratings" style="width:{{ $avg_rating * 20 }}%"></span><!-- End .ratings -->
                             </div><!-- End .product-ratings -->
-                            <a href="#" class="rating-link">( 6 Reviews )</a>
+                            <a href="#" class="rating-link">( {{ $reviews->count() }} Reviews )</a>
                         </div><!-- End .ratings-container -->
 
                         <hr class="short-divider">
@@ -169,7 +169,8 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content"
-                            role="tab" aria-controls="product-reviews-content" aria-selected="false">Reviews (3)</a>
+                            role="tab" aria-controls="product-reviews-content" aria-selected="false">Reviews
+                            ({{ $reviews->count() }})</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -194,140 +195,92 @@
                         <div class="product-reviews-content">
                             <div class="row">
                                 <div class="col-xl-7">
-                                    <h2 class="reviews-title">3 reviews for Product Long Name</h2>
+                                    <h2 class="reviews-title">{{ $reviews->count() }} reviews for Product Long Name</h2>
 
-                                    <ol class="comment-list">
-                                        <li class="comment-container">
-                                            <div class="comment-avatar">
-                                                <img src="" width="65" height="65" alt="avatar" />
-                                            </div><!-- End .comment-avatar-->
+                                    <ol class="comment-list" id="reload_review">
+                                        @foreach ($reviews as $review)
+                                            <li class="comment-container">
+                                                <div class="comment-avatar">
+                                                    <img src="{{ asset('product_photo/' . 'default_avator.png') }}"
+                                                        width="65" height="65" alt="avatar" />
+                                                </div><!-- End .comment-avatar-->
 
-                                            <div class="comment-box">
-                                                <div class="ratings-container">
-                                                    <div class="product-ratings">
-                                                        <span class="ratings" style="width:80%"></span><!-- End .ratings -->
-                                                    </div><!-- End .product-ratings -->
-                                                </div><!-- End .ratings-container -->
+                                                <div class="comment-box">
+                                                    <div class="ratings-container">
+                                                        <div class="product-ratings">
+                                                            <span class="ratings"
+                                                                style="width:{{ $review->rating * 20 }}%"></span>
+                                                            <!-- End .ratings -->
+                                                        </div><!-- End .product-ratings -->
+                                                    </div><!-- End .ratings-container -->
 
-                                                <div class="comment-info mb-1">
-                                                    <h4 class="avatar-name">John Doe</h4> - <span
-                                                        class="comment-date">Novemeber 15, 2019</span>
-                                                </div><!-- End .comment-info -->
+                                                    <div class="comment-info mb-1">
+                                                        <h4 class="avatar-name">{{ $review->customer->name }}</h4> -
+                                                        <span
+                                                            class="comment-date">{{ date('F d, Y', strtotime($review->created_at)) }}</span>
+                                                    </div><!-- End .comment-info -->
 
-                                                <div class="comment-text">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                                        aliquip.</p>
-                                                </div><!-- End .comment-text -->
-                                            </div><!-- End .comment-box -->
-                                        </li><!-- comment-container -->
-
-                                        <li class="comment-container">
-                                            <div class="comment-avatar">
-                                                <img src="" width="65" height="65" alt="avatar" />
-                                            </div><!-- End .comment-avatar-->
-
-                                            <div class="comment-box">
-                                                <div class="ratings-container">
-                                                    <div class="product-ratings">
-                                                        <span class="ratings" style="width:80%"></span><!-- End .ratings -->
-                                                    </div><!-- End .product-ratings -->
-                                                </div><!-- End .ratings-container -->
-
-                                                <div class="comment-info mb-1">
-                                                    <h4 class="avatar-name">John Doe</h4> - <span
-                                                        class="comment-date">Novemeber 15, 2019</span>
-                                                </div><!-- End .comment-info -->
-
-                                                <div class="comment-text">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                                        aliquip.</p>
-                                                </div><!-- End .comment-text -->
-                                            </div><!-- End .comment-box -->
-                                        </li><!-- comment-container -->
-
-                                        <li class="comment-container">
-                                            <div class="comment-avatar">
-                                                <img src="" width="65" height="65" alt="avatar" />
-                                            </div><!-- End .comment-avatar-->
-
-                                            <div class="comment-box">
-                                                <div class="ratings-container">
-                                                    <div class="product-ratings">
-                                                        <span class="ratings" style="width:80%"></span><!-- End .ratings -->
-                                                    </div><!-- End .product-ratings -->
-                                                </div><!-- End .ratings-container -->
-
-                                                <div class="comment-info mb-1">
-                                                    <h4 class="avatar-name">John Doe</h4> - <span
-                                                        class="comment-date">Novemeber 15, 2019</span>
-                                                </div><!-- End .comment-info -->
-
-                                                <div class="comment-text">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                                        aliquip.</p>
-                                                </div><!-- End .comment-text -->
-                                            </div><!-- End .comment-box -->
-                                        </li><!-- comment-container -->
+                                                    <div class="comment-text">
+                                                        <p>{{ $review->product_review }}</p>
+                                                    </div><!-- End .comment-text -->
+                                                </div><!-- End .comment-box -->
+                                            </li><!-- comment-container -->
+                                        @endforeach
                                     </ol><!-- End .comment-list -->
                                 </div>
 
-                                <div class="col-xl-5">
-                                    <div class="add-product-review">
-                                        <form action="#" class="comment-form m-0">
-                                            <h3 class="review-title">Add a Review</h3>
+                                @if ($product_check)
+                                    @if (session('customer_id') && $product_check->status == 'success')
+                                        <div class="col-xl-5">
+                                            <div class="add-product-review">
+                                                <form action="{{ route('productreview') }}" method="POST"
+                                                    id="form-reviews">
+                                                    @csrf
+                                                    <h3 class="review-title">Add a Review</h3>
 
-                                            <div class="rating-form">
-                                                <label for="rating">Your rating</label>
-                                                <span class="rating-stars">
-                                                    <a class="star-1" href="#">1</a>
-                                                    <a class="star-2" href="#">2</a>
-                                                    <a class="star-3" href="#">3</a>
-                                                    <a class="star-4" href="#">4</a>
-                                                    <a class="star-5" href="#">5</a>
-                                                </span>
+                                                    <div class="rating-form">
+                                                        <label for="rating">Your rating *</label>
+                                                        <span class="rating-stars">
+                                                            <a class="star-1" href="#">1</a>
+                                                            <a class="star-2" href="#">2</a>
+                                                            <a class="star-3" href="#">3</a>
+                                                            <a class="star-4" href="#">4</a>
+                                                            <a class="star-5" href="#">5</a>
+                                                        </span>
 
-                                                <select name="rating" id="rating" required="" style="display: none;">
-                                                    <option value="">Rate…</option>
-                                                    <option value="5">Perfect</option>
-                                                    <option value="4">Good</option>
-                                                    <option value="3">Average</option>
-                                                    <option value="2">Not that bad</option>
-                                                    <option value="1">Very poor</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Your Review</label>
-                                                <textarea cols="5" rows="6" class="form-control form-control-sm"></textarea>
-                                            </div><!-- End .form-group -->
-
-
-                                            <div class="row">
-                                                <div class="col-md-6 col-xl-12">
+                                                        <select name="rating" id="rating" required=""
+                                                            style="display: none;">
+                                                            <option value="">Rate…</option>
+                                                            <option value="5">Perfect</option>
+                                                            <option value="4">Good</option>
+                                                            <option value="3">Average</option>
+                                                            <option value="2">Not that bad</option>
+                                                            <option value="1">Very poor</option>
+                                                        </select>
+                                                    </div>
+                                                    <input type="hidden" name="id" id="p_id" value="{{ $product->id }}">
                                                     <div class="form-group">
-                                                        <label>Your Name</label>
-                                                        <input type="text" class="form-control form-control-sm" required>
+                                                        <label>Your Review *</label>
+                                                        <textarea cols="5" rows="4" name="message"
+                                                            class="form-control form-control-sm" required></textarea>
                                                     </div><!-- End .form-group -->
-                                                </div>
 
-                                                <div class="col-md-6 col-xl-12">
-                                                    <div class="form-group">
-                                                        <label>Your E-mail</label>
-                                                        <input type="text" class="form-control form-control-sm" required>
-                                                    </div><!-- End .form-group -->
-                                                </div>
-                                            </div>
 
-                                            <input type="submit" class="btn btn-dark ls-n-15" value="Submit">
-                                        </form>
-                                    </div><!-- End .add-product-review -->
-                                </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-xl-12">
+                                                            <div class="form-group">
+                                                                <label>Your Name: {{ session('customer_name') }}</label>
+                                                            </div><!-- End .form-group -->
+                                                        </div>
+                                                    </div>
+
+                                                    <input type="submit" class="btn btn-dark ls-n-15 mt-2" value="submit">
+
+                                                </form>
+                                            </div><!-- End .add-product-review -->
+                                        </div>
+                                    @endif
+                                @endif
                             </div>
                         </div><!-- End .product-reviews-content -->
                     </div><!-- End .tab-pane -->

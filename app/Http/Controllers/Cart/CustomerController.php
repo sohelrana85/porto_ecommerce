@@ -102,6 +102,7 @@ class CustomerController extends Controller
     public function logout()
     {
         session()->forget('customer_id');
+        session()->forget('customer_name');
         \Cart::clear();
         return redirect()->route('customer.login');
     }

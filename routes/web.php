@@ -27,6 +27,10 @@ Route::post('/products/quickview/{slug}', [SiteController::class, 'productquickv
 Route::get('/search-ajax', [SiteController::class, 'product_search_ajax']);
 Route::get('/search', [SiteController::class, 'product_search'])->name('product.search');
 
+//product review save
+Route::post('/review/product', [SiteController::class, 'product_review'])->name('productreview');
+Route::get('/review/reload', [SiteController::class, 'product_review_reload']);
+
 
 // cart
 Route::get('/cart/show', [CartController::class, 'index'])->name('cart.show');
