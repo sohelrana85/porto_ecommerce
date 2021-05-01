@@ -106,7 +106,7 @@
                     <h2 class="section-title ls-n-10 m-b-4">Featured Products</h2>
                     <div class="products-slider owl-carousel owl-theme dots-top m-b-1 pb-1">
                         @foreach ($featured as $featureproduct)
-                            <div class="product-default inner-quickview inner-icon">
+                            <div class="product-default inner-quickview inner-icon" style = "box-shadow: 0px 0px 16px -2px #ddd;">
                                 <figure class="mb-0">
                                     <a href="{{ route('product', $featureproduct->slug) }}">
                                         <img src="{{ asset('product_photo/' . $featureproduct->thumbnail) }}">
@@ -122,7 +122,7 @@
                                         @endif
                                     @endif
                                 </figure>
-                                <div class="product-details">
+                                <div class="product-details" style="padding: 0px 5px">
                                     <h2 class="product-title" style="height: 35px; line-height:1.1">
                                         <a href="{{ route('product', $featureproduct->slug) }}"
                                             style="font-size: 13px;white-space: normal;">
@@ -132,10 +132,10 @@
                                     <div class="price-box">
                                         @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
                                             @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
-                                                <span style="font-size: 13px;" class="old-price">&#2547;
+                                            <span style="font-size: 13px;" class="product-price">&#2547;
+                                                {{ $featureproduct->special_price }}</span>
+                                                <span style="font-size: 13px;color:red" class="old-price">&#2547;
                                                     {{ $featureproduct->selling_price }}</span>
-                                                <span style="font-size: 13px;" class="product-price">&#2547;
-                                                    {{ $featureproduct->special_price }}</span>
                                             @else
                                                 <span style="font-size: 13px;" class="">&#2547;
                                                     {{ $featureproduct->selling_price }}</span>
@@ -157,47 +157,47 @@
                     <h2 class="section-title ls-n-10 m-b-4">Best Selling Products</h2>
                     <div class="products-slider owl-carousel owl-theme dots-top m-b-1 pb-1">
                         @foreach ($featured as $featureproduct)
-                            <div class="product-default inner-quickview inner-icon">
-                                <figure class="mb-0">
-                                    <a href="{{ route('product', $featureproduct->slug) }}">
-                                        <img src="{{ asset('product_photo/' . $featureproduct->thumbnail) }}">
-                                    </a>
+                        <div class="product-default inner-quickview inner-icon" style = "box-shadow: 0px 0px 16px -2px #ddd;">
+                            <figure class="mb-0">
+                                <a href="{{ route('product', $featureproduct->slug) }}">
+                                    <img src="{{ asset('product_photo/' . $featureproduct->thumbnail) }}">
+                                </a>
 
+                                @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
+                                    @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
+                                        <div class="label-group">
+                                            <div class="product-label label-sale">
+                                                -{{ round((($featureproduct->selling_price - $featureproduct->special_price) / $featureproduct->selling_price) * 100, 2) }}
+                                                %</div>
+                                        </div>
+                                    @endif
+                                @endif
+                            </figure>
+                            <div class="product-details" style="padding: 0px 5px">
+                                <h2 class="product-title" style="height: 35px; line-height:1.1">
+                                    <a href="{{ route('product', $featureproduct->slug) }}"
+                                        style="font-size: 13px;white-space: normal;">
+                                        {{ $featureproduct->name }}
+                                    </a>
+                                </h2>
+                                <div class="price-box">
                                     @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
                                         @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
-                                            <div class="label-group">
-                                                <div class="product-label label-sale">
-                                                    -{{ round((($featureproduct->selling_price - $featureproduct->special_price) / $featureproduct->selling_price) * 100, 2) }}
-                                                    %</div>
-                                            </div>
-                                        @endif
-                                    @endif
-                                </figure>
-                                <div class="product-details">
-                                    <h2 class="product-title" style="height: 35px; line-height:1.1">
-                                        <a href="{{ route('product', $featureproduct->slug) }}"
-                                            style="font-size: 13px;white-space: normal;">
-                                            {{ $featureproduct->name }}
-                                        </a>
-                                    </h2>
-                                    <div class="price-box">
-                                        @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
-                                            @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
-                                                <span style="font-size: 13px;" class="old-price">&#2547;
-                                                    {{ $featureproduct->selling_price }}</span>
-                                                <span style="font-size: 13px;" class="product-price">&#2547;
-                                                    {{ $featureproduct->special_price }}</span>
-                                            @else
-                                                <span style="font-size: 13px;" class="">&#2547;
-                                                    {{ $featureproduct->selling_price }}</span>
-                                            @endif
+                                        <span style="font-size: 13px;" class="product-price">&#2547;
+                                            {{ $featureproduct->special_price }}</span>
+                                            <span style="font-size: 13px;color:red" class="old-price">&#2547;
+                                                {{ $featureproduct->selling_price }}</span>
                                         @else
                                             <span style="font-size: 13px;" class="">&#2547;
                                                 {{ $featureproduct->selling_price }}</span>
                                         @endif
-                                    </div><!-- End .price-box -->
-                                </div><!-- End .product-details -->
-                            </div>
+                                    @else
+                                        <span style="font-size: 13px;" class="">&#2547;
+                                            {{ $featureproduct->selling_price }}</span>
+                                    @endif
+                                </div><!-- End .price-box -->
+                            </div><!-- End .product-details -->
+                        </div>
 
                         @endforeach
                     </div><!-- End Best-Selling-proucts -->
@@ -206,47 +206,47 @@
                     <h2 class="section-title ls-n-10 m-b-4">Latest Products</h2>
                     <div class="products-slider owl-carousel owl-theme dots-top m-b-1 pb-1">
                         @foreach ($featured as $featureproduct)
-                            <div class="product-default inner-quickview inner-icon">
-                                <figure class="mb-0">
-                                    <a href="{{ route('product', $featureproduct->slug) }}">
-                                        <img src="{{ asset('product_photo/' . $featureproduct->thumbnail) }}">
-                                    </a>
+                        <div class="product-default inner-quickview inner-icon" style = "box-shadow: 0px 0px 16px -2px #ddd;">
+                            <figure class="mb-0">
+                                <a href="{{ route('product', $featureproduct->slug) }}">
+                                    <img src="{{ asset('product_photo/' . $featureproduct->thumbnail) }}">
+                                </a>
 
+                                @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
+                                    @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
+                                        <div class="label-group">
+                                            <div class="product-label label-sale">
+                                                -{{ round((($featureproduct->selling_price - $featureproduct->special_price) / $featureproduct->selling_price) * 100, 2) }}
+                                                %</div>
+                                        </div>
+                                    @endif
+                                @endif
+                            </figure>
+                            <div class="product-details" style="padding: 0px 5px">
+                                <h2 class="product-title" style="height: 35px; line-height:1.1">
+                                    <a href="{{ route('product', $featureproduct->slug) }}"
+                                        style="font-size: 13px;white-space: normal;">
+                                        {{ $featureproduct->name }}
+                                    </a>
+                                </h2>
+                                <div class="price-box">
                                     @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
                                         @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
-                                            <div class="label-group">
-                                                <div class="product-label label-sale">
-                                                    -{{ round((($featureproduct->selling_price - $featureproduct->special_price) / $featureproduct->selling_price) * 100, 2) }}
-                                                    %</div>
-                                            </div>
-                                        @endif
-                                    @endif
-                                </figure>
-                                <div class="product-details">
-                                    <h2 class="product-title" style="height: 35px; line-height:1.1">
-                                        <a href="{{ route('product', $featureproduct->slug) }}"
-                                            style="font-size: 13px;white-space: normal;">
-                                            {{ $featureproduct->name }}
-                                        </a>
-                                    </h2>
-                                    <div class="price-box">
-                                        @if ($featureproduct->special_price != '' && $featureproduct->special_price != 0)
-                                            @if ($featureproduct->special_price_from <= date('Y-m-d') && date('Y-m-d') <= $featureproduct->special_price_to)
-                                                <span style="font-size: 13px;" class="old-price">&#2547;
-                                                    {{ $featureproduct->selling_price }}</span>
-                                                <span style="font-size: 13px;" class="product-price">&#2547;
-                                                    {{ $featureproduct->special_price }}</span>
-                                            @else
-                                                <span style="font-size: 13px;" class="">&#2547;
-                                                    {{ $featureproduct->selling_price }}</span>
-                                            @endif
+                                        <span style="font-size: 13px;" class="product-price">&#2547;
+                                            {{ $featureproduct->special_price }}</span>
+                                            <span style="font-size: 13px;color:red" class="old-price">&#2547;
+                                                {{ $featureproduct->selling_price }}</span>
                                         @else
                                             <span style="font-size: 13px;" class="">&#2547;
                                                 {{ $featureproduct->selling_price }}</span>
                                         @endif
-                                    </div><!-- End .price-box -->
-                                </div><!-- End .product-details -->
-                            </div>
+                                    @else
+                                        <span style="font-size: 13px;" class="">&#2547;
+                                            {{ $featureproduct->selling_price }}</span>
+                                    @endif
+                                </div><!-- End .price-box -->
+                            </div><!-- End .product-details -->
+                        </div>
 
                         @endforeach
                     </div><!-- End .Latest-proucts -->

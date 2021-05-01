@@ -170,11 +170,11 @@
                     <div class="sidebar-wrapper">
                         <div class="widget">
                             <h3 class="widget-title">
-                                <a data-toggle="collapse" href="#widget-body-2" role="button" aria-expanded="true"
-                                    aria-controls="widget-body-2">Categories</a>
+                                <a data-toggle="collapse" href="#widget-body-2" role="button" aria-expanded="false"
+                                    aria-controls="widget-body-2" class="collapsed">Categories</a>
                             </h3>
 
-                            <div class="collapse show" id="widget-body-2">
+                            <div class="collapse" id="widget-body-2">
                                 <div class="widget-body">
                                     <ul class="cat-list">
                                         @foreach ($categories as $cate)
@@ -188,11 +188,11 @@
 
                         <div class="widget">
                             <h3 class="widget-title">
-                                <a data-toggle="collapse" href="#widget-body-3" role="button" aria-expanded="true"
-                                    aria-controls="widget-body-3">Price</a>
+                                <a data-toggle="collapse" href="#widget-body-3" role="button" aria-expanded="false"
+                                    aria-controls="widget-body-3" class="collapsed">Price</a>
                             </h3>
 
-                            <div class="collapse show" id="widget-body-3">
+                            <div class="collapse" id="widget-body-3">
                                 <div class="widget-body">
                                     <form action="#">
                                         <div class="price-slider-wrapper">
@@ -215,11 +215,11 @@
 
                         <div class="widget">
                             <h3 class="widget-title">
-                                <a data-toggle="collapse" href="#widget-body-4" role="button" aria-expanded="true"
-                                    aria-controls="widget-body-4">Size</a>
+                                <a data-toggle="collapse" href="#widget-body-4" role="button" aria-expanded="false"
+                                    aria-controls="widget-body-4" class="collapsed">Size</a>
                             </h3>
 
-                            <div class="collapse show" id="widget-body-4">
+                            <div class="collapse" id="widget-body-4">
                                 <div class="widget-body">
                                     <ul class="cat-list">
                                         <li><a href="#">Small</a></li>
@@ -233,11 +233,11 @@
 
                         <div class="widget">
                             <h3 class="widget-title">
-                                <a data-toggle="collapse" href="#widget-body-5" role="button" aria-expanded="true"
-                                    aria-controls="widget-body-5">Brand</a>
+                                <a data-toggle="collapse" href="#widget-body-5" role="button" aria-expanded="false"
+                                    aria-controls="widget-body-5" class="collapsed">Brand</a>
                             </h3>
 
-                            <div class="collapse show" id="widget-body-5">
+                            <div class="collapse" id="widget-body-5">
                                 <div class="widget-body">
                                     <ul class="cat-list">
 
@@ -267,7 +267,7 @@
                                                     </a>
                                                 </figure>
                                                 <div class="product-details">
-                                                    <h2 class="product-title">
+                                                    <h2 class="product-title" style = "font-size: 13px">
                                                         <a
                                                             href="{{ route('product', $fitem->slug) }}">{{ $fitem->name }}</a>
                                                     </h2>
@@ -279,7 +279,7 @@
                                                         </div><!-- End .product-ratings -->
                                                     </div><!-- End .product-container -->
                                                     <div class="price-box">
-                                                        <span class="product-price">{{ $fitem->selling_price }}</span>
+                                                        <span class="product-price" style = "font-size: 13px">{{ $fitem->selling_price }}</span>
                                                     </div><!-- End .price-box -->
                                                 </div><!-- End .product-details -->
                                             </div>
