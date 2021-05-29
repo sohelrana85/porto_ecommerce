@@ -38,6 +38,7 @@ class CreateProductsTable extends Migration
             $table->tinyInteger('featured')->default('0')->comment('1 for active 0 for Inactive');
             $table->enum('status', ['active', 'inactive'])->default('inactive');
             $table->unsignedBigInteger('create_by');
+			
             $table->foreign('category_id')->on('categories')->references('id')->onDelete('cascade');
             $table->foreign('brand_id')->on('brands')->references('id')->onDelete('cascade');
             $table->foreign('create_by')->on('users')->references('id')->onDelete('cascade');
