@@ -61,7 +61,7 @@ $(document).ready(function () {
     // function getData(page) {
     //     token = $('input[name="_token"]').val();
     //     $.ajax({
-    //         url: '{{ route('staff.product') }}',
+    //         url: '{{ route('staff.get-data') }}',
     //         method: 'POST',
     //         data: { _token: token, page: page },
     //         success: function (result) {
@@ -188,16 +188,16 @@ function showErrorMessage(message) {
 
 //view order details with modal
 
-$(document).on('click','#view-order',function(e){
+$(document).on('click', '#view-order', function (e) {
     e.preventDefault();
     let id = $(this).val();
     $('#orderdetailsmodal').modal('show');
 
     $.ajax({
-        url: '/staff/order/'+ id,
+        url: '/staff/order/' + id,
         method: 'GET',
         data: {},
-        success: function (result){
+        success: function (result) {
             // console.log(result);
             $('#orderdetailsview').html(result);
         }
@@ -207,16 +207,16 @@ $(document).on('click','#view-order',function(e){
 
 //edit status through modal
 
-$(document).on('click','#edit-order',function(e){
+$(document).on('click', '#edit-order', function (e) {
     e.preventDefault();
     let id = $(this).val();
     $('#ordereditmodal').modal('show');
 
     $.ajax({
-        url: '/staff/order/'+ id + '/edit',
+        url: '/staff/order/' + id + '/edit',
         method: 'GET',
         data: {},
-        success: function (result){
+        success: function (result) {
             // console.log(result);
             $('#ordereditview').html(result);
         }

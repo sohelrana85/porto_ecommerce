@@ -4,6 +4,7 @@ use App\Http\Controllers\staff\OrderController;
 use App\Http\Controllers\Staff\BrandController;
 use App\Http\Controllers\Staff\CategoryController;
 use App\Http\Controllers\staff\DashboardController;
+use App\Http\Controllers\staff\ExtraController;
 use App\Http\Controllers\Staff\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,9 +25,9 @@ Route::prefix('staff')->name('staff.')->middleware('auth')->group(function () {
     #orders route
     Route::resource('order', OrderController::class);
 
-    Route::post('product', [ProductController::class, 'getData'])->name('product');
-    Route::post('product/{id}', [ProductController::class, 'fetured'])->name('product');
-    Route::post('product/featured/{id}', [ProductController::class, 'featured'])->name('product.featured');
+    Route::post('get-data', [ExtraController::class, 'getData'])->name('get-data');
+    // Route::post('product/{id}', [ProductController::class, 'fetured'])->name('product');
+    Route::post('get-data/featured/{id}', [ExtraController::class, 'featured'])->name('get-data.featured');
 });
 
 Route::get('staff/order/status/{id}', [OrderController::class, 'order_status_change'])->middleware('auth');

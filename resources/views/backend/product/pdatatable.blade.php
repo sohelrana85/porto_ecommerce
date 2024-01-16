@@ -49,7 +49,7 @@
                         <td>
                             <input type="checkbox" name="feathred" id="featured"
                                 {{ $product->featured ? 'checked' : '' }}
-                                data-url="{{ route('staff.product.featured', $product->id) }}"
+                                data-url="{{ route('staff.get-data.featured', $product->id) }}"
                                 value="{{ $product->featured }}">
                         </td>
                         {{-- <td>{{ $product->special_price_from }}</td>

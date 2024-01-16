@@ -21,15 +21,8 @@ class ProductController extends Controller
     public function index()
     {
         //$data = Product::paginate(5);
-        $products = Product::Paginate(5);
+        $products = Product::Paginate(10);
         return view('backend.product.manage', compact('products'));
-    }
-    public function getData(Request $request)
-    {
-        $products = Product::Paginate(5);
-
-        dd($products);
-        return view('backend.product.pdatatable', compact('products'));
     }
 
     /**
@@ -228,15 +221,5 @@ class ProductController extends Controller
     public function destroy($id)
     {
         // return Product::find($id)->delete();
-    }
-
-    public function featured(Request $request, $id)
-    {
-        if ($request->ajax()) {
-            $product           = Product::find($id);
-            $product->featured = $product->featured ? "0" : "1";
-            $product->save();
-            return response()->json(['success' => 'porduct updated successfully']);
-        }
     }
 }
